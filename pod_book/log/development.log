@@ -1,0 +1,260 @@
+[Thu Feb  2 13:34:06 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:34:12 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:34:12 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:34:12 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:34:12 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:34:12 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:34:12 2012] [debug] Template "exception.development.html.ep" not found.
+[Thu Feb  2 13:34:12 2012] [debug] Template "exception.html.ep" not found.
+[Thu Feb  2 13:34:12 2012] [debug] Rendering inline template.
+[Thu Feb  2 13:34:12 2012] [debug] 500 Internal Server Error (0.050460s, 19.818/s).
+[Thu Feb  2 13:37:25 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:37:33 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:37:33 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:37:33 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:37:33 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:37:33 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:37:33 2012] [debug] Template "exception.development.html.ep" not found.
+[Thu Feb  2 13:37:33 2012] [debug] Template "exception.html.ep" not found.
+[Thu Feb  2 13:37:33 2012] [debug] Rendering inline template.
+[Thu Feb  2 13:37:33 2012] [debug] 500 Internal Server Error (0.048906s, 20.447/s).
+[Thu Feb  2 13:37:59 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:38:01 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:38:01 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:38:01 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:38:01 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:38:01 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:38:01 2012] [debug] Template "exception.development.html.ep" not found.
+[Thu Feb  2 13:38:01 2012] [debug] Template "exception.html.ep" not found.
+[Thu Feb  2 13:38:01 2012] [debug] Rendering inline template.
+[Thu Feb  2 13:38:02 2012] [debug] 500 Internal Server Error (0.062184s, 16.081/s).
+[Thu Feb  2 13:38:05 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:38:05 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:38:05 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:38:05 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:38:05 2012] [debug] Template "exception.development.html.ep" not found.
+[Thu Feb  2 13:38:05 2012] [debug] Template "exception.html.ep" not found.
+[Thu Feb  2 13:38:05 2012] [debug] 500 Internal Server Error (0.042086s, 23.761/s).
+[Thu Feb  2 13:38:10 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:38:10 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:38:10 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:38:10 2012] [error] Can't locate object method "new" via package "PodBook::CpanSearch" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:38:10 2012] [debug] Template "exception.development.html.ep" not found.
+[Thu Feb  2 13:38:10 2012] [debug] Template "exception.html.ep" not found.
+[Thu Feb  2 13:38:10 2012] [debug] 500 Internal Server Error (0.035880s, 27.871/s).
+[Thu Feb  2 13:39:09 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:39:11 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:39:11 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:39:11 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:39:11 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:39:11 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:39:11 2012] [debug] 200 OK (0.084905s, 11.778/s).
+[Thu Feb  2 13:39:42 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:39:42 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:39:42 2012] [debug] 200 OK (0.002669s, 374.672/s).
+[Thu Feb  2 13:39:43 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:39:43 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:39:43 2012] [error] Can't locate object method "new" via package "PodBook::Upload" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:39:43 2012] [error] Can't locate object method "new" via package "PodBook::Upload" at /usr/share/perl5/Mojolicious/Routes.pm line 409.
+
+[Thu Feb  2 13:39:43 2012] [debug] Template "exception.development.html.ep" not found.
+[Thu Feb  2 13:39:43 2012] [debug] Template "exception.html.ep" not found.
+[Thu Feb  2 13:39:44 2012] [debug] Rendering inline template.
+[Thu Feb  2 13:39:44 2012] [debug] 500 Internal Server Error (0.064726s, 15.450/s).
+[Thu Feb  2 13:40:08 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:40:10 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:40:10 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:10 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:10 2012] [debug] Rendering template "upload/form.html.ep".
+[Thu Feb  2 13:40:10 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:40:10 2012] [debug] 200 OK (0.036963s, 27.054/s).
+[Thu Feb  2 13:40:13 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:13 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:13 2012] [debug] 200 OK (0.001484s, 673.854/s).
+[Thu Feb  2 13:40:14 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:14 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:14 2012] [debug] 200 OK (0.003345s, 298.954/s).
+[Thu Feb  2 13:40:41 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:40:43 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:40:43 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:43 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:43 2012] [debug] Rendering template "upload/form.html.ep".
+[Thu Feb  2 13:40:43 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:40:43 2012] [debug] 200 OK (0.030386s, 32.910/s).
+[Thu Feb  2 13:40:44 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:44 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:44 2012] [debug] 200 OK (0.002925s, 341.880/s).
+[Thu Feb  2 13:40:45 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:45 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:45 2012] [debug] 200 OK (0.002366s, 422.654/s).
+[Thu Feb  2 13:40:46 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:46 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:40:46 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:40:46 2012] [debug] 200 OK (0.012368s, 80.854/s).
+[Thu Feb  2 13:40:48 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:48 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:40:48 2012] [debug] 200 OK (0.002885s, 346.620/s).
+[Thu Feb  2 13:40:49 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:49 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:49 2012] [debug] 200 OK (0.002402s, 416.320/s).
+[Thu Feb  2 13:40:51 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:51 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:51 2012] [debug] 200 OK (0.002477s, 403.714/s).
+[Thu Feb  2 13:40:52 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:40:52 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:40:52 2012] [debug] 200 OK (0.001437s, 695.894/s).
+[Thu Feb  2 13:42:08 2012] [info] Server listening (http://*:3000)
+[Thu Feb  2 13:42:47 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:42:47 2012] [debug] GET /welcome (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:42:47 2012] [debug] Dispatching "PodBook::Example->welcome".
+[Thu Feb  2 13:42:47 2012] [debug] Rendering template "example/welcome.html.ep".
+[Thu Feb  2 13:42:47 2012] [debug] Rendering template "layouts/default.html.ep".
+[Thu Feb  2 13:42:47 2012] [debug] 200 OK (0.037291s, 26.816/s).
+[Thu Feb  2 13:43:03 2012] [debug] GET /welcome (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:03 2012] [debug] Dispatching "PodBook::Example->welcome".
+[Thu Feb  2 13:43:03 2012] [debug] 200 OK (0.002851s, 350.754/s).
+[Thu Feb  2 13:43:05 2012] [debug] GET /welcome (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:05 2012] [debug] Dispatching "PodBook::Example->welcome".
+[Thu Feb  2 13:43:05 2012] [debug] 200 OK (0.002794s, 357.910/s).
+[Thu Feb  2 13:43:06 2012] [debug] GET /welcome (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:06 2012] [debug] Dispatching "PodBook::Example->welcome".
+[Thu Feb  2 13:43:06 2012] [debug] 200 OK (0.002784s, 359.195/s).
+[Thu Feb  2 13:43:17 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:17 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:43:17 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:43:17 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:43:17 2012] [debug] 200 OK (0.009988s, 100.120/s).
+[Thu Feb  2 13:43:19 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:19 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:43:19 2012] [debug] 200 OK (0.002315s, 431.965/s).
+[Thu Feb  2 13:43:22 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:22 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:43:22 2012] [debug] 200 OK (0.004578s, 218.436/s).
+[Thu Feb  2 13:43:24 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:24 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:43:24 2012] [debug] Rendering template "upload/form.html.ep".
+[Thu Feb  2 13:43:24 2012] [debug] 200 OK (0.012072s, 82.836/s).
+[Thu Feb  2 13:43:25 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:25 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:43:25 2012] [debug] 200 OK (0.001741s, 574.383/s).
+[Thu Feb  2 13:43:26 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:26 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:43:26 2012] [debug] 200 OK (0.002957s, 338.181/s).
+[Thu Feb  2 13:43:29 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:43:29 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:43:29 2012] [debug] 200 OK (0.003282s, 304.692/s).
+[Thu Feb  2 13:46:22 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:46:22 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:22 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:46:22 2012] [debug] Rendering template "upload/form.html.ep".
+[Thu Feb  2 13:46:22 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:46:22 2012] [debug] 200 OK (0.032488s, 30.781/s).
+[Thu Feb  2 13:46:25 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:25 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:46:25 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:46:25 2012] [debug] 200 OK (0.012202s, 81.954/s).
+[Thu Feb  2 13:46:27 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:27 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:46:27 2012] [debug] 200 OK (0.004551s, 219.732/s).
+[Thu Feb  2 13:46:28 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:28 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:46:28 2012] [debug] 200 OK (0.001430s, 699.301/s).
+[Thu Feb  2 13:46:30 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:30 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:46:30 2012] [debug] 200 OK (0.003705s, 269.906/s).
+[Thu Feb  2 13:46:32 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:32 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:46:32 2012] [debug] 200 OK (0.003187s, 313.775/s).
+[Thu Feb  2 13:46:33 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:33 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:46:33 2012] [debug] 200 OK (0.002535s, 394.477/s).
+[Thu Feb  2 13:46:34 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:34 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:46:34 2012] [debug] 200 OK (0.002338s, 427.716/s).
+[Thu Feb  2 13:46:36 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:36 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:46:36 2012] [debug] 200 OK (0.002350s, 425.532/s).
+[Thu Feb  2 13:46:37 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:46:37 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:46:37 2012] [debug] 200 OK (0.002377s, 420.698/s).
+[Thu Feb  2 13:47:54 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:47:54 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:47:54 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:47:54 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:47:54 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:47:54 2012] [debug] 200 OK (0.032199s, 31.057/s).
+[Thu Feb  2 13:47:56 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:47:56 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:47:56 2012] [debug] 200 OK (0.002667s, 374.953/s).
+[Thu Feb  2 13:47:58 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:47:58 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:47:58 2012] [debug] Rendering template "upload/form.html.ep".
+[Thu Feb  2 13:47:58 2012] [debug] 200 OK (0.011794s, 84.789/s).
+[Thu Feb  2 13:48:00 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:48:00 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:48:00 2012] [debug] 200 OK (0.004570s, 218.818/s).
+[Thu Feb  2 13:52:53 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:52:53 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:52:53 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:52:53 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:52:53 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:52:53 2012] [debug] 200 OK (0.047258s, 21.160/s).
+[Thu Feb  2 13:56:22 2012] [debug] Your secret passphrase needs to be changed!!!
+[Thu Feb  2 13:56:22 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:22 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:56:22 2012] [debug] Rendering template "cpan_search/form.html.ep".
+[Thu Feb  2 13:56:22 2012] [debug] Rendering template "layouts/main.html.ep".
+[Thu Feb  2 13:56:22 2012] [debug] 200 OK (0.037336s, 26.784/s).
+[Thu Feb  2 13:56:25 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:25 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:56:25 2012] [debug] Rendering template "upload/form.html.ep".
+[Thu Feb  2 13:56:25 2012] [debug] 200 OK (0.008370s, 119.474/s).
+[Thu Feb  2 13:56:27 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:27 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:56:27 2012] [debug] 200 OK (0.002287s, 437.254/s).
+[Thu Feb  2 13:56:32 2012] [debug] GET /perldoc (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:32 2012] [debug] Template "not_found.development.html.ep" not found.
+[Thu Feb  2 13:56:32 2012] [debug] Template "not_found.html.ep" not found.
+[Thu Feb  2 13:56:32 2012] [debug] Rendering inline template.
+[Thu Feb  2 13:56:32 2012] [debug] 404 Not Found (0.021334s, 46.874/s).
+[Thu Feb  2 13:56:43 2012] [debug] GET /welcome (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:43 2012] [debug] Dispatching "PodBook::Example->welcome".
+[Thu Feb  2 13:56:43 2012] [debug] PodBook::Example does not exist, maybe a typo?
+[Thu Feb  2 13:56:43 2012] [debug] Template "example/welcome.html.ep" not found.
+[Thu Feb  2 13:56:43 2012] [debug] Template "not_found.development.html.ep" not found.
+[Thu Feb  2 13:56:43 2012] [debug] Template "not_found.html.ep" not found.
+[Thu Feb  2 13:56:43 2012] [debug] Rendering inline template.
+[Thu Feb  2 13:56:43 2012] [debug] 404 Not Found (0.041003s, 24.388/s).
+[Thu Feb  2 13:56:49 2012] [debug] GET /abc (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:49 2012] [debug] Template "not_found.development.html.ep" not found.
+[Thu Feb  2 13:56:49 2012] [debug] Template "not_found.html.ep" not found.
+[Thu Feb  2 13:56:49 2012] [debug] 404 Not Found (0.009329s, 107.193/s).
+[Thu Feb  2 13:56:57 2012] [debug] GET / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:56:57 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:56:57 2012] [debug] 200 OK (0.001448s, 690.608/s).
+[Thu Feb  2 13:57:01 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:57:01 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:57:01 2012] [debug] 200 OK (0.001722s, 580.720/s).
+[Thu Feb  2 13:57:02 2012] [debug] POST / (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:57:02 2012] [debug] Dispatching "PodBook::CpanSearch->form".
+[Thu Feb  2 13:57:02 2012] [debug] 200 OK (0.002586s, 386.698/s).
+[Thu Feb  2 13:57:05 2012] [debug] GET /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:57:05 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:57:05 2012] [debug] 200 OK (0.003439s, 290.782/s).
+[Thu Feb  2 13:57:06 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:57:06 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:57:06 2012] [debug] 200 OK (0.002990s, 334.448/s).
+[Thu Feb  2 13:57:07 2012] [debug] POST /upload (Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1).
+[Thu Feb  2 13:57:07 2012] [debug] Dispatching "PodBook::Upload->form".
+[Thu Feb  2 13:57:07 2012] [debug] 200 OK (0.002372s, 421.585/s).
