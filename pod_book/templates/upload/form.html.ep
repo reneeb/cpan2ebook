@@ -3,7 +3,7 @@
     <form action="/upload" method="post">
       <input name="in_text" size="" type="text" value="SEARCH" />
       <br />
-      <input name="EPUP" type="submit" value="EPUB" />
+      <input name="EPUB" type="submit" value="EPUB" />
       <input name="MOBI" type="submit" value="MOBI" />
       <br />
       Email: <input name="E-Mail" size="" type="checkbox" />
