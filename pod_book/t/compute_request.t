@@ -9,7 +9,7 @@ use Test::More tests => 11;
 # General module tests... #
 ###########################
 
-my $module = 'PodBook::Request';
+my $module = 'PodBook::Utils::Request';
 use_ok( $module );
 
 my $obj = $module->new(

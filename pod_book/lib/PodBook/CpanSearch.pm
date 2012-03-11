@@ -57,8 +57,8 @@ sub form {
 
     # INPUT SEEMS SAVE!!!
     # So we can go on and try to process this request
-    use PodBook::Request;
-    my $book_request = PodBook::Request->new(
+    use PodBook::Utils::Request;
+    my $book_request = PodBook::Utils::Request->new(
                                 $remote_address,
                                 "metacpan::$module_name",
                                 $type,

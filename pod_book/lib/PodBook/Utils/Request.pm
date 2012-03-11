@@ -1,4 +1,4 @@
-package PodBook::Request;
+package PodBook::Utils::Request;
 
 use strict;
 use warnings;
