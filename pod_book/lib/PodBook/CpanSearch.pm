@@ -74,7 +74,7 @@ sub form {
         return;
     }
 
-    # check if we have the book alread in cache
+    # check if we have the book already in cache
     if ($book_request->is_cached()) {
         # return the book from cache
     }
