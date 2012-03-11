@@ -1,13 +1,14 @@
-  % layout 'main', title => 'cpan2ebook';
-  <h1>CPAN search</h1>
-    <form action="/" method="post">
-      <input name="in_text" size="" type="text" value="SEARCH" />
-      <br />
-      <input name="EPUB" type="submit" value="EPUB" />
-      <input name="MOBI" type="submit" value="MOBI" />
-      <br />
-      Email: <input name="E-Mail" size="" type="checkbox" />
-      <input name="in_email" size="" type="text" />
-    </form>
-    <%= $message %>
-
+% layout 'main', title => 'cpan2ebook';
+<h1>CPAN search</h1>
+<form action="/" method="post">
+  <input name="in_text" size="" type="text" value="SEARCH" />
+  <br />
+  <input name="EPUB" type="submit" value="EPUB" />
+  <input name="MOBI" type="submit" value="MOBI" />
+  <br />
+<!--    Email: <input name="E-Mail" size="" type="checkbox" />
+    <input name="in_email" size="" type="text" />-->
+</form>
+<div id="msg">
+  <%= $message %>
+</div>

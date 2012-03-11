@@ -1,0 +1,21 @@
+/* everything inside body */
+#all {
+  /* center text inside box */
+  text-align: center;
+  /* to center a whole box */
+  /*width: 700px ;
+  margin-left: auto ;
+  margin-right: auto ;*/
+}
+
+#navi {}
+
+a.navitem {
+  color: black;
+}
+
+#content {
+}
+
+#msg {
+}
