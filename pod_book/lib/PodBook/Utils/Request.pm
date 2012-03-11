@@ -122,6 +122,9 @@ sub render_book {
 }
 
 sub get_book {
+    my ($self) = @_;
+
+    return $self->get($self->{cache_key});
 
 }
 

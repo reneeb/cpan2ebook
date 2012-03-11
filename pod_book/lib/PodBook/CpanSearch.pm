@@ -77,10 +77,43 @@ sub form {
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
         # return the book from cache
+
+        # my $book = $book_request->get_book();
     }
     else {
         # fetch from CPAN and create a Book
         # using EPublisher!
+        use EPublisher;
+        use EPublisher::Source::Plugin::MetaCPAN;
+
+        my %config = ( 
+            config => { pod2cpan_webservice => { source => { type => 'MetaCPAN',
+                                                 module => $module_name},
+                                  target => { 
+                                              output => 'public/test.mobi'
+                                            }   
+                                }   
+                      },  
+            debug  => sub {
+                print "@_\n";
+            },  
+        );
+
+        if ($type eq 'mobi') {
+            use EPublisher::Target::Plugin::Mobi;
+            $config{config}{pod2cpan_webservice}{target}{type} = 'Mobi';
+        }
+        elsif ($type eq 'epub') {
+            use EPublisher::Target::Plugin::EPub;
+            $config{config}{pod2cpan_webservice}{target}{type} = 'EPub';
+        }
+        else {
+            # EXIT
+            $self->render( message => 'ERROR: unknown book-type' );
+        }
+
+        my $publisher = EPublisher->new( %config );
+        $publisher->run( [ 'pod2cpan_webservice' ] );
     }
 
     $self->render( message => 'Book cannot be delivered :-)' );
