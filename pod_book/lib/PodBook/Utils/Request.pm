@@ -14,6 +14,7 @@ sub new {
         $source, # identifier (metacpan::modulename/upload)
         $type  , # mobi/epub
         $cache_namespace,
+        $cache_dir,
        ) = @_;
 
     # check the arguments!
@@ -24,13 +25,16 @@ sub new {
         die ("Invalid source: $source");
     }
 
+    unless (defined $cache_dir) {
+        $cache_dir = File::Spec->tmpdir();
+    }
+
     # this gives me a path for temporary file storage, depending on OS
-    my $tmpdir = File::Spec->tmpdir();
 
     # load the cache
     my $cache = CHI->new(
         driver   => 'File',
-        root_dir => $tmpdir,
+        root_dir => $cache_dir,
         namespace=> $cache_namespace,
     );
 
@@ -115,10 +119,11 @@ sub load_pod {
     # fetch POD into global VAR
 }
 
-sub render_book {
+sub set_book {
 
-    my ($self) = @_;
+    my ($self, $book) = @_;
 
+    $self->{book} = $book;
 }
 
 sub get_book {

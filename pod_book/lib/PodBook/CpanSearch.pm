@@ -63,6 +63,7 @@ sub form {
                                 "metacpan::$module_name",
                                 $type,
                                 'pod2cpan_webservice',
+                                #'public/',
                        );
 
     # we check if the user is using the page to fast
@@ -86,14 +87,20 @@ sub form {
         use EPublisher;
         use EPublisher::Source::Plugin::MetaCPAN;
 
+        use File::Temp 'tempfile';
+        my ($fh, $filename) = tempfile(DIR => 'public/', SUFFIX => '.book');
+
         my %config = ( 
-            config => { pod2cpan_webservice => { source => { type => 'MetaCPAN',
-                                                 module => $module_name},
-                                  target => { 
-                                              output => 'public/test.mobi'
-                                            }   
-                                }   
-                      },  
+            config => {
+                pod2cpan_webservice => {
+                    source => {
+                        type    => 'MetaCPAN',
+                        module => $module_name},
+                    target => { 
+                        output => $filename
+                    }   
+                }   
+            },  
             debug  => sub {
                 print "@_\n";
             },  
@@ -114,6 +121,14 @@ sub form {
 
         my $publisher = EPublisher->new( %config );
         $publisher->run( [ 'pod2cpan_webservice' ] );
+
+        use File::Slurp;
+        my $bin = read_file( $filename, { binmode => ':raw' } ) ;
+
+        $book_request->set_book($bin);
+        $book_request->cache_book(180);
+
+        $self->render( message => 'Book at ' . $filename );
     }
 
     $self->render( message => 'Book cannot be delivered :-)' );
