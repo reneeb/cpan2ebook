@@ -57,13 +57,14 @@ sub form {
 
     # INPUT SEEMS SAVE!!!
     # So we can go on and try to process this request
+    use Mojo::Asset::File;
+    use Mojo::Headers;
     use PodBook::Utils::Request;
     my $book_request = PodBook::Utils::Request->new(
                                 $remote_address,
                                 "metacpan::$module_name",
                                 $type,
                                 'pod2cpan_webservice',
-                                #'public/',
                        );
 
     # we check if the user is using the page to fast
@@ -89,6 +90,7 @@ sub form {
 
         use File::Temp 'tempfile';
         my ($fh, $filename) = tempfile(DIR => 'public/', SUFFIX => '.book');
+        unlink $filename;
 
         my %config = ( 
             config => {
@@ -124,14 +126,34 @@ sub form {
 
         use File::Slurp;
         my $bin = read_file( $filename, { binmode => ':raw' } ) ;
+        unlink $filename;
 
         $book_request->set_book($bin);
-        $book_request->cache_book(180);
+        $book_request->cache_book(10);
 
-        $self->render( message => 'Book at ' . $filename );
+        $self->send_download_to_client($bin, "$module_name.$type");
     }
 
+    # using render_static()
+    #$self->render_static('test.zip'); 
+
     $self->render( message => 'Book cannot be delivered :-)' );
+}
+
+sub send_download_to_client {
+    my ($self, $data, $name) = @_;
+
+    my $headers = Mojo::Headers->new();
+    $headers->add('Content-Type',
+                  "application/x-download; name=$name");
+    $headers->add('Content-Disposition',
+                  "attachment; filename=$name");
+    $headers->add('Content-Description','ebook');
+    $self->res->content->headers($headers);
+
+    #$self->res->content->asset(Mojo::Asset::File->new(path => $filename));
+    #$self->rendered(200);
+    $self->render_data($data);
 }
 
 1;
