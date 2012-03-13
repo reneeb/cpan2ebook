@@ -80,9 +80,12 @@ sub form {
     if ($book_request->is_cached()) {
         # return the book from cache
 
-        # my $book = $book_request->get_book();
+        my $book = $book_request->get_book();
+
+        $self->send_download_to_client($book, "$module_name.$type");
     }
     else {
+        print "No book in cache\n";
         # fetch from CPAN and create a Book
         # using EPublisher!
         use EPublisher;
@@ -134,9 +137,6 @@ sub form {
         $self->send_download_to_client($bin, "$module_name.$type");
     }
 
-    # using render_static()
-    #$self->render_static('test.zip'); 
-
     $self->render( message => 'Book cannot be delivered :-)' );
 }
 
@@ -151,8 +151,6 @@ sub send_download_to_client {
     $headers->add('Content-Description','ebook');
     $self->res->content->headers($headers);
 
-    #$self->res->content->asset(Mojo::Asset::File->new(path => $filename));
-    #$self->rendered(200);
     $self->render_data($data);
 }
 
