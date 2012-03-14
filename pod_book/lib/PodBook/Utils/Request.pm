@@ -13,6 +13,7 @@ sub new {
         $uid   , # user id
         $source, # identifier (metacpan::modulename/upload)
         $type  , # mobi/epub
+        $uid_expiration,
         $cache_namespace,
         $cache_dir,
        ) = @_;
@@ -27,6 +28,9 @@ sub new {
 
     unless (defined $cache_dir) {
         $cache_dir = File::Spec->tmpdir();
+    }
+    unless (defined $uid_expiration) {
+        $uid_expiration = 2;
     }
 
     # this gives me a path for temporary file storage, depending on OS
@@ -50,7 +54,7 @@ sub new {
         cache         => $cache ,
         cache_key     => "$source--$type",
         uid_key       => "UID:$uid",
-        uid_expiration=> 5,
+        uid_expiration=> $uid_expiration,
 
         # state variables
         is_cached     => 0      ,

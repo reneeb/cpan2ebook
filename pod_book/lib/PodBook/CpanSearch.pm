@@ -57,13 +57,18 @@ sub form {
 
     # INPUT SEEMS SAVE!!!
     # So we can go on and try to process this request
-    use Mojo::Asset::File;
+    use YAML::Tiny;
+    my $config = YAML::Tiny->new;
+    $config = YAML::Tiny->read( 'config.yml' );
+    my $userblock_seconds = $config->[0]->{userblock_seconds};
+
     use Mojo::Headers;
     use PodBook::Utils::Request;
     my $book_request = PodBook::Utils::Request->new(
                                 $remote_address,
                                 "metacpan::$module_name",
                                 $type,
+                                $userblock_seconds,
                                 'pod2cpan_webservice',
                        );
 
@@ -71,7 +76,7 @@ sub form {
     unless ($book_request->uid_is_allowed()) {
         # EXIT if he is to fast
         $self->render(
-            message => "ERROR: To many requests from: $remote_address"
+            message => "ERROR: To many requests from: $remote_address - Only one request per $book_request->{uid_expiration} seconds allowed."
             );
         return;
     }
@@ -85,7 +90,6 @@ sub form {
         $self->send_download_to_client($book, "$module_name.$type");
     }
     else {
-        print "No book in cache\n";
         # fetch from CPAN and create a Book
         # using EPublisher!
         use EPublisher;
@@ -130,9 +134,10 @@ sub form {
         use File::Slurp;
         my $bin = read_file( $filename, { binmode => ':raw' } ) ;
         unlink $filename;
-
         $book_request->set_book($bin);
-        $book_request->cache_book(10);
+
+        my $caching_seconds = $config->[0]->{caching_seconds};
+        $book_request->cache_book($caching_seconds);
 
         $self->send_download_to_client($bin, "$module_name.$type");
     }
