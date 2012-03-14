@@ -150,7 +150,11 @@ sub form {
                         type    => 'MetaCPAN',
                         module => $module_name},
                     target => { 
-                        output => $filename
+                        output => $filename,
+                        title  => "$module_name-$module_version",
+                        author => "Perl",
+                        # this option is ignored by "type: epub"
+                        htmcover => "<h3>Perl Module Documentation</h3><h1>$module_name</h1>Module version: $module_version<br />Source: <a href='https://metacpan.org/'>https://metacpan.org/</a><br />Powered by: perl-services.de<br />"
                     }   
                 }   
             },  
