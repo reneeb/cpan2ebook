@@ -2,20 +2,20 @@
 #all {
   /* center text inside box */
   text-align: center;
-  /* to center a whole box */
-  /*width: 700px ;
-  margin-left: auto ;
-  margin-right: auto ;*/
 }
 
-#navi {}
+#navi {
+  margin: 30px;
+}
 
 a.navitem {
   color: black;
 }
 
 #content {
+  margin: 60px;
 }
 
 #msg {
+  margin: 30px;
 }
