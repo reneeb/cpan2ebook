@@ -58,7 +58,7 @@ sub form {
     # INPUT SEEMS SAVE!!!
     # So we can go on and try to process this request
 
-    # lets load some values form the config file
+    # lets load some values from the config file
     use YAML::Tiny;
     my $config = YAML::Tiny->new;
     $config = YAML::Tiny->read( 'config.yml' );
@@ -87,8 +87,18 @@ sub form {
         my $res_json = $response->decoded_content;
         my $d  = decode_json $res_json;
 
-         $module_version = $d->{hits}->{hits}->[0]->{fields}->{version};
+        $module_version = $d->{hits}->{hits}->[0]->{fields}->{version};
         #print $d->{hits}->{hits}->[0]->{fields}->{distribution}";
+        
+        unless ($module_version) {
+            # EXIT if there is no version...
+            # this seems to mean, that the module does not exist
+            $self->render(
+                message => "ERROR: Module not found"
+                );
+            return;
+        }
+
     }
     else {
         # EXIT if we can't reach MetaCPAN
