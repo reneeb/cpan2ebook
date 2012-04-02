@@ -3,6 +3,7 @@
   <head>
     <title><%= $title %></title>
     <link rel="stylesheet" type="text/css" href="main.css">
+    <script type="text/javascript" src="tricks.js"></script>
   </head>
   <body>
     <div id="all">

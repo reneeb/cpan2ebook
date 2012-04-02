@@ -1,7 +1,7 @@
 % layout 'main', title => 'cpan2ebook';
 <h1>CPAN search</h1>
 <form action="/" method="post">
-  <input name="in_text" size="" type="text" value="SEARCH" />
+  <input name="in_text" type="text" value="SEARCH" onchange="rm_msg()" />
   <br />
   <input name="EPUB" type="submit" value="EPUB" />
   <input name="MOBI" type="submit" value="MOBI" />
