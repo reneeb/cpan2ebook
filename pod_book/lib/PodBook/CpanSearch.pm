@@ -32,7 +32,7 @@ sub form {
     # check if the module name in the text field is some what valid
     my $module_name;
     #TODO: No idea about the module name specs!!!
-    if ($self->param('in_text') =~ m/^([\d\w\-]{3,100})$/) {
+    if ($self->param('in_text') =~ m/^([\d\w\-]{2,100})$/) {
         $module_name = $1;
     }
     else {
