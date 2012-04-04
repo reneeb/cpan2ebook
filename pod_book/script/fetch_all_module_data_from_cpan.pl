@@ -20,7 +20,12 @@ if ( is_success($status) )
     my $ok = $ae->extract( to => $dir );
 
     if ($ok) {
-        print "ok\n";
+        print "unpacked\n";
+
+        use DBI;
+        my $db = DBI->connect("dbi:SQLite:test.db", "", "",
+        {RaiseError => 1, AutoCommit => 1});
+        $db->do("CREATE TABLE release (name VARCHAR(100))");
 
         open (my $f, "$dir/02packages.details.txt");
         while (<$f>) {
@@ -30,10 +35,22 @@ if ( is_success($status) )
                 my $module = $1;
                 my $release = $2;
                 chop($release);
-                print "$module\t->\t$release\n";
+
+                $db->do("INSERT INTO release VALUES ('$release')");
             }
         }
         close ($f); 
+        print "filled into DB\n";
+
+        my $all = $db->selectall_arrayref("SELECT * FROM release");
+
+        foreach my $row (@$all) {
+            my ($id) = @$row;
+            print "$id\n";
+        }
+
+        $db->disconnect;
+
     }
 }
 else
