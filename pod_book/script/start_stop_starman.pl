@@ -6,14 +6,14 @@ use warnings;
 use File::Basename;
 use File::Spec;
 
-my @ps       = `ps auwx`;
-my ($master) = grep{ m/master .*? --listen .*? :3030/xms }@ps;
+my @ps        = `ps auwx`;
+my @processes = grep{ m/starman .*? --listen .*? :3030/xms }@ps;
 
 if ( $master ) {
-    my ($pid) = $master =~ m/ \A .*? (\d+) /xms;
+    my @pids = map{ m/ \A .*? (\d+) /xms; $1 }@processes;
 
-    if ( $pid ) {
-        kill 9, $pid;
+    if ( @pids ) {
+        kill 9, @pids;
     }
 }
 
@@ -22,5 +22,5 @@ my $dir = File::Spec->rel2abs( dirname __FILE__ );
 chdir $dir;
 
 my $command = 'starman --listen :3030';
-exec( $command );
-#exec( "nohup $command &" );
+#exec( $command );
+exec( "nohup $command &" );
