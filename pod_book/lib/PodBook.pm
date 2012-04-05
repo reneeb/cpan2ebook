@@ -13,10 +13,10 @@ sub startup {
   $self->home->parse( $ENV{POD_BOOK_APP} );
 
   # Switch to installable "public" directory
-  $self->static->root( $self->home->rel_dir('public') );
+  $self->static->paths( $self->home->rel_dir('public') );
 
   # Switch to installable "templates" directory
-  $self->renderer->root( $self->home->rel_dir('templates') );
+  $self->renderer->paths( $self->home->rel_dir('templates') );
 
   # read config
   $self->plugin( 'YamlConfig', {file => $self->home . '/config.yaml'} );
