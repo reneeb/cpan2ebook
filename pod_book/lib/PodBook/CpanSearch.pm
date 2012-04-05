@@ -152,7 +152,8 @@ sub form {
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
-        my ($fh, $filename) = tempfile(DIR => 'public/', SUFFIX => '.book');
+	my $tmp_dir         = $self->config->{tmp_dir};
+        my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename;
 
         # build the config for EPublisher
