@@ -30,16 +30,15 @@ sub form {
     }
 
     # check if the module name in the text field is some what valid
-    my $module_name;
-    #TODO: No idea about the module name specs!!!
-    if ($self->param('in_text') =~ m/^([\d\w\-]{2,100})$/) {
-        $module_name = $1;
-    }
-    else {
+    my ($module_name) = $self->param('in_text') =~ m/^([\d\w\-:]+)$/;
+
+    if ( !$module_name ) {
         # EXIT if not matching
         $self->render( message => 'ERROR: Module name not accepted.' );
         return;
     }
+
+    $module_name =~ s/::/-/g;
 
     # check the remote IP... just to be sure!!! (like taint mode)
     my $remote_address;
