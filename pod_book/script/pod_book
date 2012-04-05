@@ -9,6 +9,8 @@ use File::Spec;
 use lib join '/', File::Spec->splitdir(dirname(__FILE__)), 'lib';
 use lib join '/', File::Spec->splitdir(dirname(__FILE__)), '..', 'lib';
 
+$ENV{POD_BOOK_APP} = File::Spec->catdir( dirname( __FILE__ ), '..' );
+
 # Check if Mojo is installed
 eval 'use Mojolicious::Commands';
 die <<EOF if $@;
