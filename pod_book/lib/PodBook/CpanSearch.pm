@@ -1,6 +1,20 @@
 package PodBook::CpanSearch;
+
 use Mojo::Base 'Mojolicious::Controller';
+use Mojo::Headers;
 use Regexp::Common 'net';
+use File::Slurp;
+use File::Temp 'tempfile';
+use LWP::UserAgent;
+use HTTP::Response;
+use JSON;
+
+use EPublisher;
+use EPublisher::Source::Plugin::MetaCPAN;
+use EPublisher::Target::Plugin::EPub;
+use EPublisher::Target::Plugin::Mobi;
+
+use PodBook::Utils::Request;
 
 # This action will render a template
 sub form {
@@ -63,9 +77,6 @@ sub form {
 
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
-    use LWP::UserAgent;
-    use HTTP::Response;
-    use JSON;
 
     # we prepare the JSON POST
     my $uri = 'http://api.metacpan.org/v0/release/_search';
@@ -106,7 +117,6 @@ sub form {
     }
 
     # finally we have everything we need to build a request object!
-    use PodBook::Utils::Request;
     my $book_request = PodBook::Utils::Request->new(
                                 $remote_address,
                                 "metacpan::$module_name-$module_version",
@@ -142,10 +152,6 @@ sub form {
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
-        use EPublisher;
-        use EPublisher::Source::Plugin::MetaCPAN;
-
-        use File::Temp 'tempfile';
         my ($fh, $filename) = tempfile(DIR => 'public/', SUFFIX => '.book');
         unlink $filename;
 
@@ -172,11 +178,9 @@ sub form {
 
         # still building the config (and loading the right modules)
         if ($type eq 'mobi') {
-            use EPublisher::Target::Plugin::Mobi;
             $config{config}{pod2cpan_webservice}{target}{type} = 'Mobi';
         }
         elsif ($type eq 'epub') {
-            use EPublisher::Target::Plugin::EPub;
             $config{config}{pod2cpan_webservice}{target}{type} = 'EPub';
         }
         else {
@@ -203,7 +207,6 @@ sub form {
 
 
         # TODO: EPublisher should give me the stuff as bin directly
-        use File::Slurp;
         my $bin = read_file( $filename, { binmode => ':raw' } ) ;
         unlink $filename;
         $book_request->set_book($bin);
@@ -225,7 +228,6 @@ sub form {
 sub send_download_to_client {
     my ($self, $data, $name) = @_;
 
-    use Mojo::Headers;
     my $headers = Mojo::Headers->new();
     $headers->add('Content-Type',
                   "application/x-download; name=$name");
