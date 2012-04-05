@@ -19,7 +19,7 @@ sub startup {
   $self->renderer->paths( $self->home->rel_dir('templates') );
 
   # read config
-  $self->plugin( 'YamlConfig', {file => $self->home . '/config.yaml'} );
+  $self->plugin( 'YamlConfig', {file => $self->home . '/config.yml'} );
 
 
   # Routes
