@@ -213,7 +213,7 @@ sub form {
         $book_request->set_book($bin);
 
         # we finally have the EBook and cache it before delivering
-        my $caching_seconds = $config->[0]->{caching_seconds};
+        my $caching_seconds = $config->{caching_seconds};
         $book_request->cache_book($caching_seconds);
 
         # send the EBook to the client
