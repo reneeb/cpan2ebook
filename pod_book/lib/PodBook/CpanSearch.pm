@@ -58,10 +58,8 @@ sub form {
     # So we can go on and try to process this request
 
     # lets load some values from the config file
-    use YAML::Tiny;
-    my $config = YAML::Tiny->new;
-    $config = YAML::Tiny->read( 'config.yml' );
-    my $userblock_seconds = $config->[0]->{userblock_seconds};
+    my $config            = $self->config;
+    my $userblock_seconds = $config->{userblock_seconds};
 
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
