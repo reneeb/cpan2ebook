@@ -9,7 +9,7 @@ use File::Spec;
 my @ps        = `ps auwx`;
 my @processes = grep{ m/starman .*? --listen .*? :3030/xms }@ps;
 
-if ( $master ) {
+if ( @processes ) {
     my @pids = map{ m/ \A .*? (\d+) /xms; $1 }@processes;
 
     if ( @pids ) {
