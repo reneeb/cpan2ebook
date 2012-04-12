@@ -1,4 +1,5 @@
 % layout 'main', title => 'cpan2ebook';
+% my %args = @_;
 <h1>CPAN search</h1>
 <form action="/" method="post">
   <input name="in_text" type="text" value="SEARCH" onchange="rm_msg()" />
@@ -10,5 +11,5 @@
     <input name="in_email" size="" type="text" />-->
 </form>
 <div id="msg">
-  <%= $message %>
+  <%= $args{message} %>
 </div>

@@ -5,9 +5,8 @@ use Mojo::Headers;
 use Regexp::Common 'net';
 use File::Slurp;
 use File::Temp 'tempfile';
-use LWP::UserAgent;
-use HTTP::Response;
 use JSON;
+use MetaCPAN::API;
 
 use EPublisher;
 use EPublisher::Source::Plugin::MetaCPAN;
@@ -78,27 +77,24 @@ sub form {
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
 
-    # we prepare the JSON POST
-    my $uri = 'http://api.metacpan.org/v0/release/_search';
-    my $json = '{"query" : { "terms" : { "release.distribution" : [ "'.$module_name.'" ] } }, "filter" : { "term" : { "release.status" : "latest" } }, "fields" : [ "distribution", "version" ], "size"   : 1}';
-    my $req = HTTP::Request->new( 'POST', $uri );
-    $req->header( 'Content-Type' => 'application/json' );
-    $req->content( $json );
-
-    # we ask MetaCPAN
-    my $ua = LWP::UserAgent->new;
-    my $response = $ua->request($req);
+    # search metacpan
+    my $mcpan   = MetaCPAN::API->new;
+    my $q       = sprintf "distribution:%s AND status:latest", $module_name;
+    my $release = $mcpan->release(
+        search => {
+            q      => $q,
+            fields => "distribution,version",
+            size   => 1
+        },
+    );
 
     # we fill the result into this variable
     my $module_version;
-    if ($response->is_success) {
-        my $res_json = $response->decoded_content;
-        my $d  = decode_json $res_json;
+    if ( $release ) {
 
-        $module_version = $d->{hits}->{hits}->[0]->{fields}->{version};
-        #print $d->{hits}->{hits}->[0]->{fields}->{distribution}";
+        $module_version = $release->{hits}->{hits}->[0]->{fields}->{version};
         
-        unless ($module_version) {
+        unless ( $module_version ) {
             # EXIT if there is no version...
             # this seems to mean, that the module does not exist
             $self->render(
@@ -111,7 +107,7 @@ sub form {
     else {
         # EXIT if we can't reach MetaCPAN
         $self->render(
-            message => "ERROR: Cant reach MetaCPAN - $response->status_line"
+            message => "ERROR: Cant reach MetaCPAN"
             );
         return;
     }
