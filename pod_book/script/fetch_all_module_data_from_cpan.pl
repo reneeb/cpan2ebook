@@ -4,28 +4,32 @@ use strict;
 use warnings;
 
 use LWP::Simple;
-use File::Temp qw/ tempdir /;
 use Archive::Extract;
 use DBI;
+use YAML::Tiny;
+ 
+my $yaml = YAML::Tiny->new;
+$yaml = YAML::Tiny->read( 'config.yml' );
+my $tmp_path = $yaml->[0]->{tmp_dir};
 
 $| = 1;
  
 my $db_file  = 'cpan_names.db';
-my $source   = "02packages.details.txt.gz";
-my $dir      = '/tmp';#tempdir();
+my $source   = '02packages.details.txt.gz';
+my $dir      = $tmp_path;
 my $filename = "$dir/$source";
 
 print "Downloading '$source' from CPAN to '$dir'...";
-#my $status = getstore(                                               # fetch
-             #"http://www.cpan.org/modules/02packages.details.txt.gz",# from
-             #$filename                                               # to
-             #);
+my $status = getstore(                                               # fetch
+             "http://www.cpan.org/modules/02packages.details.txt.gz",# from
+             $filename                                               # to
+             );
 print "DONE\n";
  
-#unless ( is_success($status) ) {
-    #print "FAIL\t$status\n";
-    #exit 1;
-#}
+unless ( is_success($status) ) {
+    print "FAIL\t$status\n";
+    exit 1;
+}
 
 print 'Extracting archive...';
 my $ae = Archive::Extract->new( archive => $filename );
