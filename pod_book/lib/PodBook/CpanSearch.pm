@@ -99,7 +99,8 @@ sub form {
             # this seems to mean, that the module does not exist
             $self->render(
                 message => "ERROR: Module not found"
-                );
+            );
+
             return;
         }
 
@@ -108,18 +109,19 @@ sub form {
         # EXIT if we can't reach MetaCPAN
         $self->render(
             message => "ERROR: Cant reach MetaCPAN"
-            );
+        );
+
         return;
     }
 
     # finally we have everything we need to build a request object!
     my $book_request = PodBook::Utils::Request->new(
-                                $remote_address,
-                                "metacpan::$module_name-$module_version",
-                                $type,
-                                $userblock_seconds,
-                                'pod2cpan_webservice',
-                       );
+        $remote_address,
+        "metacpan::$module_name-$module_version",
+        $type,
+        $userblock_seconds,
+        'pod2cpan_webservice',
+    );
 
     # we check if the user is using the page to fast
     # TODO: would be nice it this would as the very first in code
@@ -129,7 +131,8 @@ sub form {
             message => "ERROR: To many requests from: $remote_address "
             . "- Only one request per $book_request->{uid_expiration} "
             . "seconds allowed."
-            );
+        );
+
         return;
     }
 
@@ -142,8 +145,8 @@ sub form {
 
         # send the book to the client
         $self->send_download_to_client($book,
-                                       "$module_name-$module_version.$type"
-                                      );
+            "$module_name-$module_version.$type"
+        );
     }
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
@@ -214,8 +217,8 @@ sub form {
 
         # send the EBook to the client
         $self->send_download_to_client($bin,
-                                       "$module_name-$module_version.$type"
-                                      );
+            "$module_name-$module_version.$type"
+        );
     }
 
     # if we reach here... something is wrong!
@@ -226,10 +229,14 @@ sub send_download_to_client {
     my ($self, $data, $name) = @_;
 
     my $headers = Mojo::Headers->new();
-    $headers->add('Content-Type',
-                  "application/x-download; name=$name");
-    $headers->add('Content-Disposition',
-                  "attachment; filename=$name");
+    $headers->add(
+        'Content-Type',
+        "application/x-download; name=$name"
+    );
+    $headers->add(
+        'Content-Disposition',
+        "attachment; filename=$name"
+    );
     $headers->add('Content-Description','ebook');
     $self->res->content->headers($headers);
 
