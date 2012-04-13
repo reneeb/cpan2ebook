@@ -9,7 +9,6 @@
     <div id="all">
       <div id="navi">
         <a class="navitem" href="/">Cpan Search</a>
-        <a class="navitem" href="/upload">POD Upload</a>
       </div>
       <div id="content">
         <%= content %>
