@@ -14,6 +14,7 @@ use EPublisher::Target::Plugin::EPub;
 use EPublisher::Target::Plugin::Mobi;
 
 use PodBook::Utils::Request;
+use PodBook::Utils::CPAN::Names;
 
 # This action will render a template
 sub form {
@@ -25,8 +26,7 @@ sub form {
         $self->render( message => 'Please make your choice.' );
         return;
     }
-    
-    # otherwise we continue by checnking the input
+    # otherwise we continue by checking the input
 
     # check the type of button pressed
     my $type;
@@ -51,8 +51,6 @@ sub form {
         return;
     }
 
-    $module_name =~ s/::/-/g;
-
     # check the remote IP... just to be sure!!! (like taint mode)
     my $remote_address;
     my $pattern = $RE{net}{IPv4};
@@ -73,6 +71,18 @@ sub form {
     # lets load some values from the config file
     my $config            = $self->config;
     my $userblock_seconds = $config->{userblock_seconds};
+    my $cpan_namespaces_source = $config->{cpan_namespaces_source};
+
+    # translate the module/releasename to a releasename
+    # EBook::MOBI -> EBook-MOBI
+    # EBook-MOBI  -> EBook-MOBI
+    my $t = PodBook::Utils::CPAN::Names->new('DB', $cpan_namespaces_source);
+    $module_name = $t->translate_any2release($module_name);
+    unless ( $module_name ) {
+        # EXIT if no releasename found
+        $self->render( message => 'ERROR: Module name not found.' );
+        return;
+    }
 
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
@@ -108,13 +118,13 @@ sub form {
     else {
         # EXIT if we can't reach MetaCPAN
         $self->render(
-            message => "ERROR: Cant reach MetaCPAN"
+            message => "ERROR: Can't reach MetaCPAN"
         );
 
         return;
     }
 
-    # finally we have everything we need to build a request object!
+    # finaly we have everything we need to build a request object!
     my $book_request = PodBook::Utils::Request->new(
         $remote_address,
         "metacpan::$module_name-$module_version",
@@ -151,7 +161,7 @@ sub form {
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
-	my $tmp_dir         = $self->config->{tmp_dir};
+        my $tmp_dir         = $self->config->{tmp_dir};
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename;
 
@@ -167,7 +177,7 @@ sub form {
                         title  => "$module_name-$module_version",
                         author => "Perl",
                         # this option is ignored by "type: epub"
-                        htmcover => "<h3>Perl Module Documentation</h3><h1>$module_name</h1>Module version: $module_version<br />Source: <a href='https://metacpan.org/'>https://metacpan.org/</a><br />Powered by: perl-services.de<br />"
+                        htmcover => "<h3>Perl Module Documentation</h3><h1>$module_name</h1>Module version: $module_version<br />Source: <a href='https://metacpan.org/'>https://metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>http://perl-services.de</a><br />"
                     }   
                 }   
             },  

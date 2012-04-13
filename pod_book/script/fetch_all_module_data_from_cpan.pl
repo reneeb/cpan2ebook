@@ -14,7 +14,7 @@ my $tmp_path = $yaml->[0]->{tmp_dir};
 
 $| = 1;
  
-my $db_file  = 'cpan_names.db';
+my $db_file  = $yaml->[0]->{cpan_namespaces_source};
 my $source   = '02packages.details.txt.gz';
 my $dir      = $tmp_path;
 my $filename = "$dir/$source";
