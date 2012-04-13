@@ -83,7 +83,7 @@ sub form {
     my $release = $mcpan->release(
         search => {
             q      => $q,
-            fields => "distribution,version",
+            fields => "distribution,version,name",
             size   => 1
         },
     );
