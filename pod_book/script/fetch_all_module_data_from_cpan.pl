@@ -12,16 +12,15 @@ use File::Spec;
 
 my $bin_dir = File::Spec->rel2abs( dirname __FILE__ );
  
-my $yaml     = YAML::Tiny->read(
+my $yaml    = YAML::Tiny->read(
     File::Spec->catfile( $bin_dir, '..', 'config.yml' ),
 );
-my $tmp_path = $yaml->[0]->{tmp_dir};
 
 $| = 1;
  
 my $db_file  = $yaml->[0]->{cpan_namespaces_source};
+my $dir      = $yaml->[0]->{tmp_dir};
 my $source   = '02packages.details.txt.gz';
-my $dir      = $tmp_path;
 my $filename = "$dir/$source";
 
 print "Downloading '$source' from CPAN to '$dir'...";
@@ -51,7 +50,6 @@ my $db = DBI->connect("dbi:SQLite:$db_file", "", "",
 
 my $names_sth = $db->prepare( 'SELECT name FROM sqlite_master WHERE type="table"' );
 $names_sth->execute;
-
 my $names = $names_sth->fetchall_arrayref({}) || [];
 
 unless ( @{$names} ) {
