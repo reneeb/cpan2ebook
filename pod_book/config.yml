@@ -1,5 +1,6 @@
 ---
 caching_seconds: 15
 userblock_seconds: 2
-tmp_dir: /home/ebook/tmp/
+tmp_dir: /home/ebook/tmp
+cpan_namespaces_source: cpan_names.db
 
