@@ -7,9 +7,14 @@ use LWP::Simple;
 use Archive::Extract;
 use DBI;
 use YAML::Tiny;
+use File::Basename;
+use File::Spec;
+
+my $bin_dir = File::Spec->rel2abs( dirname __FILE__ );
  
-my $yaml = YAML::Tiny->new;
-$yaml = YAML::Tiny->read( 'config.yml' );
+my $yaml     = YAML::Tiny->read(
+    File::Spec->catfile( $bin_dir, '..', 'config.yml' ),
+);
 my $tmp_path = $yaml->[0]->{tmp_dir};
 
 $| = 1;
@@ -44,7 +49,12 @@ print "DONE\n";
 my $db = DBI->connect("dbi:SQLite:$db_file", "", "",
     {RaiseError => 1, AutoCommit => 1});
 
-unless (-e $db_file) {
+my $names_sth = $db->prepare( 'SELECT name FROM sqlite_master WHERE type="table"' );
+$names_sth->execute;
+
+my $names = $names_sth->fetchall_arrayref({}) || [];
+
+unless ( @{$names} ) {
     print "No DB found. Creating new DB with table in '$db_file'...";
     $db->do("CREATE TABLE names (
                                  module  VARCHAR(200),
