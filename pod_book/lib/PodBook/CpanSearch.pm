@@ -14,6 +14,7 @@ use EPublisher::Target::Plugin::EPub;
 use EPublisher::Target::Plugin::Mobi;
 
 use PodBook::Utils::Request;
+use PodBook::Utils::CPAN::Names;
 
 # This action will render a template
 sub form {
@@ -50,10 +51,6 @@ sub form {
         return;
     }
 
-    # TODO: This makes no sence to me (Boris)
-    # I'll replace this by "module to release" translation
-    $module_name =~ s/::/-/g;
-
     # check the remote IP... just to be sure!!! (like taint mode)
     my $remote_address;
     my $pattern = $RE{net}{IPv4};
@@ -74,6 +71,18 @@ sub form {
     # lets load some values from the config file
     my $config            = $self->config;
     my $userblock_seconds = $config->{userblock_seconds};
+    my $cpan_namespaces_source = $config->{cpan_namespaces_source};
+
+    # translate the module/releasename to a releasename
+    # EBook::MOBI -> EBook-MOBI
+    # EBook-MOBI  -> EBook-MOBI
+    my $t = PodBook::Utils::CPAN::Names->new('DB', $cpan_namespaces_source);
+    $module_name = $t->translate_any2release($module_name);
+    unless ( $module_name ) {
+        # EXIT if no releasename found
+        $self->render( message => 'ERROR: Module name not found.' );
+        return;
+    }
 
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
