@@ -25,8 +25,7 @@ sub form {
         $self->render( message => 'Please make your choice.' );
         return;
     }
-    
-    # otherwise we continue by checnking the input
+    # otherwise we continue by checking the input
 
     # check the type of button pressed
     my $type;
@@ -51,6 +50,8 @@ sub form {
         return;
     }
 
+    # TODO: This makes no sence to me (Boris)
+    # I'll replace this by "module to release" translation
     $module_name =~ s/::/-/g;
 
     # check the remote IP... just to be sure!!! (like taint mode)
@@ -108,13 +109,13 @@ sub form {
     else {
         # EXIT if we can't reach MetaCPAN
         $self->render(
-            message => "ERROR: Cant reach MetaCPAN"
+            message => "ERROR: Can't reach MetaCPAN"
         );
 
         return;
     }
 
-    # finally we have everything we need to build a request object!
+    # finaly we have everything we need to build a request object!
     my $book_request = PodBook::Utils::Request->new(
         $remote_address,
         "metacpan::$module_name-$module_version",
@@ -151,7 +152,7 @@ sub form {
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
-	my $tmp_dir         = $self->config->{tmp_dir};
+        my $tmp_dir         = $self->config->{tmp_dir};
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename;
 
@@ -167,7 +168,7 @@ sub form {
                         title  => "$module_name-$module_version",
                         author => "Perl",
                         # this option is ignored by "type: epub"
-                        htmcover => "<h3>Perl Module Documentation</h3><h1>$module_name</h1>Module version: $module_version<br />Source: <a href='https://metacpan.org/'>https://metacpan.org/</a><br />Powered by: perl-services.de<br />"
+                        htmcover => "<h3>Perl Module Documentation</h3><h1>$module_name</h1>Module version: $module_version<br />Source: <a href='https://metacpan.org/'>https://metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>http://perl-services.de</a><br />"
                     }   
                 }   
             },  
