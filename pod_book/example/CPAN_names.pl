@@ -9,7 +9,7 @@ use PodBook::Utils::CPAN::Names;
 my $bin_dir = File::Spec->rel2abs( dirname __FILE__ );
  
  my $yaml    = YAML::Tiny->read(
-     File::Spec->catfile( $bin_dir, '..', 'config.yml' ),
+     File::Spec->catfile( $bin_dir, '../../../..', 'config.yml' ),
      );
 
   
