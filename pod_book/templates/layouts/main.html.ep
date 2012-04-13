@@ -8,10 +8,14 @@
   <body>
     <div id="all">
       <div id="navi">
-        <a class="navitem" href="/">Cpan Search</a>
+        <a class="navitem" href="/">Home</a>
+        <a class="navitem" href="/about">About</a>
       </div>
       <div id="content">
         <%= content %>
+      </div>
+      <div id="thanks">
+        <a href="http://www.perl.org/"><img src="powered_by_perl-135px.png" border="0"></a>
       </div>
     </div>
   </body>

@@ -5,7 +5,9 @@
 }
 
 #navi {
-  margin: 30px;
+  position:absolute;
+  top:10px;
+  left:10px;
 }
 
 a.navitem {
@@ -13,9 +15,20 @@ a.navitem {
 }
 
 #content {
-  margin: 60px;
+  margin: 90px;
+}
+
+#about {
+  text-align: left;
 }
 
 #msg {
   margin: 30px;
 }
+
+#thanks {
+  position:absolute;
+  bottom:50px;
+  right:50px;
+}
+
