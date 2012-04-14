@@ -198,7 +198,10 @@ sub form {
             $self->render( message => 'ERROR: unknown book-type' );
         }
 
-        my $publisher = EPublisher->new( %config );
+        my $publisher = EPublisher->new(
+            %config,
+            debug => sub{ $self->debug_epublisher( @_ ) },
+        );
         
         # This code here would be neccesary if we don't trust the
         # $module_version anymore... since it's a bit 'old' (not even a sec)
@@ -233,6 +236,13 @@ sub form {
 
     # if we reach here... something is wrong!
     $self->render( message => 'Book cannot be delivered :-)' );
+}
+
+sub debug_epublisher {
+    my ($self, $msg) = @_;
+
+    my $debug_string = sprintf "[EPublisher][%s] %s", $$, $msg;
+    $self->app->log->debug( $debug_string );
 }
 
 sub send_download_to_client {
