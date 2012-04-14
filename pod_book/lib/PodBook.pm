@@ -27,6 +27,7 @@ sub startup {
 
   # Normal route to controller
   $r->route('/')      ->to('cpan_search#form');
+  $r->route('/about') ->to('about#list');
 
 }
 
