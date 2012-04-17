@@ -1,19 +1,51 @@
 % layout 'main', title => 'cpan2ebook';
 <div id="about">
-  <h1>About</h1>
-  <h2>What is this website for?</h2>
-  <p>
-    If you are not familiar with the Perl Programming Language this website probably is of no help for you. If you are a Programmer and Perl does not scare you (btw: why should it?) this website might be of intrest. You can dowload any module documentation available on <a href="http://metacpan.org">MetaCPAN</a>, reformatted for the most popular EBook-Readers.
-  </p>
-  <h2>How did you do that?</h2>
-  <p>
-    The following modules where crutial for this project:
-  </p>
-  <ul>
-    <li><a href="https://metacpan.org/module/EPublisher">EPublisher</a><br />Publish documents in new format</li>
-    <li><a href="https://metacpan.org/module/EBook::MOBI">EBook::MOBI</a><br />create an eBook in the MOBI format - out of POD formatted content.</li>
-  </ul>
-  <p>
-    If you want to know more or like to participate, you are welcome on <a href="https://github.com/reneeb/cpan2ebook">github<a/>.
-  </p>
+
+<h1>About</h1>
+
+<h2>What is this website for?</h2>
+<p>
+  If you are not familiar with the Perl Programming Language this website probably is of no help for you. If you are a Programmer and Perl does not scare you (btw: why should it?) this website might be of intrest. You can dowload any module documentation available on <a href="http://metacpan.org">MetaCPAN</a>, reformatted for the most popular EBook-Readers.
+</p>
+
+<h2>How did you do that?</h2>
+<p>
+  The following modules where crutial for this project:
+</p>
+<ul>
+  <li>
+    <a href="https://metacpan.org/module/Mojolicious">Mojolicious</a> - Real-time web framework.<br />
+    Used for every interaction with the user.
+  </li>
+  <li>
+    <a href="https://metacpan.org/module/MetaCPAN::API">MetaCPAN::API</a> - A comprehensive, DWIM-featured API to MetaCPAN.<br />
+    Does all the communication with MetaCPAN.
+  </li>
+  <li>
+    <a href="https://metacpan.org/module/EPublisher">EPublisher</a> - Publish documents in new format<br />
+    Used to transform POD into EBooks.
+  </li>
+  <li>
+    <a href="https://metacpan.org/module/EBook::MOBI">EBook::MOBI</a> - Create an eBook in the MOBI format - out of POD formatted content.<br />
+    Library to create EBooks in the MOBI format, which is sadly not open but wide spread among users.
+  </li>
+  <li>... and many more from the <a href="https://metacpan.org/">CPAN</a>.</li>
+</ul>
+<p>
+  For more details, check the code on <a href="https://github.com/reneeb/cpan2ebook">github<a/>.
+</p>
+
+<h2>I found a bug!</h2>
+<p>
+  If you have problems, please check the <a href="https://github.com/reneeb/cpan2ebook/wiki/ROADMAP">roadmap</a> to see if a future feature already covers your topic. If this is not the case, please check the <a href="https://github.com/reneeb/cpan2ebook/issues">issues</a> and open a new one if your bug is not already listed there.<br />
+  Thanks a lot!
+</p>
+
+<br />
+<br />
+<br />
+<p>
+  This website is offered to you by <a href="http://perl-services.de/">perl-services.de</a>.
+</p>
+
 </div>
