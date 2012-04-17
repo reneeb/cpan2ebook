@@ -28,6 +28,7 @@ sub form {
             'Cook your Book.',
             'Read POD everywhere.',
             'Read Perl-Module-Documentation secretly in your bed at night.',
+            'POD: Pod On Demand.',
         );
         my $message = @messages[ int rand scalar @messages ];
         $self->render( message => $message );
