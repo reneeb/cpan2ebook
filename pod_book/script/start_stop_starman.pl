@@ -21,6 +21,6 @@ my $dir = File::Spec->rel2abs( dirname __FILE__ );
 
 chdir $dir;
 
-my $command = 'starman --listen :3030';
+my $command = 'starman --listen :3030 --workers 32';
 #exec( $command );
 exec( "nohup $command &" );
