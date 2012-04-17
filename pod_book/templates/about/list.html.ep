@@ -1,11 +1,19 @@
 % layout 'main', title => 'cpan2ebook';
 <div id="about">
   <h1>About</h1>
+  <h2>What is this website for?</h2>
   <p>
-    The following modules on CPAN where crutial for this project:
+    If you are not familiar with the Perl Programming Language this website probably is of no help for you. If you are a Programmer and Perl does not scare you (btw: why should it?) this website might be of intrest. You can dowload any module documentation available on <a href="http://metacpan.org">MetaCPAN</a>, reformatted for the most popular EBook-Readers.
+  </p>
+  <h2>How did you do that?</h2>
+  <p>
+    The following modules where crutial for this project:
   </p>
   <ul>
     <li><a href="https://metacpan.org/module/EPublisher">EPublisher</a><br />Publish documents in new format</li>
     <li><a href="https://metacpan.org/module/EBook::MOBI">EBook::MOBI</a><br />create an eBook in the MOBI format - out of POD formatted content.</li>
   </ul>
+  <p>
+    If you want to know more or like to participate, you are welcome on <a href="https://github.com/reneeb/cpan2ebook">github<a/>.
+  </p>
 </div>
