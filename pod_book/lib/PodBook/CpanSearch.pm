@@ -23,7 +23,14 @@ sub form {
     # if textfield is empty we just display the starting page
     unless ($self->param('in_text')) {
         # EXIT
-        $self->render( message => 'Please make your choice.' );
+        my @messages = (
+            'The CPAN as your EBook.',
+            'Cook your Book.',
+            'Read POD everywhere.',
+            'Read Perl-Module-Documentation secretly in your bed at night.',
+        );
+        my $message = @messages[ int rand scalar @messages ];
+        $self->render( message => $message );
         return;
     }
     # otherwise we continue by checking the input
