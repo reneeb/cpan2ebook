@@ -12,7 +12,7 @@ use_ok 'PodBook';
 my $t = Test::Mojo->new('PodBook');
 $t->get_ok('/')->status_is(200)
   ->content_type_is('text/html;charset=UTF-8')
-  ->content_like(qr/CPAN search/i);
-$t->get_ok('/upload')->status_is(200)
+  ->content_like(qr/search/i);
+$t->get_ok('/about')->status_is(200)
   ->content_type_is('text/html;charset=UTF-8')
-  ->content_like(qr/Upload/i);
+  ->content_like(qr/About/i);
