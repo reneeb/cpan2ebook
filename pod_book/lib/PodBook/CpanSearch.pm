@@ -79,9 +79,12 @@ sub form {
     # So we can go on and try to process this request
 
     # lets load some values from the config file
-    my $config            = $self->config;
-    my $userblock_seconds = $config->{userblock_seconds};
+    my $config = $self->config;
+    my $userblock_seconds      = $config->{userblock_seconds};
     my $cpan_namespaces_source = $config->{cpan_namespaces_source};
+    my $cache_name             = $config->{caching_name};
+    my $caching_seconds        = $config->{caching_seconds};
+    my $tmp_dir                = $config->{tmp_dir};
 
     # translate the module/releasename to a releasename
     # EBook::MOBI -> EBook-MOBI
@@ -140,7 +143,8 @@ sub form {
         "metacpan::$module_name-$module_version",
         $type,
         $userblock_seconds,
-        'pod2cpan_webservice',
+        $cache_name,
+        $tmp_dir,
     );
 
     # we check if the user is using the page to fast
@@ -171,7 +175,6 @@ sub form {
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
-        my $tmp_dir         = $self->config->{tmp_dir};
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename;
 
@@ -235,7 +238,6 @@ sub form {
         $book_request->set_book($bin);
 
         # we finally have the EBook and cache it before delivering
-        my $caching_seconds = $config->{caching_seconds};
         $book_request->cache_book($caching_seconds);
 
         # send the EBook to the client
