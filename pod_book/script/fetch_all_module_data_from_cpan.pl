@@ -93,8 +93,8 @@ while (<$f>) {
         my $release = $2;
         my @suffixlist = ('.tar.gz', '.tgz', '.zip');
         my $basename = basename($release, @suffixlist);
-        if ($basename) {
-            $release = $basename;
+        if ($basename and $basename =~ m/(.+)-[\d\w\.]+$/) {
+            $release = $1;
         }
         else {
             #print "ERROR: $release\n";
