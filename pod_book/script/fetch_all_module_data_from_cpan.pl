@@ -86,18 +86,22 @@ while (<$f>) {
                 [\w\d\.]+
                 \s+
                 \w{1}\/\w{2}\/\w+\/
-                ([\w\d\-\.]+)
-                \.(tar\.gz|tgz|zip)
+                (.+)
               %x
        ) {
         my $module  = $1;
         my $release = $2;
-        if ($release =~ m/(.*)-[\w\d\.]+/) {
-            $release = $1;
+        my @suffixlist = ('.tar.gz', '.tgz', '.zip');
+        my $basename = basename($release, @suffixlist);
+        if ($basename) {
+            $release = $basename;
         }
-        #else {
+        else {
             #print "ERROR: $release\n";
-        #}
+            $nomatch++;
+            $nomatch_txt .= "BASENAME NOT FOUND IN RELEASE: $release\n";
+            next;
+        }
 
 #print $_;
 #print "$module\t$release\n";
