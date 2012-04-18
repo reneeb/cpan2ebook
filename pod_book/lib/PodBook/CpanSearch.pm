@@ -16,6 +16,8 @@ use EPublisher::Target::Plugin::Mobi;
 use PodBook::Utils::Request;
 use PodBook::Utils::CPAN::Names;
 
+our $VERSION = 0.1;
+
 # This action will render a template
 sub form {
     my $self = shift;

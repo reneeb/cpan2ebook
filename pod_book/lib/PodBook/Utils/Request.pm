@@ -6,6 +6,8 @@ use warnings;
 use CHI;         # for file caching
 use File::Spec;  # for cross platform temp dir
 
+our $VERSION = 0.1;
+
 # Constructor of this class
 sub new {
     my (
