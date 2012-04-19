@@ -66,6 +66,7 @@ sub form {
     my $pattern = $RE{net}{IPv4};
     if ($self->tx->remote_address =~ m/^($pattern)$/) {
         $remote_address = $1;
+        $self->app->log->debug( "Request IP: $remote_address" );
     }
     else {
         # EXIT if not matching...
