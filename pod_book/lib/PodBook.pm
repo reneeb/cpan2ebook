@@ -23,6 +23,11 @@ sub startup {
   # read config
   $self->plugin( 'YamlConfig', {file => $self->home . '/config.yml'} );
 
+  my $config = $self->config;
+  if ( $config->{reverse_proxy} ) {
+      $ENV{MOJO_REVERSE_PROXY} = 1;
+  }
+
 
   # Routes
   my $r = $self->routes;
