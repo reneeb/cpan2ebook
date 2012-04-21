@@ -28,15 +28,41 @@ my $cache = CHI->new(
 
 print "Should I purge all expired keys from the cache?\n";
 print "This operation may take a while and need some server load.\n";
-print "Type 'y' or 'Yes' to accept, or 'q' to deny: ";
+print "Type 'y' or 'Yes' to accept, 'q' or empty to skip: ";
 my $continue = <STDIN>;
 chomp $continue;
-if ($continue =~ /[yY]{1}e?s?/) {
+if ($continue =~ /y{1}e?s?/i) {
+    print 'cleanup keys...';
     $cache->purge();
+    print "DONE\n";
 }
 
 my @keys = $cache->get_keys();
 
-print sort join "\n", @keys;
+my @uid     = ();
+my @release = ();
+my @unknown =();
+foreach my $key (@keys) {
+    if ($key =~ m/^UID:([\d\.]+)$/) {
+        push (@uid, $1);
+    }
+    elsif ($key =~ m/^metacpan::(.*)/) {
+        push (@release, $1);
+    }
+    else {
+        push (@unknown, $key);
+    }
+}
+
+print "\n# " . @uid . " IP addresses found:\n";
+print join ("\n", (sort @uid));
+print "\n";
+
+print "\n# " . @release . " releases found:\n";
+print join ("\n", (sort @release));
+print "\n";
+
+print "\n# " . @unknown . " unknown found:\n";
+print join ("\n", (sort @unknown));
 print "\n";
 
