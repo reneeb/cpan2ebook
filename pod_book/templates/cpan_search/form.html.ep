@@ -1,7 +1,7 @@
 % layout 'main', title => 'cpan2ebook';
 <h1>Plain Old EBook</h1>
 <form action="/" method="post">
-  <input name="in_text" type="text" value="search" onchange="rm_msg()" />
+  <input id="in_text" type="text" value="search" onchange="rm_msg()" onkeypress="test()" />
   <br />
   <input name="EPUB" type="submit" value="EPUB" />
   <input name="MOBI" type="submit" value="MOBI" />
@@ -10,3 +10,4 @@
 <div id="msg">
   <%= $message %>
 </div>
+<!-- onkeypress="autocomplete()" -->

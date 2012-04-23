@@ -7,3 +7,4 @@ function rm_msg()
     // reset any error msg to standard msg if something new was typed
     document.getElementById( "msg" ).innerHTML = "Please make your choice.";
 }
+
