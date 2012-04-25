@@ -1,5 +1,5 @@
 % layout 'main', title => 'cpan2ebook';
-<h1>Plain Old EBook</h1>
+<h1>PerlYBook</h1>
 <form action="/" method="post">
   <input name="in_text" type="text" value="search" onchange="rm_msg()" />
   <br />
