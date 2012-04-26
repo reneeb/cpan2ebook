@@ -103,6 +103,7 @@ sub form {
     # therefore we will ask MetaCPAN
 
     # search metacpan
+    $self->app->log->debug( "Search MetaCPAN (release) for $module_name" );
     my $mcpan   = MetaCPAN::API->new;
     my $q       = sprintf "distribution:%s AND status:latest", $module_name;
     my $release = $mcpan->release(
