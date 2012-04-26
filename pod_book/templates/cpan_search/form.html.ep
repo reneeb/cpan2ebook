@@ -1,7 +1,7 @@
 % layout 'main', title => 'cpan2ebook';
 <h1>Plain Old EBook</h1>
 <form action="/" method="post">
-  <input id="in_text" type="text" />
+  <input id="in_text" name="in_text" type="text" />
   <br />
   <input name="EPUB" type="submit" value="EPUB" />
   <input name="MOBI" type="submit" value="MOBI" />
