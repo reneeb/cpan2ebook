@@ -3,7 +3,56 @@
   <head>
     <title><%= $title %></title>
     <link rel="stylesheet" type="text/css" href="main.css">
-    <script type="text/javascript" src="tricks.js"></script>
+    <!--BEGIN jQuery-UI Autocomplete-->
+    <link rel="stylesheet" type="text/css" href="development-bundle/themes/ui-lightness/jquery.ui.all.css">
+    <script src="development-bundle/jquery-1.7.2.js"></script>
+    <script src="development-bundle/ui/jquery.ui.core.js"></script>
+    <script src="development-bundle/ui/jquery.ui.widget.js"></script>
+    <script src="development-bundle/ui/jquery.ui.position.js"></script>
+    <script src="development-bundle/ui/jquery.ui.autocomplete.js"></script>
+    <script type="text/javascript">
+
+$( document ).ready( function() {
+    $( "#in_text" ).autocomplete({
+        source:
+        //According to: http://net.tutsplus.com/tutorials/javascript-ajax/how-to-use-the-jquery-ui-autocomplete-widget/
+            function(req, add) {
+
+                // replace ':' with ' ' because of problems in jQuery and
+                // MetaCPAN-API otherwhise
+                req.term = req.term.replace(/:/gi," ");
+
+                // pass request to server
+                $.getJSON(
+                    "http://api.metacpan.org/v0/search/autocomplete?",
+                    { q: req.term },//req,
+                    function(data) {
+
+                        //create array for response objects
+                        var suggestions = [];
+
+                        //process response
+                        // structure: data.hits.hits[0].fields.distribution
+                        data.hits.hits.forEach(function(val, i) {
+                            //we could also display distributions
+                            //suggestions.push(val.fields.distribution);
+                            //but for new we just show modules
+                            suggestions.push(val.fields.documentation);
+                        });
+
+                        //pass array to callback
+                        add(suggestions);
+                    }
+                );
+            },
+
+        minLength: 3, //default is 1, we reduce load on CPAN
+        delay: 400 //default is 300, but we protect metacpan to much load
+    });
+});
+
+    </script>
+    <!--END jQuery-UI Autocomplete-->
   </head>
   <body>
     <div id="all">
