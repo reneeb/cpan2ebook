@@ -102,10 +102,15 @@ sub form {
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
 
+    # meta cpan has trouble to find dists with ".pm" in its name, so remove it
+    my $module_name_metacpan = $module_name;
+    $module_name_metacpan    =~ s/\.pm\z//;
+
     # search metacpan
-    $self->app->log->debug( "Search MetaCPAN (release) for $module_name" );
+    $self->app->log->debug( "Search MetaCPAN (release) for $module_name_metacpan" );
+
     my $mcpan   = MetaCPAN::API->new;
-    my $q       = sprintf "distribution:%s AND status:latest", $module_name;
+    my $q       = sprintf "distribution:%s AND status:latest", $module_name_metacpan;
     my $release = $mcpan->release(
         search => {
             q      => $q,
