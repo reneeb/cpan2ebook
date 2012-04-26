@@ -12,13 +12,42 @@
     <script src="development-bundle/ui/jquery.ui.position.js"></script>
     <script src="development-bundle/ui/jquery.ui.autocomplete.js"></script>
     <script type="text/javascript">
-        $( document ).ready( function() {
-            var data = [ 'John', 'Jack', 'Joe', 'Lisa', 'Barbara' ];
-            $( "#in_text" ).autocomplete({
-                source: data,
-                minLength: 2
-            });
-        });
+
+$( document ).ready( function() {
+    $( "#in_text" ).autocomplete({
+        source:
+        //According to: http://net.tutsplus.com/tutorials/javascript-ajax/how-to-use-the-jquery-ui-autocomplete-widget/
+            function(req, add) {
+                console.log(req);
+
+                //pass request to server
+                $.getJSON(
+                    "http://api.metacpan.org/v0/search/autocomplete?",
+                    { q: req.term },//req,
+                    function(data) {
+                        console.log(data)
+
+                        //create array for response objects
+                        var suggestions = [];
+
+                        //process response
+                        //data.hits.hits[0].fields.distribution
+
+                        data.hits.hits.forEach(function(val, i) {
+                         //   suggestions.push(val.fields.distribution);
+                            suggestions.push(val.fields.documentation);
+                        });
+
+                        //pass array to callback
+                        add(suggestions);
+                    }
+                );
+            },
+
+        minLength: 2
+    });
+});
+
     </script>
   </head>
   <body>
