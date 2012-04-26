@@ -3,14 +3,23 @@
   <head>
     <title><%= $title %></title>
     <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" type="text/css" href="jquery.autocomplete.css">
     <script src="tricks.js" type="text/javascript"></script>
-    <script src="jquery.min.js" type="text/javascript"></script>
-    <script src="jquery.autocomplete.js" type="text/javascript"></script>
 
+    <link rel="stylesheet" type="text/css" href="development-bundle/themes/ui-lightness/jquery.ui.all.css">
+    <script src="development-bundle/jquery-1.7.2.js"></script>
+    <script src="development-bundle/ui/jquery.ui.core.js"></script>
+    <script src="development-bundle/ui/jquery.ui.widget.js"></script>
+    <script src="development-bundle/ui/jquery.ui.position.js"></script>
+    <script src="development-bundle/ui/jquery.ui.autocomplete.js"></script>
     <script type="text/javascript">
-        $("#in_text").autocomplete("http://api.metacpan.org/v0/search/autocomplete?q=EPub");
-        </script>
+        $( document ).ready( function() {
+            var data = [ 'John', 'Jack', 'Joe', 'Lisa', 'Barbara' ];
+            $( "#in_text" ).autocomplete({
+                source: data,
+                minLength: 2
+            });
+        });
+    </script>
   </head>
   <body>
     <div id="all">
