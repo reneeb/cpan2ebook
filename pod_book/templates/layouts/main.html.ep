@@ -18,23 +18,26 @@ $( document ).ready( function() {
         source:
         //According to: http://net.tutsplus.com/tutorials/javascript-ajax/how-to-use-the-jquery-ui-autocomplete-widget/
             function(req, add) {
-                console.log(req);
 
-                //pass request to server
+                // replace ':' with ' ' because of problems in jQuery and
+                // MetaCPAN-API otherwhise
+                req.term = req.term.replace(/:/gi," ");
+
+                // pass request to server
                 $.getJSON(
                     "http://api.metacpan.org/v0/search/autocomplete?",
                     { q: req.term },//req,
                     function(data) {
-                        console.log(data)
 
                         //create array for response objects
                         var suggestions = [];
 
                         //process response
-                        //data.hits.hits[0].fields.distribution
-
+                        // structure: data.hits.hits[0].fields.distribution
                         data.hits.hits.forEach(function(val, i) {
-                         //   suggestions.push(val.fields.distribution);
+                            //we could also display distributions
+                            //suggestions.push(val.fields.distribution);
+                            //but for new we just show modules
                             suggestions.push(val.fields.documentation);
                         });
 
@@ -44,7 +47,8 @@ $( document ).ready( function() {
                 );
             },
 
-        minLength: 2
+        minLength: 3, //default is 1, we reduce load on CPAN
+        delay: 400 //default is 300, but we protect metacpan to much load
     });
 });
 

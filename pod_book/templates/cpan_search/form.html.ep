@@ -10,4 +10,3 @@
 <div id="msg">
   <%= $message %>
 </div>
-<!-- onkeypress="autocomplete()" -->
