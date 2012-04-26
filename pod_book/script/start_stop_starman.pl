@@ -6,6 +6,8 @@ use warnings;
 use File::Basename;
 use File::Spec;
 
+my $workers = 10;
+
 my @ps        = `ps auwx`;
 my @processes = grep{ m/starman .*? --listen .*? :3030/xms }@ps;
 
@@ -21,6 +23,6 @@ my $dir = File::Spec->rel2abs( dirname __FILE__ );
 
 chdir $dir;
 
-my $command = 'starman --listen :3030 --workers 32';
+my $command = 'starman --listen :3030 --workers ' . $workers;
 #exec( $command );
 exec( "nohup $command &" );
