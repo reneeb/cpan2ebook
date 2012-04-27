@@ -8,6 +8,9 @@ our $VERSION = 0.1;
 sub form {
     my $self = shift;
 
+    # this line is needed because otherwise "About" crashes
+    $self->stash( listsize => 0 );
+
     $self->render();
 }
 
