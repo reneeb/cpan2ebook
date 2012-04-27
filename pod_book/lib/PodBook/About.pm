@@ -9,7 +9,7 @@ sub form {
     my $self = shift;
 
     # this line is needed because otherwise "About" crashes
-    $self->stash( listsize => 0 );
+    $self->stash( listsize => 1 );
 
     $self->render();
 }
