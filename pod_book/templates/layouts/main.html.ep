@@ -11,6 +11,7 @@
     <script src="development-bundle/ui/jquery.ui.position.js"></script>
     <script src="development-bundle/ui/jquery.ui.autocomplete.js"></script>
     <script type="text/javascript">
+var listsize = <%= $listsize %>;
 
 $( document ).ready( function() {
     $( "#in_text" ).autocomplete({
@@ -25,7 +26,7 @@ $( document ).ready( function() {
                 // pass request to server
                 $.getJSON(
                     "http://api.metacpan.org/v0/search/autocomplete?",
-                    { q: req.term },//req,
+                    { q: req.term, size: listsize },//req,
                     function(data) {
 
                         //create array for response objects

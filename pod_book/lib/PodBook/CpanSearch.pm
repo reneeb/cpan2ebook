@@ -22,6 +22,15 @@ our $VERSION = 0.1;
 sub form {
     my $self = shift;
 
+    # set size of autocompletion result list
+    my $listsize = $self->config->{autocompletion_size} || 10;
+    if ( $listsize =~ /\D/ or $listsize > 100 ) {
+        $listsize = 10;
+    }
+
+    $self->stash( listsize => $listsize );
+    
+
     # if textfield is empty we just display the starting page
     unless ($self->param('in_text')) {
         # EXIT

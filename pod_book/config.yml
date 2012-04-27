@@ -5,4 +5,5 @@ userblock_seconds: 2
 tmp_dir: /home/ebook/tmp
 cpan_namespaces_source: /home/ebook/cpan_names.db
 reverse_proxy: 1
+autocompletion_size: 12
 
