@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Controller';
 our $VERSION = 0.1;
 
 # This action will render a template
-sub form {
+sub list {
     my $self = shift;
 
     # this line is needed because otherwise "About" crashes
