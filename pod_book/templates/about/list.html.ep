@@ -1,4 +1,4 @@
-% layout 'main', title => 'cpan2ebook';
+% layout 'main', title => 'perlybook::about';
 <div id="about">
 
 <h1>About</h1>

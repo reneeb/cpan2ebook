@@ -1,4 +1,4 @@
-% layout 'main', title => 'cpan2ebook';
+% layout 'main', title => 'perlybook';
 <h1>PerlyBook</h1>
 <form action="/" method="post">
   <input id="in_text" name="in_text" type="text" />
