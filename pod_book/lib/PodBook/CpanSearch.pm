@@ -30,7 +30,6 @@ sub form {
     # lets load some values from the config file
     my $config = $self->config;
     my $userblock_seconds      = $config->{userblock_seconds};
-    my $cpan_namespaces_source = $config->{cpan_namespaces_source};
     my $cache_name             = $config->{caching_name};
     my $caching_seconds        = $config->{caching_seconds};
     my $tmp_dir                = $config->{tmp_dir};
