@@ -1,20 +1,22 @@
 package PodBook::CpanSearch;
 
+# this is a controller
 use Mojo::Base 'Mojolicious::Controller';
-use Mojo::Headers;
-use Regexp::Common 'net';
-use File::Slurp;
-use File::Temp 'tempfile';
-use JSON;
-use MetaCPAN::API;
 
+# the are the tools we need from CPAN
+use Mojo::Headers;
+use Mojo::UserAgent;
+use Regexp::Common 'net';
+use File::Temp 'tempfile';
+use File::Slurp 'read_file';
+use MetaCPAN::API;
 use EPublisher;
 use EPublisher::Source::Plugin::MetaCPAN;
 use EPublisher::Target::Plugin::EPub;
 use EPublisher::Target::Plugin::Mobi;
 
+# and some local tools
 use PodBook::Utils::Request;
-use PodBook::Utils::CPAN::Names;
 
 our $VERSION = 0.1;
 
@@ -22,18 +24,21 @@ our $VERSION = 0.1;
 sub form {
     my $self = shift;
 
-    # set size of autocompletion result list
+    # set size of autocompletion result list in the template (JavaScript)
     my $listsize = $self->config->{autocompletion_size} || 10;
     if ( $listsize =~ /\D/ or $listsize > 100 ) {
         $listsize = 10;
     }
-
     $self->stash( listsize => $listsize );
-    
 
     # if textfield is empty we just display the starting page
     unless ($self->param('in_text')) {
-        # EXIT
+
+        #################################################
+        # HERE THE STANDARD STARTING PAGE GETS RENDERED #
+        #################################################
+
+        # Some funny texts
         my @messages = (
             'The CPAN as your EBook.',
             'Cook your Book.',
@@ -42,8 +47,14 @@ sub form {
             'POD: Pod On Demand.',
             'Plain Old Documentation in Plain Old EBook.',
         );
+
+        # choose a funny text randomly
         my $message = @messages[ int rand scalar @messages ];
+
+        # and pass it to the template
         $self->render( message => $message );
+
+        # EXIT
         return;
     }
     # otherwise we continue by checking the input
@@ -97,67 +108,71 @@ sub form {
     my $caching_seconds        = $config->{caching_seconds};
     my $tmp_dir                = $config->{tmp_dir};
 
-    # translate the module/releasename to a releasename
-    # EBook::MOBI -> EBook-MOBI
-    # EBook-MOBI  -> EBook-MOBI
-    my $t = PodBook::Utils::CPAN::Names->new('DB', $cpan_namespaces_source);
-    $module_name = $t->translate_any2release($module_name);
-    unless ( $module_name ) {
-        # EXIT if no releasename found
-        $self->render( message => 'ERROR: Module name not found.' );
-        return;
-    }
+    # meta cpan has trouble to find dists with ".pm" in its name,
+    # so remove it
+    $module_name=~ s/\.pm\z//;
 
     # we need to know the most recent version of the module requested
     # therefore we will ask MetaCPAN
+    my $ua = Mojo::UserAgent->new;
 
-    # meta cpan has trouble to find dists with ".pm" in its name, so remove it
-    my $module_name_metacpan = $module_name;
-    $module_name_metacpan    =~ s/\.pm\z//;
+    # MetaCPAN-Autocompletion has trouble with :: so we replace it with
+    # url-encoded spaces (%20)
+    my $web_module_name = $module_name;
+    $web_module_name =~ s/:/%20/g;
 
-    # search metacpan
-    $self->app->log->debug( "Search MetaCPAN (release) for $module_name_metacpan" );
+    # we use the autocomplete feature of metacpan to match the user input
+    # to something valid. So the best match (the first -> size=1) is what
+    # the user gets
+    my $url = 'http://api.metacpan.org/v0/search/autocomplete?q='
+              . $web_module_name
+              . '&size=1';
 
-    my $mcpan   = MetaCPAN::API->new;
-    my $q       = sprintf "distribution:%s AND status:latest", $module_name_metacpan;
-    my $release = $mcpan->release(
-        search => {
-            q      => $q,
-            fields => "distribution,version,name",
-            size   => 1
-        },
-    );
+    # do the request
+    my $autocomplete = $ua->get($url)->res;
 
-    # we fill the result into this variable
-    my $module_version;
-    if ( $release ) {
-
-        $module_version = $release->{hits}->{hits}->[0]->{fields}->{version};
-        
-        unless ( $module_version ) {
-            # EXIT if there is no version...
-            # this seems to mean, that the module does not exist
-            $self->render(
-                message => "ERROR: Module not found"
-            );
-
-            return;
-        }
-
-    }
-    else {
-        # EXIT if we can't reach MetaCPAN
+    # if there is no result, MetaCPAN seems to have big trouble
+    unless ($autocomplete) {
         $self->render(
             message => "ERROR: Can't reach MetaCPAN"
         );
 
+        # Exit
+        return;
+    }
+
+    # if the answer is not json (e.g. html) it seems like our request was
+    # bad or that they do server maintenace
+    unless ($autocomplete->content->headers
+            ->{headers}->{'content-type'}->[0]->[0] =~ /json/) {
+        $self->render(
+            message => "ERROR: MetaCPAN does not answer as expected."
+        );
+
+        # Exit
+        return;
+    }
+
+    # extract the data we need from the json result
+    my $complete_release_name =
+        $autocomplete->json->{hits}->{hits}->[0]->{fields}->{release};
+    my $distribution =
+        $autocomplete->json->{hits}->{hits}->[0]->{fields}->{distribution};
+
+    # if this value is false, the module probably does not exist
+    unless ( $complete_release_name) {
+        $self->render(
+            message => "ERROR: Module not found"
+        );
+
+        # Exit
         return;
     }
 
     # finaly we have everything we need to build a request object!
     my $book_request = PodBook::Utils::Request->new(
         $remote_address,
-        "metacpan::$module_name-$module_version",
+        "metacpan::$complete_release_name",
         $type,
         $userblock_seconds,
         $cache_name,
@@ -165,7 +180,7 @@ sub form {
     );
 
     # we check if the user is using the page to fast
-    # TODO: would be nice it this would as the very first in code
+    # TODO: would be nice it this would be as the very first in code
     unless ($book_request->uid_is_allowed()) {
         # EXIT if he is to fast
         $self->render(
@@ -186,14 +201,14 @@ sub form {
 
         # send the book to the client
         $self->send_download_to_client($book,
-            "$module_name-$module_version.$type"
+            "$complete_release_name.$type"
         );
     }
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
-        unlink $filename;
+        unlink $filename; # we don't need the file, just the name of it
 
         # build the config for EPublisher
         my %config = ( 
@@ -201,13 +216,14 @@ sub form {
                 pod2cpan_webservice => {
                     source => {
                         type    => 'MetaCPAN',
-                        module => $module_name},
+                        module => $distribution
+                    },
                     target => { 
                         output => $filename,
-                        title  => "$module_name-$module_version",
+                        title  => $complete_release_name,
                         author => "Perl",
                         # this option is ignored by "type: epub"
-                        htmcover => "<h3>Perl Module Documentation</h3><h1>$module_name</h1>Module version: $module_version<br />Source: <a href='https://metacpan.org/'>https://metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>http://perl-services.de</a><br />"
+                        htmcover => "<h3>Perl Module Documentation</h3><h1>$complete_release_name</h1>Source: <a href='https://metacpan.org/'>https://metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>http://perl-services.de</a><br />"
                     }   
                 }   
             },  
@@ -259,7 +275,7 @@ sub form {
 
         # send the EBook to the client
         $self->send_download_to_client($bin,
-            "$module_name-$module_version.$type"
+            "$complete_release_name.$type"
         );
     }
 
