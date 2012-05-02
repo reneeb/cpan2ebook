@@ -8,5 +8,8 @@
   <br />
 </form>
 <div id="msg">
-  <%= $message %>
+  <p>
+    <%= $message %>
+  </p>
+  <%== $optional_message %>
 </div>

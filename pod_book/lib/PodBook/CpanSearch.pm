@@ -27,12 +27,24 @@ sub form {
 
     my $log = Mojo::Log->new(path => './CpanSearch.log', level => 'info');
 
+    # lets load some values from the config file
+    my $config = $self->config;
+    my $userblock_seconds      = $config->{userblock_seconds};
+    my $cpan_namespaces_source = $config->{cpan_namespaces_source};
+    my $cache_name             = $config->{caching_name};
+    my $caching_seconds        = $config->{caching_seconds};
+    my $tmp_dir                = $config->{tmp_dir};
+    my $opt_msg                = $config->{optional_message}  || '<!-- -->';
+    my $listsize               = $config->{autocompletion_size} || 10;
+
     # set size of autocompletion result list in the template (JavaScript)
-    my $listsize = $self->config->{autocompletion_size} || 10;
     if ( $listsize =~ /\D/ or $listsize > 100 ) {
         $listsize = 10;
     }
     $self->stash( listsize => $listsize );
+
+    # set the optional message no matter what happens!
+    $self->stash( optional_message => $opt_msg );
 
     # if textfield is empty we just display the starting page
     unless ($self->param('in_text')) {
@@ -55,7 +67,7 @@ sub form {
         my $message = @messages[ int rand scalar @messages ];
 
         # and pass it to the template
-        $self->render( message => $message );
+        $self->render( message => $message, optional_message => $opt_msg );
 
         # EXIT
         return;
@@ -103,14 +115,6 @@ sub form {
 
     # INPUT SEEMS SAVE!!!
     # So we can go on and try to process this request
-
-    # lets load some values from the config file
-    my $config = $self->config;
-    my $userblock_seconds      = $config->{userblock_seconds};
-    my $cpan_namespaces_source = $config->{cpan_namespaces_source};
-    my $cache_name             = $config->{caching_name};
-    my $caching_seconds        = $config->{caching_seconds};
-    my $tmp_dir                = $config->{tmp_dir};
 
     # meta cpan has trouble to find dists with ".pm" in its name,
     # so remove it
