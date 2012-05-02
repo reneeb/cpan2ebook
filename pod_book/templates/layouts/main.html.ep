@@ -2,6 +2,9 @@
 <html>
   <head>
     <title><%= $title %></title>
+    <meta name="description" content="Documentation of all the Perl modules, ready for your EBook. In EPub and Mobi format." />
+    <meta name="author" content="perl-services.de">
+    <meta name="keywords" content="ebook, cpan, metacpan, pod, kindle, epub, mobi, mobipocket, perl, perldoc, documentation, programming, module">
     <link href="favicon.ico" rel="icon" type="image/x-icon" /> <!-- thanks to http://www.favicon.cc/?action=icon&file_id=488098 -->
     <link rel="stylesheet" type="text/css" href="main.css">
     <!--BEGIN jQuery-UI Autocomplete-->
