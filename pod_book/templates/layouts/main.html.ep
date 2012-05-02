@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= $title %></title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon" /> <!-- thanks to http://www.favicon.cc/?action=icon&file_id=488098 -->
     <link rel="stylesheet" type="text/css" href="main.css">
     <!--BEGIN jQuery-UI Autocomplete-->
     <link rel="stylesheet" type="text/css" href="development-bundle/themes/ui-lightness/jquery.ui.all.css">
