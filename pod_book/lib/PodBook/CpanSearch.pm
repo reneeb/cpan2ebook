@@ -63,11 +63,11 @@ sub form {
     }
 
     # check if the module name in the text field is some what valid
-    my ($module_name) = $self->param('in_text') =~ m/^([\d\w\-:]+)$/;
+    my ($module_name) = $self->param('in_text') =~ m/^([[:print:]]+)$/;
 
     if ( !$module_name ) {
         # EXIT if not matching
-        $self->render( message => 'ERROR: Module name not accepted.' );
+        $self->render( message => 'ERROR: invalid chars in module name.' );
         return;
     }
 
