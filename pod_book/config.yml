@@ -1,4 +1,6 @@
 ---
+loglevel: info
+logpath_cpansearch: ./CpanSearch.log
 caching_seconds: 864000
 caching_name: cpan2ebook_webservice
 userblock_seconds: 2

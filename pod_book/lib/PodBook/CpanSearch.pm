@@ -25,16 +25,21 @@ our $VERSION = 0.1;
 sub form {
     my $self = shift;
 
-    my $log = Mojo::Log->new(path => './CpanSearch.log', level => 'info');
 
     # lets load some values from the config file
     my $config = $self->config;
+    my $loglevel               = $config->{loglevel} || 'debug';
+    my $logpath                = $config->{logpath_cpansearch} || './CpanSearch.log';
     my $userblock_seconds      = $config->{userblock_seconds};
     my $cache_name             = $config->{caching_name};
     my $caching_seconds        = $config->{caching_seconds};
     my $tmp_dir                = $config->{tmp_dir};
     my $opt_msg                = $config->{optional_message}  || '<!-- -->';
     my $listsize               = $config->{autocompletion_size} || 10;
+
+    my $log = Mojo::Log->new( path  => $logpath,
+                              level => $loglevel,
+                            );
 
     # set size of autocompletion result list in the template (JavaScript)
     if ( $listsize =~ /\D/ or $listsize > 100 ) {
