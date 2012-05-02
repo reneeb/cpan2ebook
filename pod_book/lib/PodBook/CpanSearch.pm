@@ -4,6 +4,7 @@ package PodBook::CpanSearch;
 use Mojo::Base 'Mojolicious::Controller';
 
 # the are the tools we need from CPAN
+use Mojo::Log;
 use Mojo::Headers;
 use Mojo::UserAgent;
 use Regexp::Common 'net';
@@ -23,6 +24,8 @@ our $VERSION = 0.1;
 # This action will render a template
 sub form {
     my $self = shift;
+
+    my $log = Mojo::Log->new(path => './CpanSearch.log', level => 'info');
 
     # set size of autocompletion result list in the template (JavaScript)
     my $listsize = $self->config->{autocompletion_size} || 10;
@@ -87,12 +90,13 @@ sub form {
     my $pattern = $RE{net}{IPv4};
     if ($self->tx->remote_address =~ m/^($pattern)$/) {
         $remote_address = $1;
-        $self->app->log->debug( "Request IP: $remote_address" );
+        $log->debug( "Request IP: $remote_address" );
     }
     else {
         # EXIT if not matching...
         # TODO: IPv6 will probably be a problem here...
         $self->render( message => 'ERROR: Are you a HACKER??!!.' );
+        $log->warn( "IP denied: $remote_address - is it IPv6?");
         return;
     }
 
@@ -188,10 +192,12 @@ sub form {
             . "- Only one request per $book_request->{uid_expiration} "
             . "seconds allowed."
         );
+        $log->warn( "fast request from: $remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
 
         return;
     }
 
+    $log->info( "eBook requested: $distribution");
 
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
