@@ -47,7 +47,7 @@ $( document ).ready( function() {
                 );
             },
 
-        minLength: 3, //default is 1, we reduce load on CPAN
+        minLength: 2, //default is 1, we reduce load on CPAN
         delay: 400 //default is 300, but we protect metacpan to much load
     });
 });
