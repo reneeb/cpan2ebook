@@ -5,12 +5,12 @@
 
 <h2>What is this website for?</h2>
 <p>
-  If you are not familiar with the Perl Programming Language this website probably is of no help for you. If you are a Programmer and Perl does not scare you (btw: why should it?) this website might be of intrest. You can download any module documentation available on <a href="http://metacpan.org">MetaCPAN</a>, reformatted for the most popular EBook-Readers.
+  If you are not familiar with the Perl programming language this website probably is of no help for you. If you are a programmer and Perl does not scare you (btw: why should it?) this website might be of interest. You can download any module documentation available on <a href="http://metacpan.org">MetaCPAN</a>, reformatted for the most popular EBook readers.
 </p>
 
 <h2>How did you do that?</h2>
 <p>
-  The following modules where crutial for this project:
+  The following modules were crucial for this project:
 </p>
 <ul>
   <li>
