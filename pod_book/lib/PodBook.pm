@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
+use Mojo::Log;
 
 our $VERSION = 0.1;
 
@@ -28,6 +29,16 @@ sub startup {
       $ENV{MOJO_REVERSE_PROXY} = 1;
   }
 
+  # set log level
+  $self->app->log(
+      Mojo::Log->new(
+          level => ( $config->{logging}->{level} || 'debug' ),
+          path  => ( $config->{logging}->{path}->{general} || $self->home . '/perlybook.log' ),
+      )
+  );
+
+  # set new passphrase
+  $self->app->secret( $config->{secret} || 'secret' );
 
   # Routes
   my $r = $self->routes;

@@ -4,13 +4,13 @@ package PodBook::CpanSearch;
 use Mojo::Base 'Mojolicious::Controller';
 
 # the are the tools we need from CPAN
-use Mojo::Log;
 use Mojo::Headers;
 use Mojo::UserAgent;
 use Regexp::Common 'net';
 use File::Temp 'tempfile';
 use File::Slurp 'read_file';
 use MetaCPAN::API;
+
 use EPublisher;
 use EPublisher::Source::Plugin::MetaCPAN;
 use EPublisher::Target::Plugin::EPub;
@@ -28,18 +28,14 @@ sub form {
 
     # lets load some values from the config file
     my $config = $self->config;
-    my $loglevel               = $config->{loglevel} || 'debug';
-    my $logpath                = $config->{logpath_cpansearch} || './CpanSearch.log';
     my $userblock_seconds      = $config->{userblock_seconds};
-    my $cache_name             = $config->{caching_name};
-    my $caching_seconds        = $config->{caching_seconds};
+    my $cache_name             = $config->{caching}->{name};
+    my $caching_seconds        = $config->{caching}->{seconds};
     my $tmp_dir                = $config->{tmp_dir};
-    my $opt_msg                = $config->{optional_message}  || '<!-- -->';
-    my $listsize               = $config->{autocompletion_size} || 10;
+    my $opt_msg                = $config->{optional_message}              || '<!-- -->';
+    my $listsize               = $config->{autocompletion_size}           || 10;
 
-    my $log = Mojo::Log->new( path  => $logpath,
-                              level => $loglevel,
-                            );
+    my $log = $self->app->log;
 
     # set size of autocompletion result list in the template (JavaScript)
     if ( $listsize =~ /\D/ or $listsize > 100 ) {
@@ -89,6 +85,7 @@ sub form {
     else {
         # EXIT if unknown
         $self->render( message => 'ERROR: Type of ebook unknown.' );
+        $self->app->log->warn( 'Type of ebook unknown' );
         return;
     }
 
@@ -98,6 +95,7 @@ sub form {
     if ( !$module_name ) {
         # EXIT if not matching
         $self->render( message => 'ERROR: invalid chars in module name.' );
+        $self->app->log->info( 'invalid chars in module name: ' . $self->param( 'in_text' ) );
         return;
     }
 
@@ -148,6 +146,7 @@ sub form {
         $self->render(
             message => "ERROR: Can't reach MetaCPAN"
         );
+        $self->app->log->error( 'Cannot reach MetaCPAN' );
 
         # Exit
         return;
@@ -160,16 +159,16 @@ sub form {
         $self->render(
             message => "ERROR: MetaCPAN does not answer as expected."
         );
+        $self->app->log->error( 'MetaCPANs response looks unexpected' );
 
         # Exit
         return;
     }
 
     # extract the data we need from the json result
-    my $complete_release_name =
-        $autocomplete->json->{hits}->{hits}->[0]->{fields}->{release};
-    my $distribution =
-        $autocomplete->json->{hits}->{hits}->[0]->{fields}->{distribution};
+    my $fields                = $autocomplete->json->{hits}->{hits}->[0]->{fields};
+    my $complete_release_name = $fields->{release};
+    my $distribution          = $fields->{distribution};
 
     # if this value is false, the module probably does not exist
     unless ( $complete_release_name) {

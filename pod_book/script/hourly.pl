@@ -20,7 +20,7 @@ my $config    = YAML::Tiny->read(
 );
 
 my $cache_dir       = $config->[0]->{tmp_dir};
-my $cache_namespace = $config->[0]->{caching_name};
+my $cache_namespace = $config->[0]->{caching}->{name};
 
 # load the cache
 my $cache = CHI->new(

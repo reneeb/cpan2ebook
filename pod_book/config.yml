@@ -1,10 +1,14 @@
 ---
-loglevel: info
-logpath_cpansearch: ./CpanSearch.log
-caching_seconds: 864000
-caching_name: cpan2ebook_webservice
+logging:
+  level: info
+  path:
+    general: /home/ebook/perlybook.log
+caching:
+  seconds: 864000
+  name: cpan2ebook_webservice
 userblock_seconds: 2
 tmp_dir: /home/ebook/tmp
 reverse_proxy: 1
 autocompletion_size: 12
 optional_message: <br /><br /><br /><p><small>This website just came into the world. Please report any problems <a href='https://github.com/reneeb/cpan2ebook/issues'>here</a>.</small></p>
+secret: mypassphrase

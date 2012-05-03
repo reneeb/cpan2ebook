@@ -17,7 +17,7 @@ my $yaml    = YAML::Tiny->read(
 $| = 1;
 
 my $cache_dir       = $yaml->[0]->{tmp_dir};
-my $cache_namespace = $yaml->[0]->{caching_name};
+my $cache_namespace = $yaml->[0]->{caching}->{name};
 
 # load the cache
 my $cache = CHI->new(
