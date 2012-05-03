@@ -236,7 +236,7 @@ sub form {
                         title  => $complete_release_name,
                         author => "Perl",
                         # this option is ignored by "type: epub"
-                        htmcover => "<h3>Perl Module Documentation</h3><h1>$complete_release_name</h1>Source: <a href='https://metacpan.org/'>https://metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>http://perl-services.de</a><br />"
+                        htmcover => "<h3>Perl Module Documentation</h3><h1>$complete_release_name</h1>Data source: <a href='https://metacpan.org/'>metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>perl-services.de</a><br />Downloaded from: <a href='http://perlybook.org'>perlybook.org</a><br />"
                     }   
                 }   
             },  
