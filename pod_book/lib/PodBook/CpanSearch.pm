@@ -61,6 +61,7 @@ sub form {
             'Read Perl-Module-Documentation secretly in your bed at night.',
             'POD: Pod On Demand.',
             'Plain Old Documentation in Plain Old EBook.',
+            #'write perlybook, say ˈpɜːlˈiːbʊk',
         );
 
         # choose a funny text randomly
