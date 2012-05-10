@@ -100,6 +100,9 @@ sub form {
         return;
     }
 
+    # check if the complete release should be in the book
+    my ($merge_release) = $self->param('book_selection') =~ m/^([[:print:]]+)$/;
+
     # check the remote IP... just to be sure!!! (like taint mode)
     my $remote_address;
     my $pattern = $RE{net}{IPv4};
@@ -256,6 +259,13 @@ sub form {
         else {
             # EXIT
             $self->render( message => 'ERROR: unknown book-type' );
+        }
+
+        # Overwrite config if not the complete release is wanted
+        unless ($merge_release eq 'distribution') {
+            $config{config}{pod2cpan_webservice}{source}{onlythis} = 'true';
+            $config{config}{pod2cpan_webservice}{source}{module}
+                = $module_name;
         }
 
         my $publisher = EPublisher->new(
