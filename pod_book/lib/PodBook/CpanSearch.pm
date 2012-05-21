@@ -101,7 +101,11 @@ sub form {
     }
 
     # check if the complete release should be in the book
-    my ($merge_release) = $self->param('book_selection') =~ m/^([[:print:]]+)$/;
+    my $merge_release = 0;
+    if ($self->param('book_selection')) {
+        ($merge_release) =
+            $self->param('book_selection') =~ m/^([[:print:]]+)$/;
+    }
 
     # check the remote IP... just to be sure!!! (like taint mode)
     my $remote_address;
@@ -184,10 +188,30 @@ sub form {
         return;
     }
 
+    # create book name for the donwload, we do it already here, because
+    # we now have the info and it's messy to do it below in the code
+    my $book_name;
+    if ($merge_release) {
+        $book_name = "Release_$complete_release_name.$type";
+    }
+    else {
+        my $file_module_name = $module_name;
+        $file_module_name =~ s/:/-/g;
+        $file_module_name =~ s/--/-/g;
+        $book_name = "Module_$file_module_name.$type";
+    }
+
     # finaly we have everything we need to build a request object!
+    my $cache_prefix;
+    if ($merge_release) {
+        $cache_prefix = 'metacpan';
+    }
+    else {
+        $cache_prefix = "metacpan::moduleonly::$module_name";
+    }
     my $book_request = PodBook::Utils::Request->new(
         $remote_address,
-        "metacpan::$complete_release_name",
+        $cache_prefix . '::' . $complete_release_name,
         $type,
         $userblock_seconds,
         $cache_name,
@@ -217,9 +241,7 @@ sub form {
         my $book = $book_request->get_book();
 
         # send the book to the client
-        $self->send_download_to_client($book,
-            "$complete_release_name.$type"
-        );
+        $self->send_download_to_client($book, $book_name);
     }
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
@@ -298,9 +320,7 @@ sub form {
         $book_request->cache_book($caching_seconds);
 
         # send the EBook to the client
-        $self->send_download_to_client($bin,
-            "$complete_release_name.$type"
-        );
+        $self->send_download_to_client($bin, $book_name);
     }
 
     # if we reach here... something is wrong!
