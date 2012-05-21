@@ -232,7 +232,7 @@ sub form {
         return;
     }
 
-    $log->info( "eBook requested: $distribution");
+    $log->info( "Request from $remote_address, looking up '$module_name', mapping to '$distribution' from '$complete_release_name'");
 
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
@@ -336,6 +336,8 @@ sub debug_epublisher {
 
 sub send_download_to_client {
     my ($self, $data, $name) = @_;
+
+    $self->app->log->info("Sending for download: '$name'");
 
     my $headers = Mojo::Headers->new();
     $headers->add(
