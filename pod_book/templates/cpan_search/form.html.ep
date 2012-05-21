@@ -3,7 +3,7 @@
 <form action="/" method="post">
   <input id="in_text" name="in_text" type="text" />
   <br />
-  <input type="checkbox" name="book_selection" value="distribution" checked> fetch complete release
+  <small><input type="checkbox" name="book_selection" value="distribution" checked> fetch complete release</small>
   <br />
   <input name="EPUB" type="submit" value="EPUB" />
   <input name="MOBI" type="submit" value="MOBI" />

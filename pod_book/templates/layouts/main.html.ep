@@ -69,7 +69,7 @@ $( document ).ready( function() {
         <%= content %>
       </div>
       <div id="thanks">
-        <a href="http://www.perl.org/"><img src="powered_by_perl-135px.png" border="0"></a>
+        <a href="http://www.perl.org/"><img src="powered_by_perl-135px.png" border="0" alt="Powered by Perl"></a>
       </div>
     </div>
   </body>
