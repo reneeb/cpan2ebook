@@ -1,4 +1,4 @@
-% layout 'main', title => 'perlybook::about';
+% layout 'main', title => 'perlybook::about', appversion => $appversion;
 <div id="about">
 
 <h1>About</h1>

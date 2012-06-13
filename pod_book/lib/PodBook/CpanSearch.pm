@@ -19,8 +19,6 @@ use EPublisher::Target::Plugin::Mobi;
 # and some local tools
 use PodBook::Utils::Request;
 
-our $VERSION = 0.1;
-
 # This action will render a template
 sub form {
     my $self = shift;
@@ -45,6 +43,9 @@ sub form {
 
     # set the optional message no matter what happens!
     $self->stash( optional_message => $opt_msg );
+
+    # we need to know the version number in the template
+    $self->stash( appversion => $PodBook::VERSION );
 
     # if textfield is empty we just display the starting page
     unless ($self->param('in_text')) {

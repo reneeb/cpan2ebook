@@ -4,6 +4,7 @@
   text-align: center;
 }
 
+/* navi style */
 #navi {
   position:absolute;
   top:10px;
@@ -14,18 +15,32 @@ a.navitem {
   color: black;
 }
 
-#content {
-  margin: 90px;
+/* version info is next to navi */
+#appversion {
+  font-size:small;
+  font-style:italic;
+  color:gray;
 }
 
-#about {
-  text-align: left;
+a.appversion {
+  color: gray;
+}
+
+/* some margins because we can */
+#content {
+  margin: 90px;
 }
 
 #msg {
   margin: 30px;
 }
 
+/* the About-page is text, so not centered */
+#about {
+  text-align: left;
+}
+
+/* position of the Perl logo */
 #thanks {
   position:absolute;
   bottom:50px;

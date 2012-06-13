@@ -1,4 +1,4 @@
-% layout 'main', title => 'perlybook';
+% layout 'main', title => 'perlybook', appversion => $appversion;
 <h1>PerlyBook</h1>
 <form action="/" method="post">
   <input id="in_text" name="in_text" type="text" />
