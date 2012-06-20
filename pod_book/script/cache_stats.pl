@@ -39,6 +39,13 @@ if ($continue =~ /y{1}e?s?/i) {
 
 my @keys = $cache->get_keys();
 
+# if option --keys is set we print the original keys!
+if (defined $ARGV[0] and $ARGV[0] eq '--keys') {
+    print join "\n", @keys;
+    print "\n";
+    exit 0;
+}
+
 my @uid     = ();
 my @release = ();
 my @unknown =();
