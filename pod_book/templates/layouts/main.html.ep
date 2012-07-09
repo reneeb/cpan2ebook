@@ -64,6 +64,7 @@ $( document ).ready( function() {
       <div id="navi">
         <a class="navitem" href="/">Home</a>
         <a class="navitem" href="/about">About</a>
+        <a class="navitem" href="http://blogs.perl.org/users/perlybook">Blog</a>
         <span id="appversion">
           Release 
           <a class="appversion" href="https://github.com/reneeb/cpan2ebook/blob/master/Changes">v<%= $appversion %></a>
