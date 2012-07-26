@@ -146,7 +146,6 @@ sub form {
 
     # now we first search in the modules if there is something
     eval {
-        print "\nTEST: MODULE\n";
         $module_info = $mcpan->fetch("module/$module_name");
 
         $complete_release_name = $module_info->{release};
@@ -154,7 +153,6 @@ sub form {
     }
     # if not we look in the releases
     or eval {
-        print "\nTEST: RELEASE\n";
         $module_info = $mcpan->fetch("release/$module_name");
 
         $complete_release_name = $module_info->{name};
@@ -162,7 +160,6 @@ sub form {
     }
     # if nothing matches we can't deliver anything!
     or do {
-        print "\nTEST: FAIL\n";
         $self->render( message =>
             "MetaCPAN is down or does not know a module/release with the given name: '$module_name'"
         );
