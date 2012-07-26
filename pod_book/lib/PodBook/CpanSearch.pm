@@ -134,63 +134,41 @@ sub form {
     # so remove it
     $module_name=~ s/\.pm\z//;
 
-    # we need to know the most recent version of the module requested
-    # therefore we will ask MetaCPAN
-    my $ua = Mojo::UserAgent->new;
+    # sadly we have to do some redundant work...
+    # the EPublisher will later, again query MetaCPAN, but we need some info
+    # now. So we do the work twice, now and later with EPublisher.
+    my $mcpan = MetaCPAN::API->new();
+    my $module_info;
 
-    # MetaCPAN-Autocompletion has trouble with :: so we replace it with
-    # url-encoded spaces (%20)
-    my $web_module_name = $module_name;
-    $web_module_name =~ s/:/%20/g;
+    # the info we need (for file storage and caching)
+    my $complete_release_name;
+    my $distribution;
 
-    # we use the autocomplete feature of metacpan to match the user input
-    # to something valid. So the best match (the first -> size=1) is what
-    # the user gets
-    my $url = 'http://api.metacpan.org/v0/search/autocomplete?q='
-              . $web_module_name
-              . '&size=1';
+    # now we first search in the modules if there is something
+    eval {
+        print "\nTEST: MODULE\n";
+        $module_info = $mcpan->fetch("module/$module_name");
 
-    # do the request
-    my $autocomplete = $ua->get($url)->res;
-
-    # if there is no result, MetaCPAN seems to have big trouble
-    unless ($autocomplete) {
-        $self->render(
-            message => "ERROR: Can't reach MetaCPAN"
-        );
-        $self->app->log->error( 'Cannot reach MetaCPAN' );
-
-        # Exit
-        return;
+        $complete_release_name = $module_info->{release};
+        $distribution          = $module_info->{distribution};
     }
+    # if not we look in the releases
+    or eval {
+        print "\nTEST: RELEASE\n";
+        $module_info = $mcpan->fetch("release/$module_name");
 
-    # if the answer is not json (e.g. html) it seems like our request was
-    # bad or that they do server maintenace
-    unless ($autocomplete->content->headers
-            ->{headers}->{'content-type'}->[0]->[0] =~ /json/) {
-        $self->render(
-            message => "ERROR: MetaCPAN does not answer as expected."
-        );
-        $self->app->log->error( 'MetaCPANs response looks unexpected' );
-
-        # Exit
-        return;
+        $complete_release_name = $module_info->{name};
+        $distribution          = $module_info->{distribution};
     }
-
-    # extract the data we need from the json result
-    my $fields                = $autocomplete->json->{hits}->{hits}->[0]->{fields};
-    my $complete_release_name = $fields->{release};
-    my $distribution          = $fields->{distribution};
-
-    # if this value is false, the module probably does not exist
-    unless ( $complete_release_name) {
-        $self->render(
-            message => "ERROR: Module not found"
+    # if nothing matches we can't deliver anything!
+    or do {
+        print "\nTEST: FAIL\n";
+        $self->render( message =>
+            "MetaCPAN is down or does not know a module/release with the given name: '$module_name'"
         );
-
-        # Exit
+        $log->info( "MetaCPAN down or not found: '$module_name'");
         return;
-    }
+    };
 
     # create book name for the download, we do it already here, because
     # we now have the info and it's messy to do it below in the code
@@ -199,6 +177,7 @@ sub form {
         $book_name = "Release_$complete_release_name.$type";
     }
     else {
+        # $module_name may contain '::' which should become '-'
         my $file_module_name = $module_name;
         $file_module_name =~ s/:/-/g;
         $file_module_name =~ s/--/-/g;
