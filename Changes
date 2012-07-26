@@ -1,5 +1,11 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.13  2012-07-26
+
+    - Direct download from Kindle Reader possible now (issue22)
+    - Solved issue12, bug coming from missuse of autocompletion
+    - minor code syntax enhancements
+
 0.12  2012-07-09
 
     - Added link to blog
