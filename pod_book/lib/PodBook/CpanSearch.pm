@@ -322,7 +322,8 @@ sub send_download_to_client {
     my $headers = Mojo::Headers->new();
     $headers->add(
         'Content-Type',
-        "application/x-mobipocket-ebook ; name=$name"
+        "application/octet-stream; name=$name"
+        #application/x-mobipocket-ebook would be for mobi specific...
     );
     $headers->add(
         'Content-Disposition',
