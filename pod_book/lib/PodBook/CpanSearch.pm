@@ -322,7 +322,7 @@ sub send_download_to_client {
     my $headers = Mojo::Headers->new();
     $headers->add(
         'Content-Type',
-        "application/x-download; name=$name"
+        "application/x-mobipocket-ebook ; name=$name"
     );
     $headers->add(
         'Content-Disposition',
