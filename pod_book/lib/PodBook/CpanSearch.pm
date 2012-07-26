@@ -161,7 +161,7 @@ sub form {
     # if nothing matches we can't deliver anything!
     or do {
         $self->render( message =>
-            "MetaCPAN is down or does not know a module/release with the given name: '$module_name'"
+            "MetaCPAN is down or does not know a module/release with the given name: '$module_name' (case sensitive)."
         );
         $log->info( "MetaCPAN down or not found: '$module_name'");
         return;
