@@ -30,8 +30,10 @@ sub form {
     my $cache_name             = $config->{caching}->{name};
     my $caching_seconds        = $config->{caching}->{seconds};
     my $tmp_dir                = $config->{tmp_dir};
-    my $opt_msg                = $config->{optional_message}              || '<!-- -->';
-    my $listsize               = $config->{autocompletion_size}           || 10;
+    my $opt_msg                = $config->{optional_message}
+                                 || '<!-- -->';
+    my $listsize               = $config->{autocompletion_size}
+                                 || 10;
 
     my $log = $self->app->log;
 
@@ -97,7 +99,8 @@ sub form {
     if ( !$module_name ) {
         # EXIT if not matching
         $self->render( message => 'ERROR: invalid chars in module name.' );
-        $self->app->log->info( 'invalid chars in module name: ' . $self->param( 'in_text' ) );
+        $self->app->log->info( 'invalid chars in module name: '
+                                . $self->param( 'in_text' ) );
         return;
     }
 
@@ -189,7 +192,7 @@ sub form {
         return;
     }
 
-    # create book name for the donwload, we do it already here, because
+    # create book name for the download, we do it already here, because
     # we now have the info and it's messy to do it below in the code
     my $book_name;
     if ($merge_release) {
