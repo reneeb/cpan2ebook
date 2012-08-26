@@ -1,0 +1,12 @@
+# modules needed on fresh perl system
+cpanm EBook::MOBI
+cpanm Mojolicious
+cpanm Mojolicious::Plugin::YamlConfig
+cpanm Regexp::Common
+cpanm File::Slurp
+cpanm MetaCPAN::API
+cpanm EPublisher
+cpanm EPublisher::Source::Plugin::MetaCPAN
+cpanm EPublisher::Target::Plugin::EPub
+cpanm EPublisher::Target::Plugin::Mobi
+cpanm CHI
