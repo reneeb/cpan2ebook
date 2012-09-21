@@ -1,6 +1,13 @@
 % layout 'main', title => 'perlybook::perltuts.com', appversion => $appversion;
-<div id="perltuts">
 
+<div style="text-align: left;">
+<p>
+<a href="http://perltuts.com"><img src="http://perltuts.com/img/perltuts.png"></a>
+provides various modern Perl tutorials and 
+thanks to <a href="http://showmetheco.de">Viacheslav Tykhanovskyi</a> who gave us permission
+to make the ebooks.
+</p>
+<p>
 Available Tutorials:
 <ul>
 % for my $tut ( @{$tutorials} ) {
@@ -10,10 +17,9 @@ Available Tutorials:
   </li>
 % }
 <ul>
-
-
-
+</p>
 </div>
+
 <div id="msg">
   <p>
     <%= $message %>
