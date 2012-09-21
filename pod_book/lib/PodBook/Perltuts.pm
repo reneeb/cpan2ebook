@@ -27,7 +27,7 @@ sub list {
     my $log = $self->app->log;
 
     # we need to know the version number in the template
-    $self->stash( appversion => $PodBook::VERSION, listsize => 1 );
+    $self->stash( appversion => $PodBook::VERSION, listsize => 1, optional_message => '' );
 
     # get list of tutorials from cache
     my @tutorials = $self->_get_tutorial_list();
@@ -53,7 +53,7 @@ sub list {
     }
 
     # check if tutorial exists
-    my $name = $self->param('tutorial');
+    my $name = decode_utf8( $self->param('tutorial') );
     if ( !grep{ $name eq $_ }@tutorials ) {
         $self->render( message => 'ERROR: tutorial does not exist.' );
         $self->app->log->info( "tutorial $name does not exist" );
@@ -141,6 +141,8 @@ sub send_download_to_client {
     my ($self, $data, $name) = @_;
 
     $self->app->log->info("Sending for download: '$name'");
+
+    $name = encode_utf8( $name );
 
     my $headers = Mojo::Headers->new();
     $headers->add(
