@@ -44,9 +44,9 @@ sub startup {
   my $r = $self->routes;
 
   # Normal route to controller
-  $r->route('/')      ->to('cpan_search#form');
-  $r->route('/about') ->to('about#list');
-
+  $r->route('/')        ->to('cpan_search#form');
+  $r->route('/about')   ->to('about#list');
+  $r->route('/perltuts')->to('perltuts#list');
 }
 
 1;

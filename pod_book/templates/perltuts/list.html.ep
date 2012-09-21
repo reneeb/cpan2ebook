@@ -1,0 +1,23 @@
+% layout 'main', title => 'perlybook::perltuts.com', appversion => $appversion;
+<div id="perltuts">
+
+Available Tutorials:
+<ul>
+% for my $tut ( @{$tutorials} ) {
+  <li><%= $tut %> &middot;
+      <a href="?tutorial=<%= $tut %>;format=epub">epub</a> &middot;
+      <a href="?tutorial=<%= $tut %>;format=mobi">mobi</a> 
+  </li>
+% }
+<ul>
+
+
+
+</div>
+<div id="msg">
+  <p>
+    <%= $message %>
+  </p>
+  <%== $optional_message %>
+</div>
+
