@@ -1,5 +1,9 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.14  2012-09-21
+
+    - integrate perltuts.com tutorials: perlybook.org/perltuts
+
 0.13  2012-07-26
 
     - Direct download from Kindle Reader possible now (issue22)
