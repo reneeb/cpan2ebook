@@ -31,7 +31,6 @@ sub list {
 
     # get list of tutorials from cache
     my @tutorials = $self->_get_tutorial_list();
-    $log->error( 'test' );
 
     $self->stash( tutorials => \@tutorials );
 
