@@ -10,3 +10,5 @@ cpanm EPublisher::Source::Plugin::MetaCPAN
 cpanm EPublisher::Target::Plugin::EPub
 cpanm EPublisher::Target::Plugin::Mobi
 cpanm CHI
+cpanm Data::Serializer
+
