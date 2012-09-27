@@ -62,7 +62,8 @@ $( document ).ready( function() {
   <body>
     <div id="all">
       <div id="navi">
-        <a class="navitem" href="/">Home</a>
+        <a class="navitem" href="/">CPAN</a>
+        <a class="navitem" href="/perltuts">Perltuts</a>
         <a class="navitem" href="/about">About</a>
         <a class="navitem" href="http://blogs.perl.org/users/perlybook">Blog</a>
         <span id="appversion">
