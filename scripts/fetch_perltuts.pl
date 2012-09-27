@@ -44,12 +44,13 @@ my $yaml = YAML::Tiny->read( $file );
 
 die "anything with YAML parsing went wrong!" if !$yaml;
 
-my $tmpdir = $yaml->[0]->{tmp_dir};
+my $tmpdir    = $yaml->[0]->{tmp_dir};
+my $namespace = $yaml->[0]->{caching}->{perltuts};
 
 my $cache  = CHI->new(
     driver     => 'File',
     root_dir   => $tmpdir,
-    namespace  => 'PerltutsCom',
+    namespace  => $namespace,
     serializer => 'Storable',
 );
 

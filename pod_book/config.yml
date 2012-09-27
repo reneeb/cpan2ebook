@@ -6,6 +6,7 @@ logging:
 caching:
   seconds: 864000
   name: cpan2ebook_webservice
+  perltuts: PerltutsCom
 userblock_seconds: 2
 tmp_dir: /home/ebook/tmp
 reverse_proxy: 1

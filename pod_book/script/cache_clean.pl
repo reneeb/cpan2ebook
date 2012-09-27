@@ -20,18 +20,24 @@ my $config    = YAML::Tiny->read(
 );
 
 my $cache_dir       = $config->[0]->{tmp_dir};
-my $cache_namespace = $config->[0]->{caching}->{name};
 
-# load the cache
-my $cache = CHI->new(
-    driver   => 'File',
-    root_dir => $cache_dir,
-    namespace=> $cache_namespace,
-); 
+for my $key ( qw/name perltuts/ ) {
 
-print scalar localtime;
-print " - remove old data from cache: $cache_dir/$cache_namespace\n";
-$cache->purge();
+    my $cache_namespace = $config->[0]->{caching}->{$key};
+    next if @ARGV and !grep{ $cache_namespace eq $_ }@ARGV;
+    
+    # load the cache
+    my $cache = CHI->new(
+        driver   => 'File',
+        root_dir => $cache_dir,
+        namespace=> $cache_namespace,
+    ); 
+    
+    print scalar localtime;
+    print " - remove old data from cache: $cache_dir/$cache_namespace\n";
+    $cache->purge();
+}
+
 print scalar localtime;
 print " - DONE\n";
 
