@@ -1,5 +1,11 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.15  2012-09-27
+
+    - Mention Perltuts in About and menu
+    - Better caching automatisation for Perltuts
+    - remove old debug-log-message in Perltuts
+
 0.14  2012-09-21
 
     - integrate perltuts.com tutorials: perlybook.org/perltuts
