@@ -6,7 +6,6 @@ use Mojo::Base 'Mojolicious::Controller';
 # the are the tools we need from CPAN
 use Mojo::Headers;
 use Mojo::UserAgent;
-use Regexp::Common 'net';
 use File::Temp 'tempfile';
 use File::Slurp 'read_file';
 use Encode;
@@ -66,22 +65,8 @@ sub list {
 
     my $book_name = $name . '.' . $type;
 
-    # check the remote IP... just to be sure!!! (like taint mode)
-    my $remote_address;
-    my $pattern = $RE{net}{IPv4};
-    if ($self->tx->remote_address =~ m/^($pattern)$/) {
-        $remote_address = $1;
-        $log->debug( "Request IP: $remote_address" );
-    }
-    else {
-        # EXIT if not matching...
-        # TODO: IPv6 will probably be a problem here...
-        $self->render( message => 'Problem with your IP', optional_message => '' );
-        return;
-    }
-
     my $book_request = PodBook::Utils::Request->new(
-        user_id               => $remote_address,
+        user_id               => $self->tx->remote_address,
         item_key              => $name,
         item_type             => $type,
         access_interval_limit => $userblock_seconds,
@@ -93,12 +78,13 @@ sub list {
     unless ($book_request->uid_is_allowed()) {
         # EXIT if he is to fast
         $self->render(
-            message => "ERROR: To many requests from: $remote_address "
+            message => 'ERROR: To many requests from: '
+            . $self->tx->remote_address
             . "- Only one request per $book_request->{uid_expiration} "
             . "seconds allowed.",
             optional_message => '',
         );
-        $log->warn( "Perltuts: fast request from: $remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
+        $log->warn( "Perltuts: fast request from: $self->tx->remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
     }
 
     # check if we have the book already in cache

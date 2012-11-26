@@ -3,8 +3,6 @@ package PodBook::Utils::Request;
 use strict;
 use warnings;
 
-use File::Spec;  # for cross platform temp dir
-
 our $VERSION = 0.1;
 
 # Constructor of this class
