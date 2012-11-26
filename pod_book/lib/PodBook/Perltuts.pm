@@ -19,7 +19,6 @@ sub list {
 
     # lets load some values from the config file
     my $config            = $self->config;
-    my $userblock_seconds = $config->{userblock_seconds};
     my $caching_seconds   = $config->{caching}->{seconds};
     my $tmp_dir           = $config->{tmp_dir};
 
@@ -170,13 +169,14 @@ sub _get_tutorial_list {
 sub _cache {
     my ($self) = @_;
 
-    my $config    = $self->config || { tmp_dir => '/tmp' };
-    my $tmpdir    = $config->{tmp_dir};
-    my $namespace = $config->{caching}->{perltuts};
+    # lets load some values from the config file
+    my $config            = $self->config;
+    my $namespace         = $config->{caching}->{name_perltuts};
+    my $tmp_dir           = $config->{tmp_dir};
 
     my $cache  = CHI->new(
         driver     => 'File',
-        root_dir   => $tmpdir,
+        root_dir   => $tmp_dir,
         namespace  => $namespace,
         serializer => 'Storable',
     );
