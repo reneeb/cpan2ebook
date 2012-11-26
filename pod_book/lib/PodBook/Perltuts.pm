@@ -9,7 +9,6 @@ use Mojo::UserAgent;
 use Regexp::Common 'net';
 use File::Temp 'tempfile';
 use File::Slurp 'read_file';
-use CHI;
 use Encode;
 use EPublisher;
 use Regexp::Common 'net';
