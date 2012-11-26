@@ -9,37 +9,19 @@ our $VERSION = 0.1;
 
 # Constructor of this class
 sub new {
-    my (
-        $self  , # object
-        $uid   , # user id
-        $source, # identifier (metacpan::modulename/upload)
-        $type  , # mobi/epub
-        $uid_expiration,
-        $cache,
-       ) = @_;
-
-    unless (defined $uid_expiration) {
-        $uid_expiration = 2;
-    }
+    my $self = shift;
+    my %args = @_;
 
     my $ref = {
         # from interface
-        uid           => $uid   ,
-        source        => $source,
-        type          => $type  ,
+        args          => \%args,
 
         # internal variables
-        pod           => ''     ,
         book          => ''     ,
-        cache         => $cache ,
-        cache_key     => "$source--$type",
-        uid_key       => "UID:$uid",
-        uid_expiration=> $uid_expiration,
-
-        # state variables
-        is_cached     => 0      ,
-        pod_loaded    => 0      ,
-        book_rendered => 0      ,
+        cache         => $args{chi_ref} ,
+        cache_key     => $args{item_key} . '--' . $args{item_type} ,
+        uid_key       => 'UID:' . $args{user_id} ,
+        uid_expiration=> $args{access_interval_limit},
         };
 
     bless($ref, $self);
@@ -65,17 +47,10 @@ sub is_cached {
 
     my ($self) = @_;
 
-    if($self->{source} =~ /^upload/) {
-        # upload content is never cached
-        return 0;
-    }
-
     if($self->{cache}->is_valid($self->{cache_key})) {
-        $self->{is_cached} = 1; # true
         return 1;
     }
     else {
-        $self->{is_cached} = 0; # false
         return 0;
     }
 }
@@ -88,19 +63,12 @@ sub clear_cache {
 }
 
 sub cache_book {
-    my ($self, $expires_in) = @_;
+    my ($self, $book, $expires_in) = @_;
 
     $self->{cache}->set($self->{cache_key},
-                        $self->{book},
+                        $book,
                         $expires_in,
                         );
-}
-
-sub set_book {
-
-    my ($self, $book) = @_;
-
-    $self->{book} = $book;
 }
 
 sub get_book {

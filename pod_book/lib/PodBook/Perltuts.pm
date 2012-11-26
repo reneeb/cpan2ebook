@@ -22,10 +22,10 @@ sub list {
     # lets load some values from the config file
     my $config            = $self->config;
     my $caching_seconds   = $config->{caching}->{seconds};
-    my $cache_name             = $config->{caching}->{name_perltuts};
+    my $cache_name        = $config->{caching}->{name_perltuts};
     my $namespace         = $config->{caching}->{name_perltuts};
     my $tmp_dir           = $config->{tmp_dir};
-    my $userblock_seconds      = $config->{userblock_seconds};
+    my $userblock_seconds = $config->{userblock_seconds};
 
 
     my $log = $self->app->log;
@@ -81,11 +81,11 @@ sub list {
     }
 
     my $book_request = PodBook::Utils::Request->new(
-        $remote_address,
-        $name,
-        $type,
-        $userblock_seconds,
-        $self->chi($cache_name), # CHI file-cache
+        user_id               => $remote_address,
+        item_key              => $name,
+        item_type             => $type,
+        access_interval_limit => $userblock_seconds,
+        chi_ref               => $self->chi($cache_name), # CHI file-cache
     );  
 
     # we check if the user is using the page to fast
@@ -161,8 +161,7 @@ sub list {
         unlink $filename;
 
         # we finally have the EBook and cache it before delivering
-        $book_request->set_book($bin);
-        $book_request->cache_book($caching_seconds);
+        $book_request->cache_book($bin, $caching_seconds);
 
         # send the EBook to the client
         $self->send_download_to_client($bin, $book_name);

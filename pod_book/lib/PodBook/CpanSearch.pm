@@ -191,11 +191,12 @@ sub form {
     }
 
     my $book_request = PodBook::Utils::Request->new(
-        $remote_address,
-        $cache_prefix . '::' . $complete_release_name,
-        $type,
-        $userblock_seconds,
-        $self->chi($cache_name), # CHI file-cache
+        user_id               => $remote_address,
+        item_key              => $cache_prefix . '::'
+                                               . $complete_release_name,
+        item_type             => $type,
+        access_interval_limit => $userblock_seconds,
+        chi_ref               => $self->chi($cache_name), # CHI file-cache
     );
 
     # we check if the user is using the page to fast
@@ -294,10 +295,9 @@ sub form {
         # TODO: EPublisher should give me the stuff as bin directly
         my $bin = read_file( $filename, { binmode => ':raw' } ) ;
         unlink $filename;
-        $book_request->set_book($bin);
 
         # we finally have the EBook and cache it before delivering
-        $book_request->cache_book($caching_seconds);
+        $book_request->cache_book($bin, $caching_seconds);
 
         # send the EBook to the client
         $self->send_download_to_client($bin, $book_name);
