@@ -19,9 +19,6 @@ sub new {
         $cache,
        ) = @_;
 
-    unless ($source =~ /^upload/ or $source =~ /^metacpan::/) {
-        die ("Invalid source: $source");
-    }
     unless (defined $uid_expiration) {
         $uid_expiration = 2;
     }

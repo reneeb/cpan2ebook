@@ -12,6 +12,9 @@ use File::Slurp 'read_file';
 use CHI;
 use Encode;
 use EPublisher;
+use Regexp::Common 'net';
+
+use PodBook::Utils::Request;
 
 sub list {
     my $self = shift;
@@ -20,8 +23,11 @@ sub list {
     # lets load some values from the config file
     my $config            = $self->config;
     my $caching_seconds   = $config->{caching}->{seconds};
+    my $cache_name             = $config->{caching}->{name_perltuts};
     my $namespace         = $config->{caching}->{name_perltuts};
     my $tmp_dir           = $config->{tmp_dir};
+    my $userblock_seconds      = $config->{userblock_seconds};
+
 
     my $log = $self->app->log;
 
@@ -60,13 +66,50 @@ sub list {
     }
 
     my $book_name = $name . '.' . $type;
-    my $cached    = $self->chi($namespace)->get( $name . '_' . $type );
+
+    # check the remote IP... just to be sure!!! (like taint mode)
+    my $remote_address;
+    my $pattern = $RE{net}{IPv4};
+    if ($self->tx->remote_address =~ m/^($pattern)$/) {
+        $remote_address = $1;
+        $log->debug( "Request IP: $remote_address" );
+    }
+    else {
+        # EXIT if not matching...
+        # TODO: IPv6 will probably be a problem here...
+        $self->render( message => 'Problem with your IP', optional_message => '' );
+        return;
+    }
+
+    my $book_request = PodBook::Utils::Request->new(
+        $remote_address,
+        $name,
+        $type,
+        $userblock_seconds,
+        $self->chi($cache_name), # CHI file-cache
+    );  
+
+    # we check if the user is using the page to fast
+    # TODO: would be nice it this would be as the very first in code
+    unless ($book_request->uid_is_allowed()) {
+        # EXIT if he is to fast
+        $self->render(
+            message => "ERROR: To many requests from: $remote_address "
+            . "- Only one request per $book_request->{uid_expiration} "
+            . "seconds allowed.",
+            optional_message => '',
+        );
+        $log->warn( "Perltuts: fast request from: $remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
+    }
 
     # check if we have the book already in cache
-    if ($cached) {
+    if ($book_request->is_cached()) {
+
+        # get the book from cache
+        my $book = $book_request->get_book();
 
         # send the book to the client
-        $self->send_download_to_client($cached, $book_name);
+        $self->send_download_to_client($book, $book_name);
     }
     else {
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
@@ -119,7 +162,8 @@ sub list {
         unlink $filename;
 
         # we finally have the EBook and cache it before delivering
-        $self->chi($namespace)->set( $name . '_' . $type, $bin, { expires_in => $caching_seconds } );
+        $book_request->set_book($bin);
+        $book_request->cache_book($caching_seconds);
 
         # send the EBook to the client
         $self->send_download_to_client($bin, $book_name);
