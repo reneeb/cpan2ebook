@@ -1,5 +1,12 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.16  2012-11-26
+
+    - Replace CHI with Mojolicious::Plugin::CHI
+    - No pattern check anymore for remote_address
+    - Minor code changes
+    - Change parameter name for Perltuts-Cache in config file
+
 0.15  2012-09-27
 
     - Mention Perltuts in About and menu
