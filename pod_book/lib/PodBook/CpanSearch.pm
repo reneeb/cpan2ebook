@@ -189,13 +189,13 @@ sub form {
     else {
         $cache_prefix = "metacpan::moduleonly::$module_name";
     }
+
     my $book_request = PodBook::Utils::Request->new(
         $remote_address,
         $cache_prefix . '::' . $complete_release_name,
         $type,
         $userblock_seconds,
-        $cache_name,
-        $tmp_dir,
+        $self->chi($cache_name), # CHI file-cache
     );
 
     # we check if the user is using the page to fast

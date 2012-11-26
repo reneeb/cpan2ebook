@@ -20,6 +20,7 @@ sub list {
     # lets load some values from the config file
     my $config            = $self->config;
     my $caching_seconds   = $config->{caching}->{seconds};
+    my $namespace         = $config->{caching}->{name_perltuts};
     my $tmp_dir           = $config->{tmp_dir};
 
     my $log = $self->app->log;
@@ -28,7 +29,8 @@ sub list {
     $self->stash( appversion => $PodBook::VERSION, listsize => 1, optional_message => '' );
 
     # get list of tutorials from cache
-    my @tutorials = $self->_get_tutorial_list();
+    my $list = $self->chi($namespace)->get( 'Tutorials' ) || [];
+    my @tutorials = map{ decode_utf8( $_ ) }@{$list};
 
     $self->stash( tutorials => \@tutorials );
 
@@ -58,7 +60,7 @@ sub list {
     }
 
     my $book_name = $name . '.' . $type;
-    my $cached    = $self->_cache->get( $name . '_' . $type );
+    my $cached    = $self->chi($namespace)->get( $name . '_' . $type );
 
     # check if we have the book already in cache
     if ($cached) {
@@ -117,7 +119,7 @@ sub list {
         unlink $filename;
 
         # we finally have the EBook and cache it before delivering
-        $self->_cache->set( $name . '_' . $type, $bin, { expires_in => $caching_seconds } );
+        $self->chi($namespace)->set( $name . '_' . $type, $bin, { expires_in => $caching_seconds } );
 
         # send the EBook to the client
         $self->send_download_to_client($bin, $book_name);
@@ -155,31 +157,6 @@ sub send_download_to_client {
     $self->res->content->headers($headers);
 
     $self->render_data($data);
-}
-
-sub _get_tutorial_list {
-    my ($self) = @_;
-
-    my $list = $self->_cache->get( 'Tutorials' ) || [];
-    my @lists = map{ decode_utf8( $_ ) }@{$list};
-
-    return @lists;
-}
-
-sub _cache {
-    my ($self) = @_;
-
-    # lets load some values from the config file
-    my $config            = $self->config;
-    my $namespace         = $config->{caching}->{name_perltuts};
-    my $tmp_dir           = $config->{tmp_dir};
-
-    my $cache  = CHI->new(
-        driver     => 'File',
-        root_dir   => $tmp_dir,
-        namespace  => $namespace,
-        serializer => 'Storable',
-    );
 }
 
 1;

@@ -40,6 +40,22 @@ sub startup {
   # set new passphrase
   $self->app->secret( $config->{secret} || 'secret' );
 
+  # prepare file-caches
+  $self->plugin(CHI => {
+    # perlybook CPAN
+    $config->{caching}->{name} => {
+      driver     => 'File',
+      namespace  => $config->{caching}->{name},
+      root_dir   => $config->{tmp_dir},
+    },
+    # perlybook Perltuts
+    $config->{caching}->{name_perltuts} => {
+      driver     => 'File',
+      namespace  => $config->{caching}->{name_perltuts},
+      root_dir   => $config->{tmp_dir},
+    }
+  });
+
   # Routes
   my $r = $self->routes;
 

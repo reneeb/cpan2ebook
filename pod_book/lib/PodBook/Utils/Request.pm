@@ -16,33 +16,15 @@ sub new {
         $source, # identifier (metacpan::modulename/upload)
         $type  , # mobi/epub
         $uid_expiration,
-        $cache_namespace,
-        $cache_dir,
+        $cache,
        ) = @_;
 
-    # check the arguments!
-    unless (defined $cache_namespace) {
-        $cache_namespace = 'Mojolicious-PodBook-Request';
-    }
     unless ($source =~ /^upload/ or $source =~ /^metacpan::/) {
         die ("Invalid source: $source");
-    }
-
-    unless (defined $cache_dir) {
-        $cache_dir = File::Spec->tmpdir();
     }
     unless (defined $uid_expiration) {
         $uid_expiration = 2;
     }
-
-    # this gives me a path for temporary file storage, depending on OS
-
-    # load the cache
-    my $cache = CHI->new(
-        driver   => 'File',
-        root_dir => $cache_dir,
-        namespace=> $cache_namespace,
-    );
 
     my $ref = {
         # from interface
@@ -116,13 +98,6 @@ sub cache_book {
                         $self->{book},
                         $expires_in,
                         );
-}
-
-sub load_pod {
-
-    my ($self) = @_;
-
-    # fetch POD into global VAR
 }
 
 sub set_book {
