@@ -40,6 +40,12 @@ sub startup {
   # set new passphrase
   $self->app->secret( $config->{secret} || 'secret' );
 
+  $self->app->log->debug('Initialise file caches '
+                         . '"' . $config->{caching}->{name} . '"'
+                         . ', "' .$config->{caching}->{name_perltuts} . '"'
+                         . ' at "' . $config->{tmp_dir} . '"'
+                        );
+
   # prepare file-caches
   $self->plugin(CHI => {
     # perlybook CPAN
