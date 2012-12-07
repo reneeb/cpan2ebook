@@ -232,7 +232,7 @@ sub form {
                     target => { 
                         output => $filename,
                         title  => $complete_release_name,
-                        author => "Perl",
+                        author => "CPAN",
                         # this option is ignored by "type: epub"
                         htmcover => "<h3>Perl Module Documentation</h3><h1>$complete_release_name</h1>Data source: <a href='https://metacpan.org/'>metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>perl-services.de</a><br />Downloaded from: <a href='http://perlybook.org'>perlybook.org</a><br />"
                     }   

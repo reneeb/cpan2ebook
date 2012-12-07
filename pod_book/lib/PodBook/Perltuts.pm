@@ -115,7 +115,8 @@ sub list {
                     },
                     target => { 
                         output => $filename,
-                        author => "Perl",
+                        title => $name,
+                        author => "Perltuts",
                         # this option is ignored by "type: epub"
                         htmcover => "<h1>$name</h1><br />Downloaded from: <a href='http://perlybook.org'>perlybook.org</a><br />"
                     }   
