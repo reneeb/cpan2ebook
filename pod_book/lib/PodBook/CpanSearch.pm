@@ -192,12 +192,19 @@ sub form {
             . "- Only one request per $book_request->{uid_expiration} "
             . "seconds allowed."
         );
-        $log->warn( "fast request from: $self->tx->remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
+        $log->warn( 'fast request from: '
+                    . $self->tx->remote_address
+                    . ' - 1 request allowed per '
+                    . $book_request->{uid_expiration}
+                    . ' seconds.'
+                  );
 
         return;
     }
 
-    $log->info( "Request from $self->tx->remote_address, looking up '$module_name', mapping to '$distribution' from '$complete_release_name'");
+    $log->info( 'Request from '
+                . $self->tx->remote_address
+                . ", looking up '$module_name', mapping to '$distribution' from '$complete_release_name'");
 
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
