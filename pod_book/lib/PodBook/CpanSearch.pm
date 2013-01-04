@@ -206,7 +206,7 @@ sub form {
         my $book = $book_request->get_book();
 
         # send the book to the client
-        $self->send_download_to_client($book, $book_name);
+        return $self->send_download_to_client($book, $book_name);
     }
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
@@ -284,7 +284,7 @@ sub form {
         $book_request->cache_book($bin, $caching_seconds);
 
         # send the EBook to the client
-        $self->send_download_to_client($bin, $book_name);
+        return $self->send_download_to_client($bin, $book_name);
     }
 
     # if we reach here... something is wrong!
