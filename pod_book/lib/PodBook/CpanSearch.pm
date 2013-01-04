@@ -98,8 +98,8 @@ sub form {
     if ( !$module_name ) {
         # EXIT if not matching
         $self->render( message => 'ERROR: invalid chars in module name.' );
-        $self->app->log->info( 'invalid chars in module name: '
-                                . $self->param( 'source' ) );
+        $self->app->log->info( 'invalid chars in module name: ' . $self->param( 'source' ) );
+
         return;
     }
 
@@ -175,8 +175,7 @@ sub form {
 
     my $book_request = PodBook::Utils::Request->new(
         user_id               => $self->tx->remote_address,
-        item_key              => $cache_prefix . '::'
-                                               . $complete_release_name,
+        item_key              => $cache_prefix . '::' . $complete_release_name,
         item_type             => $type,
         access_interval_limit => $userblock_seconds,
         chi_ref               => $self->chi($cache_name), # CHI file-cache
@@ -192,19 +191,24 @@ sub form {
             . "- Only one request per $book_request->{uid_expiration} "
             . "seconds allowed."
         );
-        $log->warn( 'fast request from: '
-                    . $self->tx->remote_address
-                    . ' - 1 request allowed per '
-                    . $book_request->{uid_expiration}
-                    . ' seconds.'
-                  );
+        $log->warn(
+            'fast request from: '
+                . $self->tx->remote_address
+                . ' - 1 request allowed per '
+                . $book_request->{uid_expiration}
+                . ' seconds.'
+        );
 
         return;
     }
 
-    $log->info( 'Request from '
-                . $self->tx->remote_address
-                . ", looking up '$module_name', mapping to '$distribution' from '$complete_release_name'");
+    $log->info(
+        sprintf "Request from %s, looking up '%s', mapping to '%s' from '%s'",
+            $self->tx->remote_address,
+            $module_name,
+            $distribution,
+            $complete_release_name,
+    );
 
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
