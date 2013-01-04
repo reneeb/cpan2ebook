@@ -84,7 +84,12 @@ sub list {
             . "seconds allowed.",
             optional_message => '',
         );
-        $log->warn( "Perltuts: fast request from: $self->tx->remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
+        $log->warn( 'Perltuts: fast request from: '
+                    . $self->tx->remote_address
+                    . ' - 1 request allowed per '
+                    . $book_request->{uid_expiration}
+                    . ' seconds.'
+                  );
     }
 
     # check if we have the book already in cache
@@ -110,7 +115,8 @@ sub list {
                     },
                     target => { 
                         output => $filename,
-                        author => "Perl",
+                        title => $name,
+                        author => "Perltuts",
                         # this option is ignored by "type: epub"
                         htmcover => "<h1>$name</h1><br />Downloaded from: <a href='http://perlybook.org'>perlybook.org</a><br />"
                     }   

@@ -1,6 +1,15 @@
 Changes for cpan2ebook (perlybook.org)
 
-0.16  2012-11-26
+0.17  2012-12-10
+
+    - Fixed issue with Starman and Mojolicious::Plugin::CHI
+      Mojolicious::Plugin::CHI in minimal version 0.05 required
+    - Set meta tags for Perltuts ebooks
+    - Changed author meta tag for CPAN ebooks
+    - fix errornous log message introduced in 0.16
+    - minor stuff
+
+0.16  2012-11-26 (failed in production)
 
     - Replace CHI with Mojolicious::Plugin::CHI
     - No pattern check anymore for remote_address

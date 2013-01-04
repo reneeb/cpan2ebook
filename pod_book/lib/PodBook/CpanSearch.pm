@@ -192,12 +192,19 @@ sub form {
             . "- Only one request per $book_request->{uid_expiration} "
             . "seconds allowed."
         );
-        $log->warn( "fast request from: $self->tx->remote_address - 1 request allowed per $book_request->{uid_expiration} seconds.");
+        $log->warn( 'fast request from: '
+                    . $self->tx->remote_address
+                    . ' - 1 request allowed per '
+                    . $book_request->{uid_expiration}
+                    . ' seconds.'
+                  );
 
         return;
     }
 
-    $log->info( "Request from $self->tx->remote_address, looking up '$module_name', mapping to '$distribution' from '$complete_release_name'");
+    $log->info( 'Request from '
+                . $self->tx->remote_address
+                . ", looking up '$module_name', mapping to '$distribution' from '$complete_release_name'");
 
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
@@ -225,7 +232,7 @@ sub form {
                     target => { 
                         output => $filename,
                         title  => $complete_release_name,
-                        author => "Perl",
+                        author => "CPAN",
                         # this option is ignored by "type: epub"
                         htmcover => "<h3>Perl Module Documentation</h3><h1>$complete_release_name</h1>Data source: <a href='https://metacpan.org/'>metacpan.org</a><br />Powered by: <a href='http://perl-services.de'>perl-services.de</a><br />Downloaded from: <a href='http://perlybook.org'>perlybook.org</a><br />"
                     }   
