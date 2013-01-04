@@ -1,12 +1,12 @@
 % layout 'main', title => 'perlybook', appversion => $appversion;
 <h1>PerlyBook</h1>
 <form action="/" method="post">
-  <input id="in_text" name="in_text" type="text" />
+  <input id="source" name="source" type="text" />
   <br />
   <small><input type="checkbox" name="book_selection" value="distribution" checked> fetch complete release</small>
   <br />
-  <input name="EPUB" type="submit" value="EPUB" />
-  <input name="MOBI" type="submit" value="MOBI" />
+  <button name="target" type="submit" value="epub">EPUB</button>
+  <button name="target" type="submit" value="mobi">MOBI</button>
   <br />
 </form>
 <div id="msg">

@@ -49,7 +49,7 @@ sub form {
     $self->stash( appversion => $PodBook::VERSION );
 
     # if textfield is empty we just display the starting page
-    unless ($self->param('in_text')) {
+    unless ($self->param('source')) {
 
         #################################################
         # HERE THE STANDARD STARTING PAGE GETS RENDERED #
@@ -67,7 +67,7 @@ sub form {
         );
 
         # choose a funny text randomly
-        my $message = @messages[ int rand scalar @messages ];
+        my $message = $messages[ int rand scalar @messages ];
 
         # and pass it to the template
         $self->render( message => $message, optional_message => $opt_msg );
@@ -78,14 +78,14 @@ sub form {
     # otherwise we continue by checking the input
 
     # check the type of button pressed
-    my $type;
-    if ($self->param('MOBI')) {
-        $type = 'mobi';
-    }
-    elsif ($self->param('EPUB')) {
-        $type = 'epub';
-    }
-    else {
+    my %targets = (
+        epub => 1,
+        mobi => 1,
+    );
+
+    my $type = lc $self->param('target');
+
+    if ( !$targets{$type} ) {
         # EXIT if unknown
         $self->render( message => 'ERROR: Type of ebook unknown.' );
         $self->app->log->warn( 'Type of ebook unknown' );
@@ -93,13 +93,13 @@ sub form {
     }
 
     # check if the module name in the text field is some what valid
-    my ($module_name) = $self->param('in_text') =~ m/^([[:print:]]+)$/;
+    my ($module_name) = $self->param('source') =~ m/^([[:print:]]+)$/;
 
     if ( !$module_name ) {
         # EXIT if not matching
         $self->render( message => 'ERROR: invalid chars in module name.' );
         $self->app->log->info( 'invalid chars in module name: '
-                                . $self->param( 'in_text' ) );
+                                . $self->param( 'source' ) );
         return;
     }
 
