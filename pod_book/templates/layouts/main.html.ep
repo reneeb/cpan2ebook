@@ -8,17 +8,14 @@
     <link href="favicon.ico" rel="icon" type="image/x-icon" /> <!-- thanks to http://www.favicon.cc/?action=icon&file_id=488098 -->
     <link rel="stylesheet" type="text/css" href="main.css" />
     <!--BEGIN jQuery-UI Autocomplete-->
-    <link rel="stylesheet" type="text/css" href="development-bundle/themes/ui-lightness/jquery.ui.all.css" />
-    <script src="development-bundle/jquery-1.7.2.js"></script>
-    <script src="development-bundle/ui/jquery.ui.core.js"></script>
-    <script src="development-bundle/ui/jquery.ui.widget.js"></script>
-    <script src="development-bundle/ui/jquery.ui.position.js"></script>
-    <script src="development-bundle/ui/jquery.ui.autocomplete.js"></script>
+    <link rel="stylesheet" type="text/css" href="jquery.ui.css" />
+    <script src="development-bundle/jquery-1.8.3.js"></script>
+    <script src="development-bundle/jquery-ui.js"></script>
     <script type="text/javascript">
 var listsize = <%= $listsize %>;
 
 $( document ).ready( function() {
-    $( "#in_text" ).autocomplete({
+    $( "#source" ).autocomplete({
         source:
         //According to: http://net.tutsplus.com/tutorials/javascript-ajax/how-to-use-the-jquery-ui-autocomplete-widget/
             function(req, add) {
