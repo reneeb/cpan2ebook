@@ -21,7 +21,7 @@ my $config    = YAML::Tiny->read(
 
 my $cache_dir       = $config->[0]->{tmp_dir};
 
-for my $key ( qw/name perltuts/ ) {
+for my $key ( qw/name name_perltuts/ ) {
 
     my $cache_namespace = $config->[0]->{caching}->{$key};
     next if @ARGV and !grep{ $cache_namespace eq $_ }@ARGV;
