@@ -4,6 +4,7 @@ Changes for cpan2ebook (perlybook.org)
 
     - rename form field names (#31)
     - added more version infos on "About" page
+    - fixed issue #34: use correct cache name for perltuts cache
 
 0.18  2013-01-04
 
