@@ -17,6 +17,23 @@ sub list {
     # we need to know the version number in the template
     $self->stash( appversion => $PodBook::VERSION );
 
+    my @modules = qw(
+        Mojolicious
+        EPublisher
+        EPublisher::Source::Plugin::MetaCPAN
+        EPublisher::Source::Plugin::PerltutsCom
+        EPublisher::Target::Plugin::EPub
+        EPublisher::Target::Plugin::Mobi
+        MetaCPAN::API
+    );
+
+    my @versions;
+    for my $module ( @modules ) {
+        eval "use $module";
+        push @versions, { name => $module, version => $module->VERSION() };
+    }
+    $self->stash( versions => \@versions );
+
 
     $self->render();
 }

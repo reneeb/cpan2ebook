@@ -1,5 +1,10 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.19  2013-01-05
+
+    - rename form field names (#31)
+    - added more version infos on "About" page
+
 0.18  2013-01-04
 
     - fixed issue #32: return from controller as soon as

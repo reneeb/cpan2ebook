@@ -41,8 +41,15 @@
   Thanks a lot!
 </p>
 
-<br />
-<br />
+<p>
+  When you file a bug, please add these info to your description:
+  <ul>
+% for my $version ( @{ $versions || [] } ) {
+    <li><%= $version->{name} %>: <%= $version->{version} %></li>
+% }
+  </ul>
+</p>
+
 <br />
 <p>
   This website is offered to you by <a href="http://perl-services.de/">perl-services.de</a>.
