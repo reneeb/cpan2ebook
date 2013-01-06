@@ -1,0 +1,20 @@
+<html>
+  <head>
+  <style type="text/css">
+    .text {
+        font-size: 1.2em;
+        font-weight: bold;
+        width: 100px;
+    }
+  </style>
+  </head>
+  <body>
+    <div style="width:100%; text-align: center;">
+      <img src="/img/500.png" /><br />
+      <span class="text">
+        <br /><br />
+        We're terribly sorry, but it seems that an error occured. We're not sure why, but rest assured, we're gonna find out!
+      </span>
+    </div>
+  </body>
+</html>

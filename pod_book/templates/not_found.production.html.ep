@@ -1,0 +1,22 @@
+<html>
+  <head>
+  <style type="text/css">
+    .text {
+        font-size: 1.2em;
+        font-weight: bold;
+        width: 100px;
+    }
+  </style>
+  </head>
+  <body>
+    <div style="width:100%; text-align: center;">
+      <img src="/img/404.png" /><br />
+      <span class="text">
+        <br /><br />
+        We're terribly sorry, but it seems that page doesn't exist. We're not sure why, but rest assured, we're gonna find out!
+        <br /><br />
+        Until we sort out this catastrophe, please, visit <a href="/">our home page</a> and click around a bit.
+      </span>
+    </div>
+  </body>
+</html>
