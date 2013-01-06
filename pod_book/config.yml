@@ -16,6 +16,10 @@ mail:
     - AuthPass
     - smtppass
   from: from@address.tld
+exception:
+  from: exception@address.tld
+  to: recipient@error.tld
+  subject: an error occured
 userblock_seconds: 2
 tmp_dir: /home/ebook/tmp
 reverse_proxy: 1
