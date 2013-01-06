@@ -6,7 +6,7 @@ use warnings;
 use Mojo::Base 'Mojolicious';
 use Mojo::Log;
 
-our $VERSION = 0.19;
+our $VERSION = 0.20;
 
 # This method will run once at server start
 sub startup {

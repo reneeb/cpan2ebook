@@ -1,5 +1,10 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.20  2013-01-06
+
+    - fix autocompletion
+    - update jquery and jqueryui
+
 0.19  2013-01-05
 
     - rename form field names (#31)
