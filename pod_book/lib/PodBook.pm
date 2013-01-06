@@ -6,7 +6,7 @@ use warnings;
 use Mojo::Base 'Mojolicious';
 use Mojo::Log;
 
-our $VERSION = 0.21;
+our $VERSION = 0.22;
 
 # This method will run once at server start
 sub startup {
@@ -36,6 +36,9 @@ sub startup {
       %{ $config->{exception} || {} },
       send => sub {
           my ($mail,$exception) = @_;
+
+          my $message = $exception->message;
+          return if $message =~ m{PPI/XS} or $message =~ m{version/vxs};
 
           $mail->send(
               $config->{mail}->{how},
