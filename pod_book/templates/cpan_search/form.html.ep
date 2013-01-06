@@ -1,7 +1,9 @@
 % layout 'main', title => 'perlybook', appversion => $appversion;
 <h1>PerlyBook</h1>
 <form action="/" method="post">
-  <input id="source" name="source" type="text" />
+  <div class="ui-widget">
+      <input id="source" name="source" />
+  </div>
   <br />
   <small><input type="checkbox" name="book_selection" value="distribution" checked> fetch complete release</small>
   <br />
