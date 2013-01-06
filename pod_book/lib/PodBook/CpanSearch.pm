@@ -42,14 +42,15 @@ sub form {
     }
     $self->stash( listsize => $listsize );
 
+    $self->stash( message => '' );
+
     my $via_mail = $self->cookie( 'via_mail' ) || 0;
     $self->stash( via_mail => $via_mail );
 
-    my $mobi_mail = $self->cookie( 'mobi_mail' ) || '';
+    my $mobi_mail = $self->cookie( 'mail' ) || '';
     $self->stash( mobi_mail => $mobi_mail );
 
-    my $mobi_sent = $self->cookie( 'mobi_sent' ) || 0;
-    $self->stash( mobi_sent => $mobi_sent );
+    $self->stash( mobi_sent => 0 );
 
     # set the optional message no matter what happens!
     $self->stash( optional_message => $opt_msg );
@@ -92,7 +93,8 @@ sub form {
         mobi => 1,
     );
 
-    my $type = lc $self->param('target');
+    my @types = $self->param('target');
+    my $type  = lc $types[0];
 
     if ( !$targets{$type} ) {
         # EXIT if unknown
@@ -324,20 +326,22 @@ sub send_download_to_client {
     # send mobi file to mail address
     my $type      = lc $self->param('target');
     my $mobi_send = $self->param( 'mobi_send' ) || $self->cookie( 'mail' );
-    
+
     if ( $type eq 'mobi' && $mobi_send ) {
         my ($mail,$save) = split /\|\|/, $mobi_send;
 
         # save mail address in cookie if requested
         if ( $save && $save eq 'yes' && $mail ) {
             $self->cookie( mail => $mail );
+            $self->stash( mobi_mail => $mail );
 
             if ( $self->param( 'always_mail' ) ) {
                 $self->cookie( via_mail => 1 );
+                $self->stash( via_mail => 1 );
             }
         }
 
-        if ( $mail ) {
+        if ( $mail && $mail ne '-1' ) {
             $self->app->log->info( "Send $name via mail" );
             $self->mail(
                 mail => {

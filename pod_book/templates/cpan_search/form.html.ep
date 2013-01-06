@@ -16,6 +16,7 @@
 
   <input type="hidden" name="mobi_send" id="mobi_send" />
   <input type="hidden" name="target" id="mobi_target" />
+  <input type="hidden" name="always_mail" id="always_mail_form" />
   <br />
 </form>
 <div id="msg">
@@ -40,7 +41,7 @@
   <br />
 
   <label for="always_mail">Send .mobi always per mail:</label>
-  <input type="checkbox" name="always_mail" id="always_mail" />
+  <input type="checkbox" id="always_mail_dialog" value="1" />
 </div>
 
 <script type="text/javascript">
@@ -54,6 +55,7 @@
       }
 
       $('#mobi_btn').click( function() {
+          $('#mobi_target').val('mobi');
           if ( !via_mail ) {
               $('#dialog').dialog( 'open' );
               return false;
@@ -66,18 +68,21 @@
           width: 400,
           modal: true,
           buttons: {
-              Ok: function() {
+              "Send via mail": function() {
                   $('#mobi_send').val(
                       $('#mail').val() + '||' + $('#save').val()
                   );
                   $(this).dialog( 'close' );
-                  $('#mobi_target').val('mobi');
-                  $('#perlybook').submit();
               },
-              Cancel: function() {
+              "Download" : function() {
+                  $('#mobi_send').val(-1);
                   $(this).dialog( 'close' );
-                  $('#perlybook').submit();
               },
+          },
+          close : function () {
+              $('#mobi_target').val('mobi');
+              $('#always_mail_form').val( $('#always_mail_dialog').is(':checked') ? 1 : 0 );
+              $('#perlybook').submit();
           }
       });
   });
