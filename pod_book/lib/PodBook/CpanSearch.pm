@@ -42,6 +42,12 @@ sub form {
     }
     $self->stash( listsize => $listsize );
 
+    my $via_mail = $self->cookie( 'via_mail' ) || 0;
+    $self->stash( via_mail => $via_mail );
+
+    my $mobi_mail = $self->cookie( 'mobi_mail' ) || '';
+    $self->stash( mobi_mail => $mobi_mail );
+
     # set the optional message no matter what happens!
     $self->stash( optional_message => $opt_msg );
 
@@ -322,14 +328,31 @@ sub send_download_to_client {
         # save mail address in cookie if requested
         if ( $save && $save eq 'yes' && $mail ) {
             $self->cookie( mail => $mail );
+
+            if ( $self->param( 'always_mail' ) ) {
+                $self->cookie( via_mail => 1 );
+            }
         }
 
         if ( $mail ) {
             $self->app->log->info( "Send $name via mail" );
             $self->mail(
                 mail => {
+                  To      => $mail,
+                  Subject => "From perlybook.org: $name",
+                  Type    => 'multipart/mixed',
                 },
                 attach => [
+                    {
+                        Type => 'text/plain',
+                        Data => 'An ebook for you',
+                    },
+                    {
+                        Type        => 'application/mobi',
+                        Filename    => $name,
+                        Disposition => 'attachment',
+                        Data        => $data,
+                    },
                 ],
             );
             $self->stash( mobi_sent => 1 );

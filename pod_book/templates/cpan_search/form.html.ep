@@ -21,7 +21,7 @@
 </div>
 <div id="dialog" title="Send .mobi to Kindle">
   <label for="mail">Send to:</label>
-  <input type="text" id="mail" name="mail" />
+  <input type="text" id="mail" name="mail" value="<%= mobi_mail %>" />
 
   <br />
 
@@ -31,13 +31,21 @@
     <option value="yes">yes</option>
     <option value="not_now">not now</option>
   </select>
+
+  <br />
+
+  <label for="always_mail">Send .mobi always per mail:</label>
+  <input type="checkbox" name="always_mail" id="always_mail" />
 </div>
 
 <script type="text/javascript">
+  var via_mail = <%= $via_mail %>;
   $(document).ready( function() {
       $('#mobi_btn').click( function() {
-          $('#dialog').dialog( 'open' );
-          return false;
+          if ( !via_mail ) {
+              $('#dialog').dialog( 'open' );
+              return false;
+          }
       });
 
       $('#dialog').dialog({
