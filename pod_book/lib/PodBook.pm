@@ -38,7 +38,7 @@ sub startup {
           my ($mail,$exception) = @_;
 
           my $message = $exception->message;
-          return if $message =~ m{PPI/XS} or $message =~ m{version/vxs};
+          return if $message =~ m{Can't locate};
 
           $mail->send(
               $config->{mail}->{how},
