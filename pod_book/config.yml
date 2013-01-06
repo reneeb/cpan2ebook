@@ -7,6 +7,15 @@ caching:
   seconds: 864000
   name: cpan2ebook_webservice
   name_perltuts: PerltutsCom
+mail:
+  how: smtp
+  howargs:
+    - smtp.server.tld
+    - AuthUser
+    - smtpuser
+    - AuthPass
+    - smtppass
+  from: from@address.tld
 userblock_seconds: 2
 tmp_dir: /home/ebook/tmp
 reverse_proxy: 1

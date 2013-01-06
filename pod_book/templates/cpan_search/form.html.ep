@@ -1,14 +1,16 @@
 % layout 'main', title => 'perlybook', appversion => $appversion;
 <h1>PerlyBook</h1>
-<form action="/" method="post">
+<form action="/" method="post" id="perlybook">
   <div class="ui-widget">
       <input id="source" name="source" />
   </div>
   <br />
   <small><input type="checkbox" name="book_selection" value="distribution" checked> fetch complete release</small>
   <br />
-  <button name="target" type="submit" value="epub">EPUB</button>
-  <button name="target" type="submit" value="mobi">MOBI</button>
+  <button name="target" type="submit" value="epub" id="epub_btn">EPUB</button>
+  <button name="target" type="submit" value="mobi" id="mobi_btn">MOBI</button>
+
+  <input type="hidden" name="mobi_send" id="mobi_send" />
   <br />
 </form>
 <div id="msg">
@@ -17,3 +19,45 @@
   </p>
   <%== $optional_message %>
 </div>
+<div id="dialog" title="Send .mobi to Kindle">
+  <label for="mail">Send to:</label>
+  <input type="text" id="mail" name="mail" />
+
+  <br />
+
+  <label for="save">Save address in cookie:</label>
+  <select id="save" name="save">
+    <option value="never">never</option>
+    <option value="yes">yes</option>
+    <option value="not_now">not now</option>
+  </select>
+</div>
+
+<script type="text/javascript">
+  $(document).ready( function() {
+      $('#mobi_btn').click( function() {
+          $('#dialog').dialog( 'open' );
+          return false;
+      });
+
+      $('#dialog').dialog({
+          autoOpen: false,
+          height: 250,
+          width: 400,
+          modal: true,
+          buttons: {
+              Ok: function() {
+                  $('#mobi_send').val(
+                      $('#mail').val() + '||' + $('#save').val()
+                  );
+                  $(this).dialog( 'close' );
+                  $('#perlybook').submit();
+              },
+              Cancel: function() {
+                  $(this).dialog( 'close' );
+                  $('#perlybook').submit();
+              },
+          }
+      });
+  });
+</script>

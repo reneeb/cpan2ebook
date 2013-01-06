@@ -312,6 +312,32 @@ sub debug_epublisher {
 sub send_download_to_client {
     my ($self, $data, $name) = @_;
 
+    # send mobi file to mail address
+    my $type      = lc $self->param('target');
+    my $mobi_send = $self->param( 'mobi_send' ) || $self->cookie( 'mail' );
+    
+    if ( $type eq 'mobi' && $mobi_send ) {
+        my ($mail,$save) = split /\|\|/, $mobi_send;
+
+        # save mail address in cookie if requested
+        if ( $save && $save eq 'yes' && $mail ) {
+            $self->cookie( mail => $mail );
+        }
+
+        if ( $mail ) {
+            $self->app->log->info( "Send $name via mail" );
+            $self->mail(
+                mail => {
+                },
+                attach => [
+                ],
+            );
+            $self->stash( mobi_sent => 1 );
+            $self->render;
+            return;
+        }
+    }
+
     $self->app->log->info("Sending for download: '$name'");
 
     my $headers = Mojo::Headers->new();

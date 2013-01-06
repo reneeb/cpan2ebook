@@ -29,6 +29,8 @@ sub startup {
       $ENV{MOJO_REVERSE_PROXY} = 1;
   }
 
+  $self->plugin( 'Mail' => $config->{mail} );
+
   # set log level
   $self->app->log(
       Mojo::Log->new(
