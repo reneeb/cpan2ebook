@@ -15,6 +15,7 @@
   <button name="target" type="submit" value="mobi" id="mobi_btn">MOBI</button>
 
   <input type="hidden" name="mobi_send" id="mobi_send" />
+  <input type="hidden" name="target" id="mobi_target" />
   <br />
 </form>
 <div id="msg">
@@ -25,7 +26,7 @@
 </div>
 <div id="dialog" title="Send .mobi to Kindle">
   <label for="mail">Send to:</label>
-  <input type="text" id="mail" name="mail" value="<%= mobi_mail %>" />
+  <input type="text" id="mail" name="mail" value="<%= $mobi_mail %>" />
 
   <br />
 
@@ -70,6 +71,7 @@
                       $('#mail').val() + '||' + $('#save').val()
                   );
                   $(this).dialog( 'close' );
+                  $('#mobi_target').val('mobi');
                   $('#perlybook').submit();
               },
               Cancel: function() {
