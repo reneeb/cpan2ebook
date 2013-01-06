@@ -48,6 +48,9 @@ sub form {
     my $mobi_mail = $self->cookie( 'mobi_mail' ) || '';
     $self->stash( mobi_mail => $mobi_mail );
 
+    my $mobi_sent = $self->cookie( 'mobi_sent' ) || 0;
+    $self->stash( mobi_sent => $mobi_sent );
+
     # set the optional message no matter what happens!
     $self->stash( optional_message => $opt_msg );
 

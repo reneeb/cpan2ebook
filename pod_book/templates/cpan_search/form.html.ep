@@ -1,5 +1,9 @@
 % layout 'main', title => 'perlybook', appversion => $appversion;
 <h1>PerlyBook</h1>
+
+<div id="notification">
+</div>
+
 <form action="/" method="post" id="perlybook">
   <div class="ui-widget">
       <input id="source" name="source" />
@@ -40,7 +44,14 @@
 
 <script type="text/javascript">
   var via_mail = <%= $via_mail %>;
+  var mobi_sent = <%= $mobi_sent %>;
+
   $(document).ready( function() {
+      if ( mobi_sent ) {
+          $('#notification').html( '<span style="background-color: lightgreen;">.mobi file sent</span>' );
+          window.setTimeout( function(){ $('#notification').html(''); }, 5000 );
+      }
+
       $('#mobi_btn').click( function() {
           if ( !via_mail ) {
               $('#dialog').dialog( 'open' );
