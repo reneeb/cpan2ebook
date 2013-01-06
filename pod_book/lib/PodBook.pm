@@ -22,7 +22,8 @@ sub startup {
   $self->renderer->paths( [ $self->home->rel_dir('templates') ] );
 
   # read config
-  $self->plugin( 'YamlConfig', {file => $self->home . '/config.yml'} );
+  my $config_path = $ENV{POD_BOOK_CONFIG} // $self->home . '/config.yml';
+  $self->plugin( 'YamlConfig', { file => $config_path } );
 
   my $config = $self->config;
   if ( $config->{reverse_proxy} ) {
