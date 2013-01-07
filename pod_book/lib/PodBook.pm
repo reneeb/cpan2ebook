@@ -55,9 +55,6 @@ sub startup {
       )
   );
 
-  use Data::Dumper;
-  $self->app->log->warn( Dumper { ENV => \%ENV, MAIL => $config->{mail} } );
-
   # set new passphrase
   $self->app->secret( $config->{secret} || 'secret' );
 
