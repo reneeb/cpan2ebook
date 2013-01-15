@@ -24,6 +24,16 @@ my $dir = File::Spec->rel2abs( dirname __FILE__ );
 
 chdir $dir;
 
+my $config = $ENV{POD_BOOK_CONFIG};
+my $mode   = $ENV{MOJO_MODE};
+
+my @exports;
+
+push @exports, $config ? "export POD_BOOK_CONFIG=$config" : '';
+push @exports, $mode ? "export MOJO_MODE=$mode" : '';
+
+my $exports = join '', map{ $_ . ' && ' }@exports;
+
 my $command = 'starman --listen :3030 --workers ' . $workers . ' --max-requests ' . $max_requests . ' --preload-app';
 #exec( $command );
-exec( "nohup $command &" );
+exec( "nohup $exports $command &" );
