@@ -11,50 +11,6 @@
     <link rel="stylesheet" type="text/css" href="jquery-ui.css" />
     <script src="development-bundle/jquery-1.8.3.js"></script>
     <script src="development-bundle/jquery-ui.js"></script>
-    <script type="text/javascript">
-var listsize = <%= $listsize %>;
-
-$( document ).ready( function() {
-    $( "#source" ).autocomplete({
-        source:
-        //According to: http://net.tutsplus.com/tutorials/javascript-ajax/how-to-use-the-jquery-ui-autocomplete-widget/
-            function(req, add) {
-
-                // replace ':' with ' ' because of problems in jQuery and
-                // MetaCPAN-API otherwhise
-                req.term = req.term.replace(/:/gi," ");
-
-                // pass request to server
-                $.getJSON(
-                    "http://api.metacpan.org/v0/search/autocomplete?",
-                    { q: req.term, size: listsize },//req,
-                    function(data) {
-
-                        //create array for response objects
-                        var suggestions = [];
-
-                        //process response
-                        // structure: data.hits.hits[0].fields.distribution
-                        data.hits.hits.forEach(function(val, i) {
-                            //we could also display distributions
-                            //suggestions.push(val.fields.distribution);
-                            //but for new we just show modules
-                            suggestions.push(val.fields.documentation);
-                        });
-
-                        //pass array to callback
-                        add(suggestions);
-                    }
-                );
-            },
-
-        minLength: 2, //default is 1, we reduce load on CPAN
-        delay: 400 //default is 300, but we protect metacpan to much load
-    });
-});
-
-    </script>
-    <!--END jQuery-UI Autocomplete-->
   </head>
   <body>
     <div id="all">

@@ -44,6 +44,65 @@
   <input type="checkbox" id="always_mail_dialog" value="1" />
 </div>
 
+    <script type="text/javascript">
+var listsize = <%= $listsize %>;
+
+$( document ).ready( function() {
+    $( "#source" ).autocomplete({
+        source:
+            function(req, add) {
+
+                // replace ':' with ' ' because of problems in jQuery and
+                // MetaCPAN-API otherwhise
+                req.term = req.term.replace(/:/gi," ");
+
+                // pass request to server
+                $.getJSON(
+                    "http://api.metacpan.org/v0/search/autocomplete?",
+                    { q: req.term, size: listsize * 2, fields: 'documentation' },//req,
+                    function(data) {
+
+                        //create array for response objects
+                        var suggestions = [];
+                        var has_seen    = [];
+                        var counter     = 0;
+
+                        //process response
+                        // structure: data.hits.hits[0].fields.distribution
+                        data.hits.hits.forEach(function(val, i) {
+
+                            if ( counter == listsize ) {
+                                return;
+                            }
+
+                            //we could also display distributions
+                            //suggestions.push(val.fields.distribution);
+                            //but for new we just show modules
+                            if ( val.fields ) {
+                                var name = val.fields.documentation;
+                                if ( !has_seen[name] ) {
+                                    suggestions.push(name);
+                                    has_seen[name] = 1;
+                                    counter++;
+                                }
+                            }
+                        });
+
+                        //pass array to callback
+                        add(suggestions);
+                    }
+                );
+            },
+
+        minLength: 2, //default is 1, we reduce load on CPAN
+        delay: 400, //default is 300, but we protect metacpan to much load
+        disabled: false
+    });
+});
+
+    </script>
+
+
 <script type="text/javascript">
   var via_mail = <%= $via_mail %>;
   var mobi_sent = <%= $mobi_sent %>;
