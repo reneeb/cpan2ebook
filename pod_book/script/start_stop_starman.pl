@@ -36,4 +36,4 @@ my $exports = join '', map{ $_ . ' && ' }@exports;
 
 my $command = 'starman --listen :3030 --workers ' . $workers . ' --max-requests ' . $max_requests . ' --preload-app';
 #exec( $command );
-exec( "nohup $exports $command &" );
+exec( "$exports nohup $command &" );
