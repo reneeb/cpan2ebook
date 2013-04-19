@@ -24,4 +24,4 @@ EOF
 $ENV{MOJO_APP} ||= 'PodBook';
 
 # Start commands
-Mojolicious::Commands->start;
+Mojolicious::Commands->start_app('PodBook');
