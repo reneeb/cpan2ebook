@@ -60,26 +60,10 @@ sub startup {
 
   $self->app->log->debug(
       'Initialise file caches '
-          . '"' . $config->{caching}->{name} . '"'
-          . ', "' .$config->{caching}->{name_perltuts} . '"'
-          . ' at "' . $config->{tmp_dir} . '"'
   );
 
-  # prepare file-caches
-  $self->plugin(CHI => {
-    # perlybook CPAN
-    $config->{caching}->{name} => {
-      driver     => 'File',
-      namespace  => $config->{caching}->{name},
-      root_dir   => $config->{tmp_dir},
-    },
-    # perlybook Perltuts
-    $config->{caching}->{name_perltuts} => {
-      driver     => 'File',
-      namespace  => $config->{caching}->{name_perltuts},
-      root_dir   => $config->{tmp_dir},
-    }
-  });
+  # prepare caches (see config)
+  $self->plugin('CHI');
 
   # Routes
   my $r = $self->routes;

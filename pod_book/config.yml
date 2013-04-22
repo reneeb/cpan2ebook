@@ -3,10 +3,15 @@ logging:
   level: info
   path:
     general: /home/ebook/perlybook.log
-caching:
+CHI:
+  cpan2ebook_webservice:
+    driver: File
+    root_dir: /home/ebook/tmp
+  PerltutsCom:
+    driver: File
+    root_dir: /home/ebook/tmp
+cache_expiration:
   seconds: 864000
-  name: cpan2ebook_webservice
-  name_perltuts: PerltutsCom
 mail:
   how: smtp
   howargs:

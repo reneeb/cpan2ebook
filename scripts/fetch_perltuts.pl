@@ -45,7 +45,7 @@ my $yaml = YAML::Tiny->read( $file );
 die "anything with YAML parsing went wrong!" if !$yaml;
 
 my $tmpdir    = $yaml->[0]->{tmp_dir};
-my $namespace = $yaml->[0]->{caching}->{name_perltuts};
+my $namespace = 'PerltutsCom';
 
 my $cache  = CHI->new(
     driver     => 'File',

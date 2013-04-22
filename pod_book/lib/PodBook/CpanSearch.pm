@@ -26,8 +26,8 @@ sub form {
     # lets load some values from the config file
     my $config = $self->config;
     my $userblock_seconds      = $config->{userblock_seconds};
-    my $cache_name             = $config->{caching}->{name};
-    my $caching_seconds        = $config->{caching}->{seconds};
+    my $cache_name             = 'cpan2ebook_webservice';
+    my $caching_seconds        = $config->{cache_expiration}->{seconds};
     my $tmp_dir                = $config->{tmp_dir};
     my $opt_msg                = $config->{optional_message}
                                  || '<!-- -->';

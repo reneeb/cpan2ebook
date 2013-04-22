@@ -20,9 +20,8 @@ sub list {
 
     # lets load some values from the config file
     my $config            = $self->config;
-    my $caching_seconds   = $config->{caching}->{seconds};
-    my $cache_name        = $config->{caching}->{name_perltuts};
-    my $namespace         = $config->{caching}->{name_perltuts};
+    my $cache_name        = 'PerltutsCom';
+    my $caching_seconds   = $config->{cache_expiration}->{seconds};
     my $tmp_dir           = $config->{tmp_dir};
     my $userblock_seconds = $config->{userblock_seconds};
 
@@ -33,7 +32,7 @@ sub list {
     $self->stash( appversion => $PodBook::VERSION, listsize => 1, optional_message => '' );
 
     # get list of tutorials from cache
-    my $list = $self->chi($namespace)->get( 'Tutorials' ) || [];
+    my $list = $self->chi($cache_name)->get( 'Tutorials' ) || [];
     my @tutorials = map{ decode_utf8( $_ ) }@{$list};
 
     $self->stash( tutorials => \@tutorials );
