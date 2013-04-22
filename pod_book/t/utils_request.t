@@ -5,6 +5,11 @@ use warnings;
 
 use Test::More tests => 11;
 
+use CHI;
+use File::Temp qw/ tempdir /;
+
+my $dir = tempdir( CLEANUP => 1 );
+
 ###########################
 # General module tests... #
 ###########################
@@ -13,11 +18,12 @@ my $module = 'PodBook::Utils::Request';
 use_ok( $module );
 
 my $obj = $module->new(
-                        '127.0.0.1',
-                        'metacpan::EBook::MOBI',
-                        #"=head1 Test\n\nJust some text.\n\n",
-                        'mobi',
-                        'Mojolicious-PodBook-Request-t',
+                        user_id => '127.0.0.1',
+                        item_key => 'metacpan::EBook::MOBI',
+                        item_type => 'mobi',
+                        access_interval_limit => 0,
+                        chi_ref => CHI->new( driver => 'File',
+                                             root_dir => $dir )
                       );
 
 isa_ok($obj, $module);
@@ -37,8 +43,8 @@ else {
 }
 
 # write to cache
-$obj->{book} = 'This is ASCII, even if a real book is binary...';
-$obj->cache_book(1);
+my $book = 'This is ASCII, even if a real book is binary...';
+$obj->cache_book( $book, 1);
 if ($obj->is_cached()) {
     pass('cache hit');
 }
@@ -78,12 +84,6 @@ if ($obj->uid_is_allowed()) {
 else {
     fail('user second request');
 }
-
-
-
-
-
-
 
 
 # AT THE END, CLEAR ALL THE CACHE FROM TESTING!
