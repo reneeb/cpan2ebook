@@ -1,0 +1,6 @@
+=head1 What is this?
+
+This is the source code of L<perlybook.org|http://perlybook.org/>.
+The whole idea is to offer perl documentation in other formats.
+This allows others to read perl documentation on devices which are not capable of interpreting POD.
+Feel free to contact us, if you feel there should be another format added, especially if you are willing to contribute the code that provides it.
