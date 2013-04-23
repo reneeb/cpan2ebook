@@ -1,5 +1,10 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.24  2013-04-23
+
+    - startscript enhanced
+    - removed redundant code
+
 0.23  2013-04-19
 
     - replace deprecated start method for Mojolicious 3.95

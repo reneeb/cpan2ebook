@@ -38,7 +38,7 @@ if ($mode) {
 
 # reminder for how to start the application
 print "\nRunning app with the following settings:\n";
-print "\tPOD_BOOK_CONFIG=$config\t\t# path to config\n";
+print "\tPOD_BOOK_CONFIG=$config\t# path to config\n";
 print "\tMOJO_MODE=$mode\t\t# production | development\n";
 
 my $exports = join '', map{ $_ . ' && ' }@exports;
