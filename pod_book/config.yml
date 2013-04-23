@@ -29,5 +29,5 @@ userblock_seconds: 2
 tmp_dir: /home/ebook/tmp
 reverse_proxy: 1
 autocompletion_size: 12
-optional_message: <br /><br /><br /><p><small>This website just came into the world. Please report any problems <a href='https://github.com/reneeb/cpan2ebook/issues'>here</a>.</small></p>
+optional_message: <br /><br /><br /><p><small>Please report any problems <a href='https://github.com/reneeb/cpan2ebook/issues'>here</a>.</small></p>
 secret: mypassphrase
