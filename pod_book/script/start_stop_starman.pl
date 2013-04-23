@@ -29,8 +29,17 @@ my $mode   = $ENV{MOJO_MODE};
 
 my @exports;
 
-push @exports, $config ? "export POD_BOOK_CONFIG=$config" : '';
-push @exports, $mode ? "export MOJO_MODE=$mode" : '';
+if ($config) {
+    push @exports, "export POD_BOOK_CONFIG=$config";
+}
+if ($mode) {
+    push @exports, "export MOJO_MODE=$mode";
+}
+
+# reminder for how to start the application
+print "\nRunning app with the following settings:\n";
+print "\tPOD_BOOK_CONFIG=$config\t\t# path to config\n";
+print "\tMOJO_MODE=$mode\t\t# production | development\n";
 
 my $exports = join '', map{ $_ . ' && ' }@exports;
 
