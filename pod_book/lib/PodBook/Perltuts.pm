@@ -25,15 +25,13 @@ sub list {
     my $tmp_dir           = $config->{tmp_dir};
     my $userblock_seconds = $config->{userblock_seconds};
 
+    my @tutorials = @{$config->{PerltutsCom}->{tut_name}};
 
     my $log = $self->app->log;
 
     # we need to know the version number in the template
     $self->stash( appversion => $PodBook::VERSION, listsize => 1, optional_message => '' );
 
-    # get list of tutorials from cache
-    my $list = $self->chi($cache_name)->get( 'Tutorials' ) || [];
-    my @tutorials = map{ decode_utf8( $_ ) }@{$list};
 
     $self->stash( tutorials => \@tutorials );
 
@@ -57,7 +55,7 @@ sub list {
     # check if tutorial exists
     my $name = decode_utf8( $self->param('tutorial') );
     if ( !grep{ $name eq $_ }@tutorials ) {
-        $self->render( message => 'ERROR: tutorial does not exist.' );
+        $self->render(message => "ERROR: tutorial $name does not exist.");
         $self->app->log->info( "tutorial $name does not exist" );
         return;
     }

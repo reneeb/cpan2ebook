@@ -12,8 +12,8 @@ Available Tutorials:
 <ul>
 % for my $tut ( @{$tutorials} ) {
   <li><%= $tut %> &middot;
-      <a href="?tutorial=<%= $tut %>;format=epub">epub</a> &middot;
-      <a href="?tutorial=<%= $tut %>;format=mobi">mobi</a> 
+      <a href="?tutorial=<%= $tut %>&format=epub">epub</a> &middot;
+      <a href="?tutorial=<%= $tut %>&format=mobi">mobi</a> 
   </li>
 % }
 <ul>
