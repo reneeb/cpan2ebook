@@ -48,7 +48,7 @@ sub list {
     if ( $type ne 'mobi' and $type ne 'epub' ) {
 
         $self->render( message => 'ERROR: Type of ebook unknown.' );
-        $self->app->log->warn( 'Type (' . $type . ') of ebook unknown' );
+        $log->warn( 'Type (' . $type . ') of ebook unknown' );
         return;
     }
 
@@ -56,7 +56,7 @@ sub list {
     my $name = decode_utf8( $self->param('tutorial') );
     if ( !grep{ $name eq $_ }@tutorials ) {
         $self->render(message => "ERROR: tutorial $name does not exist.");
-        $self->app->log->info( "tutorial $name does not exist" );
+        $log->info( "tutorial $name does not exist" );
         return;
     }
 
@@ -92,6 +92,8 @@ sub list {
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
 
+        $log->info("(Perltuts) from cache: '$name'");
+
         # get the book from cache
         my $book = $book_request->get_book();
 
@@ -100,7 +102,7 @@ sub list {
     }
     else {
 
-        $self->app->log->info("not in cache: '$name'");
+        $log->info("(Perltuts) not in cache: '$name'");
 
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename; # we don't need the file, just the name of it

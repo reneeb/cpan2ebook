@@ -224,6 +224,8 @@ sub form {
     # check if we have the book already in cache
     if ($book_request->is_cached()) {
 
+        $log->info("from cache: '$module_name'");
+
         # get the book from cache
         my $book = $book_request->get_book();
 
@@ -233,6 +235,9 @@ sub form {
     # if the book is not in cache we need to fetch the POD from MetaCPAN
     # and render it into an EBook. We use the EPublisher to do that
     else {
+
+        $log->info("not in cache: '$module_name'");
+
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename; # we don't need the file, just the name of it
 
