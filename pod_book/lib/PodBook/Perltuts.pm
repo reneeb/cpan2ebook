@@ -99,6 +99,9 @@ sub list {
         return $self->send_download_to_client($book, $book_name);
     }
     else {
+
+        $self->app->log->info("not in cache: '$name'");
+
         my ($fh, $filename) = tempfile(DIR => $tmp_dir, SUFFIX => '.book');
         unlink $filename; # we don't need the file, just the name of it
 
