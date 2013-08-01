@@ -25,6 +25,8 @@ sub list {
         EPublisher::Target::Plugin::EPub
         EPublisher::Target::Plugin::Mobi
         MetaCPAN::API
+        EBook::MOBI
+        EBook::EPUB
     );
 
     my @versions;
