@@ -15,26 +15,27 @@ use File::Basename;
 
 my $bin_dir = File::Spec->rel2abs( dirname __FILE__ );
  
-my $config    = YAML::Tiny->read(
+my $yaml    = YAML::Tiny->read(
     File::Spec->catfile( $bin_dir, '..', 'config.yml' ),
 );
 
-my $cache_dir       = $config->[0]->{tmp_dir};
+die "cannot read YAML" if !$yaml;
 
-for my $key ( qw/name name_perltuts/ ) {
+my $config = $yaml->[0] || {};
 
-    my $cache_namespace = $config->[0]->{caching}->{$key};
-    next if @ARGV and !grep{ $cache_namespace eq $_ }@ARGV;
+for my $key ( keys %{ $config->{CHI} } ) {
+
+    my $cache_config = $config->{CHI}->{$key};
+    next if @ARGV and !grep{ $key eq $_ }@ARGV;
     
     # load the cache
     my $cache = CHI->new(
-        driver   => 'File',
-        root_dir => $cache_dir,
-        namespace=> $cache_namespace,
+        %{$cache_config},
+        namespace=> $key,
     ); 
     
     print scalar localtime;
-    print " - remove old data from cache: $cache_dir/$cache_namespace\n";
+    print " - remove old data from cache $key\n";
     $cache->purge();
 }
 
