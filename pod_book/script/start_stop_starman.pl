@@ -12,15 +12,17 @@ GetOptions(
     'requests:s' => \my $max_requests,
     'ip:s'       => \my $ip,
     'port:s'     => \my $port,
+    'user:s'     => \my $user,
 );
 
 $workers      //= 4;
 $max_requests //= 200;
 $ip           //= '';
 $port         //= 3030;
+$user         //= 'ebook';
 
 my @ps        = `ps auwx`;
-my @processes = grep{ m[epub .*? starman .*? --listen .*? app\.psgi]xm }@ps;
+my @processes = grep{ m[$user .*? starman .*? --listen .*? app\.psgi]x }@ps;
 
 if ( @processes ) {
     my ($cur_ip,$cur_port) = $processes[0] =~ m{ --listen  .*? ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)?:([0-9]+) }xms;
