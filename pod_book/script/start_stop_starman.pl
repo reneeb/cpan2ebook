@@ -5,14 +5,29 @@ use warnings;
 
 use File::Basename;
 use File::Spec;
+use Getopt::Long;
 
-my $workers      = 10;
-my $max_requests = 200;
+GetOptions(
+    'workers:s'  => \my $workers,
+    'requests:s' => \my $max_requests,
+    'ip:s'       => \my $ip,
+    'port:s'     => \my $port,
+);
+
+$workers      //= 4;
+$max_requests //= 200;
+$ip           //= '';
+$port         //= 3030;
 
 my @ps        = `ps auwx`;
-my @processes = grep{ m/starman .*? --listen .*? :3030/xms }@ps;
+my @processes = grep{ m[epub .*? starman .*? --listen .*? app\.psgi]xm }@ps;
 
 if ( @processes ) {
+    my ($cur_ip,$cur_port) = $processes[0] =~ m{ --listen  .*? ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)?:([0-9]+) }xms;
+
+    $ip   ||= $cur_ip || '';
+    $port ||= $cur_port;
+
     my @pids = map{ m/ \A .*? (\d+) /xms; $1 }@processes;
 
     if ( @pids ) {
@@ -23,6 +38,10 @@ if ( @processes ) {
 my $dir = File::Spec->rel2abs( dirname __FILE__ );
 
 chdir $dir;
+
+my $app = File::Spec->rel2abs(
+    File::Spec->catfile( $dir, 'app.psgi' )
+);
 
 my $config = $ENV{POD_BOOK_CONFIG};
 my $mode   = $ENV{MOJO_MODE};
@@ -37,12 +56,19 @@ if ($mode) {
 }
 
 # reminder for how to start the application
-print "\nRunning app with the following settings:\n";
-print "\tPOD_BOOK_CONFIG=$config\t# path to config\n";
-print "\tMOJO_MODE=$mode\t\t# production | development\n";
+print <<"TELL";
+
+Running app with the following settings:
+\tAPP=$app
+\tPOD_BOOK_CONFIG=$config\t# path to config
+\tMOJO_MODE=$mode\t\t# production | development
+\tLISTEN="$ip:$port"
+\tWORKERS=$workers
+\tMAX REQUESTS=$max_requests
+TELL
 
 my $exports = join '', map{ $_ . ' && ' }@exports;
 
-my $command = 'starman --listen :3030 --workers ' . $workers . ' --max-requests ' . $max_requests . ' --preload-app';
+my $command = 'starman --listen ' . $ip . ':' . $port . ' --workers ' . $workers . ' --max-requests ' . $max_requests . ' --preload-app ' . $app;
 #exec( $command );
 exec( "$exports nohup $command &" );
