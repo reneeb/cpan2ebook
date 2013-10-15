@@ -105,6 +105,7 @@ sub form {
 
     # check if the module name in the text field is some what valid
     my ($module_name) = $self->param('source') =~ m/^([[:print:]]+)$/;
+    $module_name =~ s/\s//g;
 
     if ( !$module_name ) {
         # EXIT if not matching
