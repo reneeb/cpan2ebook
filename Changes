@@ -1,5 +1,9 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.26  2014-05-14
+
+    - import Perltuts image (#47, thanks to rolpereira)
+
 0.25  2013-04-26
 
     - Pertuts-Problem-Fix: Tutorial-List now in Config
