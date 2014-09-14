@@ -32,20 +32,24 @@ sub startup {
 
   $self->plugin( 'Mail' => $config->{mail} );
 
-  $self->plugin( 'MailException' => {
-      %{ $config->{exception} || {} },
-      send => sub {
-          my ($mail,$exception) = @_;
+  my %exception_config = %{ $config->{exception} || {} };
 
-          my $message = $exception->message;
-          return if $message =~ m{Can't locate};
+  if ( %exception_config ) {
+      $self->plugin( 'MailException' => {
+          %exception_config,
+          send => sub {
+              my ($mail,$exception) = @_;
 
-          $mail->send(
-              $config->{mail}->{how},
-              @{ $config->{mail}->{howargs} || [] },
-          );
-      },
-  });
+              my $message = $exception->message;
+              return if $message =~ m{Can't locate};
+
+              $mail->send(
+                  $config->{mail}->{how},
+                  @{ $config->{mail}->{howargs} || [] },
+              );
+          },
+      });
+  }
 
   # set log level
   $self->app->log(
