@@ -1,0 +1,44 @@
+---
+logging:
+  level: debug
+  path:
+    general: /tmp/ebook/perlybook.log
+CHI:
+  cpan2ebook_webservice:
+    driver: File
+    root_dir: /tmp/ebook/
+  PerltutsCom:
+    driver: File
+    root_dir: /tmp/ebook/
+cache_expiration:
+  seconds: 864000
+mail:
+  how: smtp
+  howargs:
+    - smtp.server.tld
+    - AuthUser
+    - smtpuser
+    - AuthPass
+    - smtppass
+  from: from@address.tld
+exception:
+  from: exception@address.tld
+  to: recipient@error.tld
+  subject: an error occured
+userblock_seconds: 2
+tmp_dir: /tmp/ebook
+reverse_proxy: 1
+autocompletion_size: 12
+optional_message: <br /><br /><br /><p><small>Please report any problems <a href='https://github.com/reneeb/cpan2ebook/issues'>here</a>.</small></p>
+secret: foo42abc44235=d
+PerltutsCom:
+  tut_name:
+    - quick-start
+    - web-scraping-with-lwp
+    - dbi-an-interface-to-relational-databases
+    - pdl
+    - unicode-introduction
+    - "início-rápido"
+    - "guia-ràpida"
+    - "تحليل-المواقع-باستخدام-lwp"
+    - "Беглое-Ознакомление"
