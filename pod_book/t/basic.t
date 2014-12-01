@@ -6,6 +6,9 @@ use warnings;
 use Test::More tests => 9;
 use Test::Mojo;
 
+# mock environment variable
+$ENV{POD_BOOK_CONFIG} = './t/files/testconfig.yml';
+
 use_ok 'PodBook';
 
 # Test
