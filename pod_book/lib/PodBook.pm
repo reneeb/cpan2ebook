@@ -60,7 +60,7 @@ sub startup {
   );
 
   # set new passphrase
-  $self->app->secret( $config->{secret} || 'secret' );
+  $self->app->secrets( $config->{secret} || 'secret' );
 
   $self->app->log->debug(
       'Initialise file caches '
