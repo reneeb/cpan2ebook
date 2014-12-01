@@ -1,5 +1,11 @@
 Changes for cpan2ebook (perlybook.org)
 
+0.27  2014-12-02
+
+    - add cpanfile for easier installation (#52, thanks to stelim)
+    - added contributors in "About"
+    - use secrets() instead of secret() (#52, thanks to stelim)
+
 0.26  2014-05-14
 
     - import Perltuts image (#47, thanks to rolpereira)
