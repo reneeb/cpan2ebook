@@ -1,0 +1,199 @@
+#!/usr/bin/env perl
+use Mojolicious::Lite;
+
+use DBI;
+use File::Spec;
+use File::Basename;
+use File::Copy;
+use File::Path qw(make_path);
+use Time::Piece;
+use Mojo::Util qw(files md5_sum slurp b64_encode);
+
+plugin 'JSONConfig';
+
+helper 'db' => sub {
+    return app->config->{dbh} if app->config->{dbh};
+
+ 
+    my $db  = app->config->{db_name};
+    my $dbh = DBI->connect( 'DBI:SQLite:' . $db );
+
+    app->config->{dbh} = $dbh;
+};
+
+helper 'get_photo' => sub {
+    my $thing = shift;
+    my $pos   = shift;
+
+    app->log->debug( "Position: $pos" );
+
+    my $sth = app->db->prepare( qq~
+        SELECT path, taken, md5_path FROM photos WHERE position = ?
+    ~);
+
+    $sth->execute( $pos );
+    my %photo;
+    while ( my @row = $sth->fetchrow_array ) {
+        %photo = (
+            path     => $row[0],
+            taken    => $row[1],
+            md5_path => $row[2],
+        );
+    }
+
+    if ( $photo{path} ) {
+        $photo{basename} = basename $photo{path};
+        $photo{binary}   = b64_encode slurp $photo{path};
+    }
+
+    return %photo;
+};
+
+prepare_db();
+
+get '/' => sub {
+    my $c = shift;
+    $c->render(template => 'index');
+};
+
+post '/' => sub {
+    my $c = shift;
+
+    my $photo = $c->param('photo');
+    my $tags  = $c->every_param('tags');
+    my $pos   = $c->param('pos');
+
+    my $insert = 'INSERT INTO photo_tags ( md5_path, tag ) VALUES (?, ?)';
+    for my $tag ( @{ $tags || [] } ) {
+        $c->db->do( $insert, undef, $photo, $tag );
+    }
+
+    $c->render(template => 'index');
+};
+
+get '/overview' => sub {
+    my $c = shift;
+
+    my @tags = @{ $c->config->{tags} || [] };
+
+    my $sth = $c->db->prepare( qq~
+        SELECT p.path, p.taken
+        FROM photos p
+            INNER JOIN photo_tags pt
+                ON p.md5_path = pt.md5_path
+        WHERE
+            pt.tag = ?
+        ORDER BY p.position
+    ~);
+    
+    my %tag_photos;
+    for my $tag ( @tags ) {
+        $sth->execute( $tag );
+
+        while ( my @row = $sth->fetchrow_array ) {
+            push @{ $tag_photos{$tag} }, [ basename( $row[0] ), $row[1] ];
+        }
+    }
+
+    $c->stash( tag_photos => \%tag_photos );
+
+    $c->render( 'overview' );
+};
+
+get '/:pos' => sub {
+    my $c = shift;
+    $c->stash( pos => $c->param('pos') - 1 );
+    $c->render(template => 'index');
+};
+
+post '/create' => sub {
+    my $c = shift;
+
+    my $tag = $c->param( 'tag' );
+
+    my $sth = $c->db->prepare( qq~
+        SELECT p.path, p.taken
+        FROM photos p
+            INNER JOIN photo_tags pt
+                ON p.md5_path = pt.md5_path
+        WHERE
+            pt.tag = ?
+    ~);
+
+    $sth->execute( $tag );
+
+    my @photos;
+    while ( my ($path, $taken) = $sth->fetchrow_array ) {
+        push @photos, {
+            path  => $path,
+            taken => $taken,
+        };
+    }
+
+    my $base = $c->config->{target_dir};
+
+    my @errors;
+    my $success = 1;
+
+    while ( @photos ) {
+        my $photo = shift @photos;
+
+        my @parts = (
+            $base,
+            $tag,
+            ( $c->config->{use_date} ? $photo->{taken} : () ),
+        );
+
+        my $dir = File::Spec->catdir( @parts );
+        $c->app->log->debug( "copy to dir $dir" );
+
+        if ( !-d $dir ) {
+            make_path $dir;
+        }
+
+        my $basename = basename $photo->{path}; 
+        my $file     = File::Spec->catfile( $dir, $basename );
+
+        copy $photo->{path}, $file;
+    }
+
+    $c->render( json => { success => $success } );
+};
+
+app->start;
+
+sub prepare_db {
+    my $db  = app->config->{db_name};
+
+    my $dbh;
+    if ( !-e $db ) {
+        $dbh = app->db;
+
+        my @sqls = (
+            'CREATE TABLE photos ( path text primary key, md5_path text, taken text, position integer )',
+            'CREATE TABLE photo_tags ( md5_path text, tag text )',
+        );
+
+        for my $sql ( @sqls ) {
+            $dbh->do( $sql );
+        }
+    }
+
+    $dbh //= app->db;
+    my $sources = app->config->{source_dirs};
+
+    my $insert  = 'INSERT INTO photos ( path, md5_path, taken, position ) VALUES ( ?, ?, ?, ? )';
+    my $counter = 1;
+
+    my $sth = $dbh->prepare( $insert );
+
+    for my $source ( @{ $sources || [] } ) {
+        my @files = files $source;
+
+        for my $file ( @files ) {
+            my $date = localtime( (stat $file)[9] );
+            warn $file," // ", $date->ymd('-'),"\n";
+            $sth->execute( $file, md5_sum( $file ), $date->ymd('-'), $counter++ );
+        }
+    }
+}

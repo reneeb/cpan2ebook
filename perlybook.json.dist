@@ -1,0 +1,49 @@
+{
+  "CHI" : {
+    "cpan2ebook_webservice" : {
+      "driver" : "File",
+      "root_dir" : "/home/ebook/tmp"
+  },
+  "cache_expiration" : {
+    "seconds: 864000"
+  },
+  "mail" : {
+    "how" : "smtp",
+    "howargs" : [
+      "smtp.server.tld",
+      "AuthUser",
+      "smtpuser",
+      "AuthPass",
+      "smtppass"
+    ],
+    "from" : "from@address.tld",
+  },
+  "userblock_seconds" : 2,
+  "tmp_dir": "/home/ebook/tmp",
+  "reverse_proxy" : 1,
+  "autocompletion_size" : 12,
+  "secrets": [
+    "mypassphrase"
+  ],
+  "hypnotoad" : [
+  ],
+  "modules" : [
+    "Mojolicious",
+    "EPublisher",
+    "EPublisher::Source::Plugin::MetaCPAN",
+    "EPublisher::Source::Plugin::PerltutsCom",
+    "EPublisher::Target::Plugin::EPub",
+    "EPublisher::Target::Plugin::Mobi",
+    "MetaCPAN::API",
+    "EBook::MOBI",
+    "EBook::EPUB"
+  ],
+  "messages" : [
+    "The CPAN as your EBook.",
+    "Cook your Book.",
+    "Read POD everywhere.",
+    "Read Perl-Module-Documentation secretly in your bed at night.",
+    "POD: Pod On Demand.",
+    "Plain Old Documentation in Plain Old EBook.",
+  ]
+}

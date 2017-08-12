@@ -8,7 +8,7 @@ use Mojo::Headers;
 use Mojo::UserAgent;
 use File::Temp 'tempfile';
 use File::Slurp 'read_file';
-use MetaCPAN::API;
+use MetaCPAN::Client;
 
 use EPublisher;
 use EPublisher::Source::Plugin::MetaCPAN;
@@ -132,7 +132,7 @@ sub form {
     # sadly we have to do some redundant work...
     # the EPublisher will later, again query MetaCPAN, but we need some info
     # now. So we do the work twice, now and later with EPublisher.
-    my $mcpan = MetaCPAN::API->new();
+    my $mcpan = MetaCPAN::Client->new();
     my $module_info;
 
     # the info we need (for file storage and caching)
@@ -141,14 +141,14 @@ sub form {
 
     # now we first search in the modules if there is something
     eval {
-        $module_info = $mcpan->fetch("module/$module_name");
+        $module_info = $mcpan->module($module_name);
 
         $complete_release_name = $module_info->{release};
         $distribution          = $module_info->{distribution};
     }
     # if not we look in the releases
     or eval {
-        $module_info = $mcpan->fetch("release/$module_name");
+        $module_info = $mcpan->distribution($module_name);
 
         $complete_release_name = $module_info->{name};
         $distribution          = $module_info->{distribution};
@@ -156,7 +156,7 @@ sub form {
     # if nothing matches we can't deliver anything!
     or do {
         $self->render( message =>
-            "MetaCPAN is down or does not know a module/release with the given name: '$module_name' (case sensitive)."
+            "MetaCPAN is down or does not know a module/distribution with the given name: '$module_name' (case sensitive)."
         );
         $log->info( "MetaCPAN down or not found: '$module_name'");
         return;

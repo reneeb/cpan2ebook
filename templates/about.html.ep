@@ -1,4 +1,4 @@
-% layout 'main', title => 'perlybook::about', appversion => $appversion;
+% layout 'main', title => 'perlybook::about';
 <div id="about">
 
 <h1>About</h1>
@@ -44,8 +44,9 @@
 <p>
   When you file a bug, please add these info to your description:
   <ul>
-% for my $version ( @{ $versions || [] } ) {
-    <li><%= $version->{name} %>: <%= $version->{version} %></li>
+% for my $module ( config->{modules}->@* ) {
+%   eval { require $module };
+    <li><%= $module %>: <%= $module->VERSION() %></li>
 % }
   </ul>
 </p>

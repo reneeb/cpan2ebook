@@ -6,32 +6,30 @@
     <meta name="author" content="perl-services.de" />
     <meta name="keywords" content="ebook, cpan, metacpan, pod, kindle, epub, mobi, mobipocket, perl, perldoc, documentation, programming, module" />
     <link href="favicon.ico" rel="icon" type="image/x-icon" /> <!-- thanks to http://www.favicon.cc/?action=icon&file_id=488098 -->
-    <link rel="stylesheet" type="text/css" href="main.css" />
-    <!--BEGIN jQuery-UI Autocomplete-->
-    <link rel="stylesheet" type="text/css" href="jquery-ui.css" />
-    <script src="development-bundle/jquery-1.8.3.js"></script>
-    <script src="development-bundle/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
   </head>
   <body>
     <div id="all">
       <div id="navi">
         <a class="navitem" href="/">CPAN</a>
-        <a class="navitem" href="/perltuts">Perltuts</a>
         <a class="navitem" href="/about">About</a>
         <a class="navitem" href="http://blogs.perl.org/users/perlybook">Blog</a>
         <a class="navitem" href="http://perl-services.de/impressum.html">Imprint</a>
         <a class="navitem" href="http://perl-services.de/datenschutz.html">Data Privacy (German)</a>
         <span id="appversion">
           Release 
-          <a class="appversion" href="https://github.com/reneeb/cpan2ebook/blob/master/Changes">v<%= $appversion %></a>
+          <a class="appversion" href="https://github.com/reneeb/cpan2ebook/blob/master/Changes">v<%= config->{__VERSION__} %></a>
         </span>
       </div>
       <div id="content">
         <%= content %>
       </div>
       <div id="thanks">
-        <a href="http://www.perl.org/"><img src="powered_by_perl-135px.png" border="0" alt="Powered by Perl"></a>
+        <a href="http://www.perl.org/"><img src="/img/powered_by_perl-135px.png" border="0" alt="Powered by Perl" title="Logo of the Perl Programming Language"></a>
       </div>
     </div>
+    <script src="/js/jquery-1.8.3.js"></script>
+    <script src="/js/jquery-ui.js"></script>
   </body>
 </html>
