@@ -3,9 +3,10 @@
     "cpan2ebook_webservice" : {
       "driver" : "File",
       "root_dir" : "/home/ebook/tmp"
+    }
   },
   "cache_expiration" : {
-    "seconds: 864000"
+    "seconds": 864000
   },
   "mail" : {
     "how" : "smtp",
@@ -16,7 +17,7 @@
       "AuthPass",
       "smtppass"
     ],
-    "from" : "from@address.tld",
+    "from" : "from@address.tld"
   },
   "userblock_seconds" : 2,
   "tmp_dir": "/home/ebook/tmp",
@@ -44,6 +45,6 @@
     "Read POD everywhere.",
     "Read Perl-Module-Documentation secretly in your bed at night.",
     "POD: Pod On Demand.",
-    "Plain Old Documentation in Plain Old EBook.",
+    "Plain Old Documentation in Plain Old EBook."
   ]
 }
